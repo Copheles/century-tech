@@ -1,4 +1,6 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import {
   ArrowUpRight,
   Building2,
@@ -11,7 +13,6 @@ import {
 } from 'lucide-react'
 import PageHero from '../components/common/PageHero'
 import Container from '../components/common/Container'
-import RevealSection from '../components/common/RevealSection'
 import {
   company,
   companyMapEmbedUrl,
@@ -25,6 +26,43 @@ interface EnquiryFormValues {
   company: string
   telephone: string
   message: string
+}
+
+function PopOnScroll({
+  children,
+  className = '',
+  delay = 0,
+}: {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+}) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-60px' })
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={
+        isInView
+          ? {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              transition: {
+                duration: 0.6,
+                delay,
+                ease: [0.22, 1, 0.36, 1],
+              },
+            }
+          : undefined
+      }
+    >
+      {children}
+    </motion.div>
+  )
 }
 
 function Contact() {
@@ -58,50 +96,60 @@ function Contact() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Let’s talk about your technology requirements."
+        title="Let's talk about your technology requirements."
         description="Call our team, connect through WhatsApp, or find our Singapore office below."
       />
 
-      <RevealSection className="content-section contact-page">
+      <section className="content-section contact-page">
         <Container>
+          {/* Direct Contact Cards - each pops in individually */}
           <div className="direct-contact-grid">
-            <a className="direct-contact-card" href={company.telephoneHref}>
-              <span className="contact-card-icon"><Phone size={22} /></span>
-              <span>
-                <small>Telephone</small>
-                <strong>{company.telephone}</strong>
-              </span>
-              <ArrowUpRight size={18} />
-            </a>
-            <div className="direct-contact-card">
-              <span className="contact-card-icon"><Printer size={22} /></span>
-              <span>
-                <small>Fax</small>
-                <strong>{company.fax}</strong>
-              </span>
-            </div>
-            {whatsappUrl ? (
-              <a className="direct-contact-card" href={whatsappUrl} target="_blank" rel="noreferrer">
-                <span className="contact-card-icon"><MessageCircle size={22} /></span>
+            <PopOnScroll delay={0}>
+              <a className="direct-contact-card" href={company.telephoneHref}>
+                <span className="contact-card-icon"><Phone size={22} /></span>
                 <span>
-                  <small>WhatsApp</small>
-                  <strong>Start a conversation</strong>
+                  <small>Telephone</small>
+                  <strong>{company.telephone}</strong>
                 </span>
                 <ArrowUpRight size={18} />
               </a>
-            ) : (
-              <div className="direct-contact-card direct-contact-card-muted">
-                <span className="contact-card-icon"><MessageCircle size={22} /></span>
+            </PopOnScroll>
+            <PopOnScroll delay={0.1}>
+              <div className="direct-contact-card">
+                <span className="contact-card-icon"><Printer size={22} /></span>
                 <span>
-                  <small>WhatsApp</small>
-                  <strong>Available after configuration</strong>
+                  <small>Fax</small>
+                  <strong>{company.fax}</strong>
                 </span>
               </div>
+            </PopOnScroll>
+            {whatsappUrl ? (
+              <PopOnScroll delay={0.2}>
+                <a className="direct-contact-card" href={whatsappUrl} target="_blank" rel="noreferrer">
+                  <span className="contact-card-icon"><MessageCircle size={22} /></span>
+                  <span>
+                    <small>WhatsApp</small>
+                    <strong>Start a conversation</strong>
+                  </span>
+                  <ArrowUpRight size={18} />
+                </a>
+              </PopOnScroll>
+            ) : (
+              <PopOnScroll delay={0.2}>
+                <div className="direct-contact-card direct-contact-card-muted">
+                  <span className="contact-card-icon"><MessageCircle size={22} /></span>
+                  <span>
+                    <small>WhatsApp</small>
+                    <strong>Available after configuration</strong>
+                  </span>
+                </div>
+              </PopOnScroll>
             )}
           </div>
 
+          {/* Enquiry Section */}
           <div className="contact-enquiry-layout">
-            <div className="contact-enquiry-intro">
+            <PopOnScroll className="contact-enquiry-intro" delay={0}>
               <span className="eyebrow">Send an enquiry</span>
               <h2>Tell us what you need help with.</h2>
               <p>
@@ -115,10 +163,10 @@ function Contact() {
                   <small>No account or email form required.</small>
                 </span>
               </div>
-            </div>
+            </PopOnScroll>
 
             <form className="enquiry-form" onSubmit={handleSubmit(onSubmit)} noValidate>
-              <div className="enquiry-field">
+              <PopOnScroll className="enquiry-field" delay={0}>
                 <label htmlFor="contact-name">
                   <User size={15} /> Your name
                 </label>
@@ -130,9 +178,9 @@ function Contact() {
                   {...register('name', { required: 'Please enter your name.' })}
                 />
                 {errors.name && <span className="field-error">{errors.name.message}</span>}
-              </div>
+              </PopOnScroll>
 
-              <div className="enquiry-field">
+              <PopOnScroll className="enquiry-field" delay={0.1}>
                 <label htmlFor="contact-company">
                   <Building2 size={15} /> Company
                 </label>
@@ -142,9 +190,9 @@ function Contact() {
                   autoComplete="organization"
                   {...register('company')}
                 />
-              </div>
+              </PopOnScroll>
 
-              <div className="enquiry-field enquiry-field-full">
+              <PopOnScroll className="enquiry-field enquiry-field-full" delay={0.2}>
                 <label htmlFor="contact-telephone">
                   <Phone size={15} /> Telephone
                 </label>
@@ -165,9 +213,9 @@ function Contact() {
                 {errors.telephone && (
                   <span className="field-error">{errors.telephone.message}</span>
                 )}
-              </div>
+              </PopOnScroll>
 
-              <div className="enquiry-field enquiry-field-full">
+              <PopOnScroll className="enquiry-field enquiry-field-full" delay={0.3}>
                 <label htmlFor="contact-message">
                   <MessageCircle size={15} /> How can we help?
                 </label>
@@ -186,9 +234,9 @@ function Contact() {
                 {errors.message && (
                   <span className="field-error">{errors.message.message}</span>
                 )}
-              </div>
+              </PopOnScroll>
 
-              <div className="enquiry-form-actions enquiry-field-full">
+              <PopOnScroll className="enquiry-form-actions enquiry-field-full" delay={0.4}>
                 <button
                   className="button button-primary"
                   type="submit"
@@ -199,35 +247,38 @@ function Contact() {
                 <small>
                   Your message is only shared when you confirm it in WhatsApp.
                 </small>
-              </div>
+              </PopOnScroll>
             </form>
           </div>
 
-          <div className="office-layout">
-            <div className="office-details">
-              <span className="eyebrow">Singapore office</span>
-              <h2>Visit Century Technology.</h2>
-              <p>{company.address}</p>
-              <a className="button button-primary" href={companyMapUrl} target="_blank" rel="noreferrer">
-                <MapPin size={18} /> Get directions
-              </a>
-              <div className="contact-note">
-                <strong>Planning a visit?</strong>
-                <p>Call our team before arriving so we can make sure the right person is available to meet you.</p>
+          {/* Office Section */}
+          <PopOnScroll delay={0}>
+            <div className="office-layout">
+              <div className="office-details">
+                <span className="eyebrow">Singapore office</span>
+                <h2>Visit Century Technology.</h2>
+                <p>{company.address}</p>
+                <a className="button button-primary" href={companyMapUrl} target="_blank" rel="noreferrer">
+                  <MapPin size={18} /> Get directions
+                </a>
+                <div className="contact-note">
+                  <strong>Planning a visit?</strong>
+                  <p>Call our team before arriving so we can make sure the right person is available to meet you.</p>
+                </div>
+              </div>
+              <div className="office-map">
+                <iframe
+                  src={companyMapEmbedUrl}
+                  title={`${company.name} office location`}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
               </div>
             </div>
-            <div className="office-map">
-              <iframe
-                src={companyMapEmbedUrl}
-                title={`${company.name} office location`}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
-            </div>
-          </div>
+          </PopOnScroll>
         </Container>
-      </RevealSection>
+      </section>
     </>
   )
 }
