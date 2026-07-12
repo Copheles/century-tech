@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
-import { ChevronDown, Phone } from 'lucide-react'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
+import type { Variants } from 'framer-motion'
+import { ChevronDown, MessageCircle, Phone } from 'lucide-react'
 import PageHero from '../components/common/PageHero'
 import Container from '../components/common/Container'
 import Button from '../components/common/Button'
@@ -43,6 +44,67 @@ function PopOnScroll({
   )
 }
 
+const introContainer: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: 'easeOut',
+      staggerChildren: 0.12,
+      delayChildren: 0.08,
+    },
+  },
+}
+
+const introText: Variants = {
+  hidden: { opacity: 0, y: 18 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut',
+    },
+  },
+}
+
+function FAQIntro() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  return (
+    <motion.div
+      ref={ref}
+      className="faq-intro"
+      variants={introContainer}
+      initial="hidden"
+      animate={isInView ? 'show' : 'hidden'}
+    >
+      <motion.span className="eyebrow" variants={introText}>
+        Need more detail?
+      </motion.span>
+      <motion.h2 variants={introText}>Every infrastructure project is different.</motion.h2>
+      <motion.p variants={introText}>
+        If your question is not covered here, speak directly with our team.
+      </motion.p>
+      <motion.div className="faq-feature" variants={introText}>
+        <MessageCircle size={20} />
+        <span>
+          <motion.strong variants={introText}>Clear, direct guidance</motion.strong>
+          <motion.small variants={introText}>
+            Start with your requirements and we will help identify the next step.
+          </motion.small>
+        </span>
+      </motion.div>
+      <motion.div variants={introText}>
+        <Button to="/contact"><Phone size={17} /> Contact us</Button>
+      </motion.div>
+    </motion.div>
+  )
+}
+
 function FAQ() {
   const [openId, setOpenId] = useState<number | null>(faqs[0]?.id ?? null)
 
@@ -50,17 +112,13 @@ function FAQ() {
     <>
       <PageHero
         eyebrow="Frequently asked questions"
-        title="Clear answers before the conversation begins."
-        description="A quick introduction to how Century Technology approaches requirements, solutions, and support."
+        title="Answers about cabling, standards, and support."
+        description="A quick guide to CENTURY's structured cabling capabilities, project delivery, certifications, testing, and warranties."
+        variant="faq"
       />
-      <section className="content-section">
+      <section className="content-section faq-page">
         <Container className="faq-layout">
-          <PopOnScroll className="faq-intro" delay={0}>
-            <span className="eyebrow">Need more detail?</span>
-            <h2>Every technology environment is different.</h2>
-            <p>If your question is not covered here, speak directly with our team.</p>
-            <Button to="/contact"><Phone size={17} /> Contact us</Button>
-          </PopOnScroll>
+          <FAQIntro />
           <div className="faq-list">
             {faqs.map((item, index) => {
               const isOpen = openId === item.id
@@ -78,9 +136,31 @@ function FAQ() {
                         <ChevronDown size={20} aria-hidden="true" />
                       </button>
                     </h2>
-                    <div id={`faq-answer-${item.id}`} className="faq-answer" hidden={!isOpen}>
-                      <p>{item.answer}</p>
-                    </div>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          id={`faq-answer-${item.id}`}
+                          className="faq-answer"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{
+                            height: { duration: 0.44, ease: [0.22, 1, 0.36, 1] },
+                            opacity: { duration: 0.26, ease: 'easeOut' },
+                          }}
+                        >
+                          <motion.div
+                            className="faq-answer-inner"
+                            initial={{ y: -8 }}
+                            animate={{ y: 0 }}
+                            exit={{ y: -8 }}
+                            transition={{ duration: 0.32, ease: 'easeOut' }}
+                          >
+                            <p>{item.answer}</p>
+                          </motion.div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </article>
                 </PopOnScroll>
               )

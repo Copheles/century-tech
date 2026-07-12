@@ -1,15 +1,15 @@
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Container from '../common/Container'
 import Button from '../common/Button'
+import Brand from '../common/Brand'
 import { navigation } from '../../data/navigation'
-import { company } from '../../data/company'
-import logo from '../../assets/century-tech-logo-transparent.png'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
 
   const mainNavItems = navigation.filter((item) => item.path !== '/contact')
 
@@ -30,16 +30,25 @@ function Header() {
     }
   }, [isMenuOpen])
 
+  useEffect(() => {
+    const updateHeaderState = () => {
+      setIsScrolled(window.scrollY > 16)
+    }
+
+    updateHeaderState()
+    window.addEventListener('scroll', updateHeaderState, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', updateHeaderState)
+    }
+  }, [])
+
   return (
-    <header className={`site-header${isMenuOpen ? ' menu-open' : ''}`}>
+    <header
+      className={`site-header${isScrolled ? ' scrolled' : ''}${isMenuOpen ? ' menu-open' : ''}`}
+    >
       <Container className="header-inner">
-        <Link className="brand" to="/" aria-label="Century Tech home">
-          <img className="brand-logo" src={logo} alt="" />
-          <span className="brand-copy">
-            <span className="brand-name">{company.name}</span>
-            <span className="brand-tagline">{company.tagline}</span>
-          </span>
-        </Link>
+        <Brand />
 
         <nav className="desktop-nav" aria-label="Primary navigation">
           {mainNavItems.map((item) => (

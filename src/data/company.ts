@@ -7,6 +7,18 @@ export const company = {
   telephone: '+65 6355 5688',
   telephoneHref: 'tel:+6563555688',
   fax: '+65 6356 6576',
+  emails: {
+    sales: {
+      label: 'Sales',
+      address: 'sales@centurytec.com',
+      href: 'mailto:sales@centurytec.com',
+    },
+    humanResources: {
+      label: 'Human Resource & Administration',
+      address: 'hrdept@centurytec.com',
+      href: 'mailto:hrdept@centurytec.com',
+    },
+  },
 }
 
 export const companyMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(

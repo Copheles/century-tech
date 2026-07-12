@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, MapPin, Phone, Printer } from 'lucide-react'
+import { ArrowUpRight, Mail, MapPin, Phone, Printer } from 'lucide-react'
 import Container from '../common/Container'
+import Brand from '../common/Brand'
 import { navigation } from '../../data/navigation'
 import { solutions } from '../../data/solutions'
 import { company, companyMapUrl } from '../../data/company'
-import logo from '../../assets/century-tech-logo-transparent.png'
 
 function Footer() {
   const mainNav = navigation.filter((item) => item.path !== '/')
@@ -14,15 +14,7 @@ function Footer() {
       <Container>
         <div className="footer-main">
           <div className="footer-brand-col">
-            <Link className="brand footer-brand" to="/">
-              <span className="footer-logo-wrap">
-                <img className="brand-logo" src={logo} alt="" />
-              </span>
-              <span className="footer-brand-text">
-                <span className="brand-name">{company.name}</span>
-                <span className="footer-brand-tagline">{company.tagline}</span>
-              </span>
-            </Link>
+            <Brand className="footer-brand" location="footer" />
             <p className="footer-copy">
               Practical IT communications and technology solutions built around
               the way your organisation works.
@@ -76,6 +68,24 @@ function Footer() {
               </li>
               <li>
                 <a
+                  href={company.emails.sales.href}
+                  className="footer-col-link footer-col-link-icon"
+                >
+                  <Mail size={15} aria-hidden="true" />
+                  <span>{company.emails.sales.address}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={company.emails.humanResources.href}
+                  className="footer-col-link footer-col-link-icon"
+                >
+                  <Mail size={15} aria-hidden="true" />
+                  <span>{company.emails.humanResources.address}</span>
+                </a>
+              </li>
+              <li>
+                <a
                   href={companyMapUrl}
                   className="footer-col-link footer-col-link-icon"
                   target="_blank"
@@ -86,10 +96,6 @@ function Footer() {
                 </a>
               </li>
             </ul>
-            <Link to="/contact" className="footer-contact-cta">
-              Contact our team
-              <ArrowUpRight size={15} aria-hidden="true" />
-            </Link>
           </div>
         </div>
 
