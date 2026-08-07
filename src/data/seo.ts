@@ -15,14 +15,14 @@ export const seoByPath: Record<string, SEOConfig> = {
       'Learn how Century Tech combines strategy, design, and engineering to solve meaningful business challenges.',
   },
   '/solutions': {
-    title: 'Technology Solutions | Century Tech',
+    title: 'Structured Cabling, Networking & ELV Solutions | Century Tech',
     description:
-      'Explore Century Tech solutions for digital strategy, product engineering, cloud technology, and modern business growth.',
+      'Explore Century Tech solutions for fiber optic and copper structured cabling, WAN/LAN and wireless computer networking, and ELV systems including CCTV and access control.',
   },
   '/projects': {
-    title: 'Our Technology Projects | Century Tech',
+    title: 'Project References | Century Tech',
     description:
-      'Discover digital products and technology projects created by Century Tech to improve customer experiences and business operations.',
+      'Browse Century Technology project references across banking, data centres, cruise terminals, and public infrastructure.',
   },
   '/faq': {
     title: 'Frequently Asked Questions | Century Tech',

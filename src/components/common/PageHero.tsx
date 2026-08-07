@@ -5,7 +5,7 @@ interface PageHeroProps {
   eyebrow: string
   title: string
   description: string
-  variant?: 'about' | 'faq' | 'contact'
+  variant?: 'about' | 'faq' | 'contact' | 'solutions' | 'projects'
 }
 
 function PageHero({ eyebrow, title, description, variant }: PageHeroProps) {

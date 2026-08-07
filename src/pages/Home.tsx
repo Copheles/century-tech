@@ -276,6 +276,15 @@ function Home() {
                             rotate: photoRotation + (index === 1 ? -2.5 : 2.5),
                           }
                     }
+                    whileTap={
+                      isMobile
+                        ? {
+                            y: -6,
+                            scale: 0.985,
+                            rotate: photoRotation + (index === 1 ? -1.6 : 1.6),
+                          }
+                        : undefined
+                    }
                     transition={{ type: 'spring', stiffness: 220, damping: 24, mass: 0.7 }}
                   >
                     <span className="expert-photo-accent" />
@@ -339,19 +348,25 @@ function Home() {
         <Container>
           <div className="section-heading-row">
             <SectionTitle
-              eyebrow="Solution examples"
-              title="Technology shaped around useful outcomes."
-              description="Examples of the kinds of digital experiences and operational systems our capabilities can support."
+              eyebrow="Featured work"
+              title="Selected engagements across banking, infrastructure, and public spaces."
+              description="A preview of key structured cabling and ELV projects delivered by Century Technology."
             />
-            <Button to="/projects" variant="secondary">View project capabilities</Button>
+            <Button to="/projects" variant="secondary">View all projects</Button>
           </div>
           <div className="project-grid">
-            {projects.map((project) => (
+            {projects.slice(0, 3).map((project) => (
               <article className="project-card" key={project.id}>
-                <span>{project.category}</span>
+                <div
+                  className={`project-card-media${
+                    project.imageFit === 'contain' ? ' project-card-media-contain' : ''
+                  }`}
+                >
+                  {project.image ? (
+                    <img src={project.image} alt={project.title} loading="lazy" />
+                  ) : null}
+                </div>
                 <h2>{project.title}</h2>
-                <p>{project.summary}</p>
-                <strong>{project.outcome}</strong>
               </article>
             ))}
           </div>
