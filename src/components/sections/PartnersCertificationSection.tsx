@@ -10,23 +10,25 @@ import {
   partners,
 } from '../../data/partners'
 
+const motionEase = [0.22, 1, 0.36, 1] as const
+const viewportOnce = { once: true, amount: 0.2 } as const
+
 const staggerContainer: Variants = {
   hidden: {},
   show: {
     transition: {
       staggerChildren: 0.1,
-      delayChildren: 0.08,
+      delayChildren: 0.06,
     },
   },
 }
 
-const cardIn: Variants = {
-  hidden: { opacity: 0, y: 26, scale: 0.96 },
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 28 },
   show: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: { duration: 0.55, ease: 'easeOut' },
+    transition: { duration: 0.7, ease: motionEase },
   },
 }
 
@@ -117,10 +119,10 @@ function PartnersCertificationSection() {
       <Container className="about-credentials-showcase">
         <motion.div
           className="about-partner-heading"
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.65, ease: 'easeOut' }}
+          initial={reduceMotion ? false : 'hidden'}
+          whileInView={reduceMotion ? undefined : 'show'}
+          viewport={viewportOnce}
+          variants={fadeUp}
         >
           <h2>Our Partners Network</h2>
           <p>Partnering with industry&apos;s best to deliver high quality projects.</p>
@@ -148,10 +150,10 @@ function PartnersCertificationSection() {
           <motion.div
             className="about-partner-viewport"
             aria-label="Partner logos"
-            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-            whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.55, ease: 'easeOut' }}
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+            variants={fadeUp}
           >
             <div ref={partnersMarqueeRef} className="about-partner-marquee">
               {partnerMarqueeItems.map((partner, index) => (
@@ -190,10 +192,10 @@ function PartnersCertificationSection() {
 
         <motion.div
           className="about-certification-heading"
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.65, ease: 'easeOut' }}
+          initial={reduceMotion ? false : 'hidden'}
+          whileInView={reduceMotion ? undefined : 'show'}
+          viewport={viewportOnce}
+          variants={fadeUp}
         >
           <h2>Certification</h2>
           <p>Established certification to ensure quality assurance and service excellence.</p>
@@ -202,15 +204,15 @@ function PartnersCertificationSection() {
         <motion.div
           className="about-certification-grid"
           variants={staggerContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.25 }}
+          initial={reduceMotion ? false : 'hidden'}
+          whileInView={reduceMotion ? undefined : 'show'}
+          viewport={viewportOnce}
         >
           {certificationHighlights.map((credential) => (
             <motion.article
               className="about-certification-badge"
               key={`${credential.name}-${credential.label}`}
-              variants={cardIn}
+              variants={fadeUp}
               whileHover={reduceMotion ? undefined : { y: -7, scale: 1.03 }}
               transition={{ type: 'spring', stiffness: 240, damping: 22 }}
             >

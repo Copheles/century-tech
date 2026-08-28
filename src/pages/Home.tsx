@@ -1,5 +1,6 @@
 import { ArrowRight, Building2, CheckCircle2, Clock, GraduationCap, Image as ImageIcon, Network, ShieldCheck, Workflow } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
+import type { Variants } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import Container from '../components/common/Container'
 import Button from '../components/common/Button'
@@ -69,6 +70,37 @@ const expertServices = [
   },
 ]
 
+const motionEase = [0.22, 1, 0.36, 1] as const
+const viewportOnce = { once: true, amount: 0.2 } as const
+
+const staggerContainer: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.06,
+    },
+  },
+}
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: motionEase },
+  },
+}
+
+const fadeUpSoft: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: motionEase },
+  },
+}
+
 const getExpertEntryOffset = (index: number) => {
   if (index === 0) return { x: -42, y: 18 }
   if (index === 2) return { x: 42, y: 18 }
@@ -102,7 +134,6 @@ function useIsMobile() {
 function Home() {
   const isMobile = useIsMobile()
   const reduceMotion = useReducedMotion()
-  const expertEase = [0.16, 1, 0.3, 1] as const
 
   return (
     <div className="home-page">
@@ -113,19 +144,25 @@ function Home() {
         >
           <Container className="home-hero-content">
             <div className="home-hero-copy">
-              <div className="home-hero-copy-card">
-                <div className="home-hero-brand">
+              <motion.div
+                className="home-hero-copy-card"
+                variants={staggerContainer}
+                initial={reduceMotion ? false : 'hidden'}
+                animate={reduceMotion ? undefined : 'show'}
+              >
+                <motion.div className="home-hero-brand" variants={fadeUp}>
                   <span className="home-hero-brand-dot" aria-hidden="true" />
                   <span className="home-hero-brand-name">Century-Tech</span>
-                </div>
-                <h1 className="home-hero-title">Structured Cabling &amp; ELV System</h1>
-
-                <div className="hero-actions">
+                </motion.div>
+                <motion.h1 className="home-hero-title" variants={fadeUp}>
+                  Structured Cabling &amp; ELV System
+                </motion.h1>
+                <motion.div className="hero-actions" variants={fadeUp}>
                   <Button to="/solutions">
                     Explore our solutions <ArrowRight size={18} />
                   </Button>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </div>
           </Container>
         </div>
@@ -133,17 +170,29 @@ function Home() {
 
       <RevealSection className="content-section section-tint">
         <Container className="who-we-are">
-          <div className="who-we-are-intro">
-            <span className="eyebrow">Who we are</span>
-            <p>
+          <motion.div
+            className="who-we-are-intro"
+            variants={staggerContainer}
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+          >
+            <motion.span className="eyebrow" variants={fadeUp}>Who we are</motion.span>
+            <motion.p variants={fadeUp}>
               Century Technology brings IT communications, digital solutions,
               and infrastructure thinking together in one practical approach.
-            </p>
-          </div>
-          <div className="who-we-are-stats-panel">
+            </motion.p>
+          </motion.div>
+          <motion.div
+            className="who-we-are-stats-panel"
+            variants={staggerContainer}
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+          >
             <div className="who-we-are-stats">
               {whoWeAreStats.map(({ icon: Icon, end, suffix, label }, index) => (
-                <article className="who-we-are-stat" key={label}>
+                <motion.article className="who-we-are-stat" key={label} variants={fadeUp}>
                   <span className="who-we-are-stat-icon" aria-hidden="true">
                     <Icon size={24} strokeWidth={1.9} />
                   </span>
@@ -154,28 +203,34 @@ function Home() {
                   />
                   <span className="who-we-are-stat-label">{label}</span>
                   <small className="who-we-are-stat-index">0{index + 1}</small>
-                </article>
+                </motion.article>
               ))}
             </div>
-          </div>
+          </motion.div>
         </Container>
       </RevealSection>
 
       <RevealSection className="content-section section-tint core-solutions-section">
         <Container>
-          <SectionTitle
-            centered
-            eyebrow="Core solutions"
-            title="A connected approach to modern technology."
-            description="Focused services for organisations that need clearer communication, stronger systems, and dependable foundations."
-          />
+          <motion.div
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+            variants={fadeUp}
+          >
+            <SectionTitle
+              centered
+              eyebrow="Core solutions"
+              title="A connected approach to modern technology."
+              description="Focused services for organisations that need clearer communication, stronger systems, and dependable foundations."
+            />
+          </motion.div>
           <div className="core-solutions-rows">
             {solutions.map((solution, index) => {
               const photoOnLeft = index % 2 === 0
               const fromLeft = reduceMotion ? { opacity: 0 } : { opacity: 0, x: -64, y: 32 }
               const fromRight = reduceMotion ? { opacity: 0 } : { opacity: 0, x: 64, y: 32 }
               const settle = { opacity: 1, x: 0, y: 0 }
-              const ease = [0.22, 1, 0.36, 1] as const
 
               const photoBlock = (
                 <motion.div
@@ -183,7 +238,7 @@ function Home() {
                   initial={reduceMotion ? false : photoOnLeft ? fromLeft : fromRight}
                   whileInView={reduceMotion ? undefined : settle}
                   viewport={{ once: true, amount: 0.35 }}
-                  transition={{ duration: 0.8, delay: photoOnLeft ? 0.06 : 0.16, ease }}
+                  transition={{ duration: 0.8, delay: photoOnLeft ? 0.06 : 0.16, ease: motionEase }}
                 >
                   <div className="core-solution-media-slot">
                     {solution.image ? (
@@ -204,19 +259,25 @@ function Home() {
                   initial={reduceMotion ? false : photoOnLeft ? fromRight : fromLeft}
                   whileInView={reduceMotion ? undefined : settle}
                   viewport={{ once: true, amount: 0.35 }}
-                  transition={{ duration: 0.8, delay: photoOnLeft ? 0.16 : 0.06, ease }}
+                  transition={{ duration: 0.8, delay: photoOnLeft ? 0.16 : 0.06, ease: motionEase }}
                 >
                   <span className="card-number">0{index + 1}</span>
                   <h2>{solution.title}</h2>
                   <p>{solution.description}</p>
-                  <ul className="check-list">
+                  <motion.ul
+                    className="check-list"
+                    variants={staggerContainer}
+                    initial={reduceMotion ? false : 'hidden'}
+                    whileInView={reduceMotion ? undefined : 'show'}
+                    viewport={{ once: true, amount: 0.4 }}
+                  >
                     {solution.highlights.map((highlight) => (
-                      <li key={highlight}>
+                      <motion.li key={highlight} variants={fadeUpSoft}>
                         <CheckCircle2 size={16} />
                         {highlight}
-                      </li>
+                      </motion.li>
                     ))}
-                  </ul>
+                  </motion.ul>
                   {solution.detailAnchor ? (
                     <Button to={`/solutions#${solution.detailAnchor}`} variant="secondary">
                       View details <ArrowRight size={16} />
@@ -250,31 +311,51 @@ function Home() {
 
       <RevealSection className="content-section section-tint value-section">
         <Container>
-          <SectionTitle
-            centered
-            eyebrow="Why Century Technology"
-            title="A practical partner from planning to progress."
-          />
-          <div className="value-grid">
+          <motion.div
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+            variants={fadeUp}
+          >
+            <SectionTitle
+              centered
+              eyebrow="Why Century Technology"
+              title="A practical partner from planning to progress."
+            />
+          </motion.div>
+          <motion.div
+            className="value-grid"
+            variants={staggerContainer}
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+          >
             {values.map(({ icon: Icon, title, text }) => (
-              <article className="value-card" key={title}>
+              <motion.article className="value-card" key={title} variants={fadeUp}>
                 <span className="value-icon"><Icon size={34} strokeWidth={1.75} /></span>
                 <h2>{title}</h2>
                 <p>{text}</p>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </Container>
       </RevealSection>
 
       <RevealSection className="content-section expert-section" initial={false} whileInView={undefined}>
         <Container>
-          <SectionTitle
-            centered
-            eyebrow="Why Choose Us?"
-            title="End-to-End ICT Infrastructure Solutions"
-            description="At Century Technology, we go beyond basic design and installation. We specialize in Structured Cabling and ELV integration services to future-proof your business operations."
-          />
+          <motion.div
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+            variants={fadeUp}
+          >
+            <SectionTitle
+              centered
+              eyebrow="Why Choose Us?"
+              title="End-to-End ICT Infrastructure Solutions"
+              description="At Century Technology, we go beyond basic design and installation. We specialize in Structured Cabling and ELV integration services to future-proof your business operations."
+            />
+          </motion.div>
           <div className="expert-grid">
             {expertServices.map((service, index) => {
               const desktopOffset = getExpertEntryOffset(index)
@@ -300,9 +381,9 @@ function Home() {
                   }
                   viewport={{ once: true, amount: isMobile ? 0.18 : 0.28 }}
                   transition={{
-                    duration: isMobile ? 1.05 : 1.15,
-                    delay: 0.24 + index * (isMobile ? 0.22 : 0.16),
-                    ease: expertEase,
+                    duration: isMobile ? 0.85 : 0.95,
+                    delay: 0.12 + index * (isMobile ? 0.14 : 0.1),
+                    ease: motionEase,
                   }}
                 >
                   <div className="expert-card-copy">
@@ -335,11 +416,19 @@ function Home() {
                     <span className="expert-photo-accent" />
                     <img src={service.image} alt="" className="expert-photo" loading="lazy" />
                   </motion.div>
-                  <ul className="expert-list">
+                  <motion.ul
+                    className="expert-list"
+                    variants={staggerContainer}
+                    initial={reduceMotion ? false : 'hidden'}
+                    whileInView={reduceMotion ? undefined : 'show'}
+                    viewport={{ once: true, amount: 0.35 }}
+                  >
                     {service.points.map((point) => (
-                      <li key={point}>{point}</li>
+                      <motion.li key={point} variants={fadeUpSoft}>
+                        {point}
+                      </motion.li>
                     ))}
-                  </ul>
+                  </motion.ul>
                 </motion.article>
               )
             })}
@@ -351,18 +440,37 @@ function Home() {
 
       <RevealSection className="content-section section-tint home-projects-section">
         <Container>
-          <SectionTitle
-            centered
-            eyebrow="Project References"
-            title="Selected engagements across banking, infrastructure, and public spaces."
-            description="A preview of key structured cabling and ELV projects delivered by Century Technology."
-          />
-          <div className="home-projects-actions">
+          <motion.div
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+            variants={fadeUp}
+          >
+            <SectionTitle
+              centered
+              eyebrow="Project References"
+              title="Selected engagements."
+              description="A preview of key structured cabling and ELV projects delivered by Century Technology."
+            />
+          </motion.div>
+          <motion.div
+            className="home-projects-actions"
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+            variants={fadeUp}
+          >
             <Button to="/projects" variant="secondary">View all projects</Button>
-          </div>
-          <div className="home-project-grid">
+          </motion.div>
+          <motion.div
+            className="home-project-grid"
+            variants={staggerContainer}
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+          >
             {homeProjects.map((project, index) => (
-              <article className="home-project-card" key={project.id}>
+              <motion.article className="home-project-card" key={project.id} variants={fadeUp}>
                 <span className="home-project-index">
                   {String(index + 1).padStart(2, '0')}
                 </span>
@@ -380,9 +488,9 @@ function Home() {
                     <img src={project.image} alt={project.title} loading="lazy" />
                   ) : null}
                 </div>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </Container>
       </RevealSection>
     </div>
