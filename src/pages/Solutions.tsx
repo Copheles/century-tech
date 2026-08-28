@@ -21,7 +21,6 @@ import type { Variants } from 'framer-motion'
 import PageHero from '../components/common/PageHero'
 import Container from '../components/common/Container'
 import SectionTitle from '../components/common/SectionTitle'
-import Button from '../components/common/Button'
 import RevealSection from '../components/common/RevealSection'
 import {
   cctvDetail,
@@ -454,16 +453,6 @@ function Solutions() {
                 className="cctv-maintenance-visual"
               />
             </motion.div>
-          </div>
-        </Container>
-      </RevealSection>
-
-      <RevealSection className="content-section section-tint">
-        <Container className="intro-grid">
-          <SectionTitle eyebrow="The right starting point" title="Not sure which solution fits?" />
-          <div className="intro-copy">
-            <p>That is exactly what the first conversation is for. Share your current challenge and we can help identify the most practical next step.</p>
-            <Button to="/contact">Discuss your requirements <ArrowRight size={18} /></Button>
           </div>
         </Container>
       </RevealSection>

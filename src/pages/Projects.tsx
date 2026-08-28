@@ -1,11 +1,10 @@
 import { useEffect, useRef } from 'react'
-import { ArrowRight, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import PageHero from '../components/common/PageHero'
 import Container from '../components/common/Container'
 import SectionTitle from '../components/common/SectionTitle'
-import Button from '../components/common/Button'
 import RevealSection from '../components/common/RevealSection'
 import { ongoingProjects, projectReferences, projects } from '../data/projects'
 
@@ -266,16 +265,6 @@ function Projects() {
               <ChevronRight size={20} strokeWidth={1.75} />
             </button>
           </div>
-        </Container>
-      </RevealSection>
-
-      <RevealSection className="cta-section">
-        <Container className="cta-inner">
-          <div>
-            <span className="eyebrow">Your project</span>
-            <h2>Tell us what a better outcome looks like for your team.</h2>
-          </div>
-          <Button to="/contact">Start a conversation <ArrowRight size={18} /></Button>
         </Container>
       </RevealSection>
     </>

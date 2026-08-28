@@ -1,14 +1,25 @@
-import { ArrowLeft, ArrowRight, CheckCircle2, Network, ShieldCheck, Workflow } from 'lucide-react'
+import { ArrowRight, Building2, CheckCircle2, Clock, GraduationCap, Image as ImageIcon, Network, ShieldCheck, Workflow } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { Autoplay, EffectFade, Navigation } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
 import Container from '../components/common/Container'
 import Button from '../components/common/Button'
 import SectionTitle from '../components/common/SectionTitle'
 import RevealSection from '../components/common/RevealSection'
+import CountUp from '../components/common/CountUp'
+import PartnersCertificationSection from '../components/sections/PartnersCertificationSection'
 import { solutions } from '../data/solutions'
 import { projects } from '../data/projects'
+
+const homeProjectIds = [11, 10, 9, 7, 5, 6]
+const homeProjects = homeProjectIds
+  .map((id) => projects.find((project) => project.id === id))
+  .filter((project): project is (typeof projects)[number] => Boolean(project))
+
+const whoWeAreStats = [
+  { icon: Building2, end: 1996, suffix: '', label: 'Founded in Singapore' },
+  { icon: Clock, end: 25, suffix: '+', label: 'Years of project experience' },
+  { icon: GraduationCap, end: 30, suffix: '+', label: 'School projects secured by 2001' },
+]
 
 const values = [
   {
@@ -28,56 +39,32 @@ const values = [
   },
 ]
 
-const heroSlides = [
-  {
-    image: '/carousel-1.jpg',
-    variant: 'primary',
-    eyebrow: 'Century Technology',
-    title: 'IT Communications that keep business moving.',
-    text: 'We help organisations connect people, systems, and operations through practical technology solutions designed for real business needs.',
-  },
-  {
-    image: '/carousel-2.jpg',
-    variant: 'default',
-    eyebrow: 'Connected Operations',
-    title: 'Reliable systems for teams that need to move faster.',
-    text: 'From infrastructure to communication workflows, we shape technology around practical everyday business use.',
-  },
-  {
-    image: '/carousel-3.jpg',
-    variant: 'default',
-    eyebrow: 'Digital Solutions',
-    title: 'Technology foundations built for long-term progress.',
-    text: 'Plan, connect, and scale with dependable solutions that make operations clearer and easier to support.',
-  },
-]
-
 const expertServices = [
   {
     title: 'Consultancy Services',
-    summary: 'Providing quality consultancy services to address your needs.',
+    summary: 'Strategic guidance tailored to your unique requirements.',
     image: '/carousel-1.jpg',
     points: [
-      'Ability to diagnose problems with your existing infrastructure and offer solutions to meet organisational objectives.',
-      'Create bespoke solutions for structured cabling and ELV solutions for offices, large scale and public projects.',
+      'Accurately diagnose existing infrastructure bottlenecks to align with your business goals.',
+      'Create bespoke structured cabling and ELV solutions for offices, large-scale facilities, and public sector projects.',
     ],
   },
   {
     title: 'Site Survey Services',
-    summary: 'Aim to offer our customers the best possible service.',
+    summary: 'Thorough evaluations for optimal system design.',
     image: '/carousel-2.jpg',
     points: [
-      'Onsite evaluation of facilities to better understand the layout and your needs to provide an effective solution.',
-      'Collaborate and work closely with contractors to ensure that the best possible IT cabling and ELV infrastructure solutions are built on each project and building design.',
+      'Complete on-site assessments to understand your layout and precise technical needs.',
+      'Partner closely with architects and contractors to integrate IT cabling seamlessly into building designs.',
     ],
   },
   {
     title: 'Installation Services',
-    summary: 'Ensure timely project implementation.',
+    summary: 'Seamless deployment with guaranteed project timelines.',
     image: '/carousel-3.jpg',
     points: [
-      'Time tested project implementation methodology to ensure success in project delivery.',
-      'Join the growing network of our global partners to boost project implementation success and assurance through our partners certification.',
+      'Deploy time-tested implementation methodologies to guarantee on-time, budget-friendly project delivery.',
+      'Leverage a global network of certified partners for verified, high-quality technical execution.',
     ],
   },
 ]
@@ -118,118 +105,176 @@ function Home() {
   const expertEase = [0.16, 1, 0.3, 1] as const
 
   return (
-    <>
+    <div className="home-page">
       <section className="home-hero">
-        <Swiper
-          className="home-hero-carousel"
-          modules={[Autoplay, EffectFade, Navigation]}
-          effect="fade"
-          loop
-          navigation={{
-            prevEl: '.home-hero-nav-prev',
-            nextEl: '.home-hero-nav-next',
-          }}
-          autoplay={{ delay: 5200, disableOnInteraction: false }}
-          speed={900}
+        <div
+          className="home-hero-slide"
+          style={{ backgroundImage: 'url(/main.jpg)' }}
         >
-          {heroSlides.map((slide) => (
-            <SwiperSlide key={slide.image}>
-              <div
-                className={`home-hero-slide home-hero-slide-${slide.variant}`}
-                style={{ backgroundImage: `url(${slide.image})` }}
-              >
-                <Container className="home-hero-content">
-                  <div className="home-hero-copy">
-                    <div className="home-hero-copy-card">
-                      <span className="eyebrow home-hero-eyebrow">{slide.eyebrow}</span>
-                      <h1 className="home-hero-title">{slide.title}</h1>
-                      <p className="home-hero-lead">{slide.text}</p>
-                      <div className="hero-actions">
-                        <Button to="/solutions">
-                          Explore our solutions <ArrowRight size={18} />
-                        </Button>
-                        <Button to="/contact" variant="secondary">
-                          Talk to our team
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </Container>
+          <Container className="home-hero-content">
+            <div className="home-hero-copy">
+              <div className="home-hero-copy-card">
+                <div className="home-hero-brand">
+                  <span className="home-hero-brand-dot" aria-hidden="true" />
+                  <span className="home-hero-brand-name">Century-Tech</span>
+                </div>
+                <h1 className="home-hero-title">Structured Cabling &amp; ELV System</h1>
+
+                <div className="hero-actions">
+                  <Button to="/solutions">
+                    Explore our solutions <ArrowRight size={18} />
+                  </Button>
+                </div>
               </div>
-            </SwiperSlide>
-          ))}
-          <div className="home-hero-nav" aria-label="Carousel controls">
-            <button
-              className="home-hero-nav-button home-hero-nav-prev"
-              type="button"
-              aria-label="Previous slide"
-            >
-              <ArrowLeft size={20} />
-            </button>
-            <button
-              className="home-hero-nav-button home-hero-nav-next"
-              type="button"
-              aria-label="Next slide"
-            >
-              <ArrowRight size={20} />
-            </button>
-          </div>
-        </Swiper>
+            </div>
+          </Container>
+        </div>
       </section>
 
-      <RevealSection className="content-section">
-        <Container className="intro-grid">
-          <SectionTitle
-            eyebrow="Who we are"
-            title="Technology should make business clearer, not more complicated."
-          />
-          <div className="intro-copy">
+      <RevealSection className="content-section section-tint">
+        <Container className="who-we-are">
+          <div className="who-we-are-intro">
+            <span className="eyebrow">Who we are</span>
             <p>
               Century Technology brings IT communications, digital solutions,
               and infrastructure thinking together in one practical approach.
             </p>
-            <p>
-              We start with your requirements, identify the right path, and keep
-              the solution focused on reliable everyday use.
-            </p>
-            <Button to="/about" variant="secondary">
-              Learn about our approach <ArrowRight size={17} />
-            </Button>
+          </div>
+          <div className="who-we-are-stats-panel">
+            <div className="who-we-are-stats">
+              {whoWeAreStats.map(({ icon: Icon, end, suffix, label }, index) => (
+                <article className="who-we-are-stat" key={label}>
+                  <span className="who-we-are-stat-icon" aria-hidden="true">
+                    <Icon size={24} strokeWidth={1.9} />
+                  </span>
+                  <CountUp
+                    end={end}
+                    suffix={suffix}
+                    className="who-we-are-stat-value"
+                  />
+                  <span className="who-we-are-stat-label">{label}</span>
+                  <small className="who-we-are-stat-index">0{index + 1}</small>
+                </article>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </RevealSection>
+
+      <RevealSection className="content-section section-tint core-solutions-section">
+        <Container>
+          <SectionTitle
+            centered
+            eyebrow="Core solutions"
+            title="A connected approach to modern technology."
+            description="Focused services for organisations that need clearer communication, stronger systems, and dependable foundations."
+          />
+          <div className="core-solutions-rows">
+            {solutions.map((solution, index) => {
+              const photoOnLeft = index % 2 === 0
+              const fromLeft = reduceMotion ? { opacity: 0 } : { opacity: 0, x: -64, y: 32 }
+              const fromRight = reduceMotion ? { opacity: 0 } : { opacity: 0, x: 64, y: 32 }
+              const settle = { opacity: 1, x: 0, y: 0 }
+              const ease = [0.22, 1, 0.36, 1] as const
+
+              const photoBlock = (
+                <motion.div
+                  className="core-solution-media"
+                  initial={reduceMotion ? false : photoOnLeft ? fromLeft : fromRight}
+                  whileInView={reduceMotion ? undefined : settle}
+                  viewport={{ once: true, amount: 0.35 }}
+                  transition={{ duration: 0.8, delay: photoOnLeft ? 0.06 : 0.16, ease }}
+                >
+                  <div className="core-solution-media-slot">
+                    {solution.image ? (
+                      <img src={solution.image} alt={solution.title} loading="lazy" />
+                    ) : (
+                      <>
+                        <ImageIcon size={28} strokeWidth={1.6} aria-hidden="true" />
+                        <span>Photo coming soon</span>
+                      </>
+                    )}
+                  </div>
+                </motion.div>
+              )
+
+              const contentBlock = (
+                <motion.article
+                  className="core-solution-card"
+                  initial={reduceMotion ? false : photoOnLeft ? fromRight : fromLeft}
+                  whileInView={reduceMotion ? undefined : settle}
+                  viewport={{ once: true, amount: 0.35 }}
+                  transition={{ duration: 0.8, delay: photoOnLeft ? 0.16 : 0.06, ease }}
+                >
+                  <span className="card-number">0{index + 1}</span>
+                  <h2>{solution.title}</h2>
+                  <p>{solution.description}</p>
+                  <ul className="check-list">
+                    {solution.highlights.map((highlight) => (
+                      <li key={highlight}>
+                        <CheckCircle2 size={16} />
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                  {solution.detailAnchor ? (
+                    <Button to={`/solutions#${solution.detailAnchor}`} variant="secondary">
+                      View details <ArrowRight size={16} />
+                    </Button>
+                  ) : null}
+                </motion.article>
+              )
+
+              return (
+                <div
+                  className={`core-solution-row${photoOnLeft ? '' : ' core-solution-row-reverse'}`}
+                  key={solution.id}
+                >
+                  {photoOnLeft ? (
+                    <>
+                      {photoBlock}
+                      {contentBlock}
+                    </>
+                  ) : (
+                    <>
+                      {contentBlock}
+                      {photoBlock}
+                    </>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </Container>
+      </RevealSection>
+
+      <RevealSection className="content-section section-tint value-section">
+        <Container>
+          <SectionTitle
+            centered
+            eyebrow="Why Century Technology"
+            title="A practical partner from planning to progress."
+          />
+          <div className="value-grid">
+            {values.map(({ icon: Icon, title, text }) => (
+              <article className="value-card" key={title}>
+                <span className="value-icon"><Icon size={34} strokeWidth={1.75} /></span>
+                <h2>{title}</h2>
+                <p>{text}</p>
+              </article>
+            ))}
           </div>
         </Container>
       </RevealSection>
 
       <RevealSection className="content-section expert-section" initial={false} whileInView={undefined}>
         <Container>
-          <div className="expert-heading">
-            <motion.span
-              className="expert-kicker"
-              initial={reduceMotion ? false : { opacity: 0, y: isMobile ? 18 : 14 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: 0.9, ease: expertEase }}
-            >
-              Why Choose Us?
-            </motion.span>
-            <motion.h2
-              initial={reduceMotion ? false : { opacity: 0, y: isMobile ? 28 : 20 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: 1, delay: 0.16, ease: expertEase }}
-            >
-              An Expert in ICT Infrastructure
-            </motion.h2>
-            <motion.p
-              initial={reduceMotion ? false : { opacity: 0, y: isMobile ? 30 : 22 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: 1, delay: 0.32, ease: expertEase }}
-            >
-              Century Technology provides more than just the usual design and implementation
-              of cabling systems. We specialise in ELV integration services that help
-              future-proof your business.
-            </motion.p>
-          </div>
+          <SectionTitle
+            centered
+            eyebrow="Why Choose Us?"
+            title="End-to-End ICT Infrastructure Solutions"
+            description="At Century Technology, we go beyond basic design and installation. We specialize in Structured Cabling and ELV integration services to future-proof your business operations."
+          />
           <div className="expert-grid">
             {expertServices.map((service, index) => {
               const desktopOffset = getExpertEntryOffset(index)
@@ -302,87 +347,45 @@ function Home() {
         </Container>
       </RevealSection>
 
-      <RevealSection className="content-section section-tint">
+      <PartnersCertificationSection />
+
+      <RevealSection className="content-section section-tint home-projects-section">
         <Container>
           <SectionTitle
-            eyebrow="Core solutions"
-            title="A connected approach to modern technology."
-            description="Focused services for organisations that need clearer communication, stronger systems, and dependable foundations."
+            centered
+            eyebrow="Project References"
+            title="Selected engagements across banking, infrastructure, and public spaces."
+            description="A preview of key structured cabling and ELV projects delivered by Century Technology."
           />
-          <div className="service-grid">
-            {solutions.map((solution, index) => (
-              <article className="service-card" key={solution.id}>
-                <span className="card-number">0{index + 1}</span>
-                <h2>{solution.title}</h2>
-                <p>{solution.description}</p>
-                <ul className="check-list">
-                  {solution.highlights.map((highlight) => (
-                    <li key={highlight}><CheckCircle2 size={16} />{highlight}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </Container>
-      </RevealSection>
-
-      <RevealSection className="content-section">
-        <Container>
-          <SectionTitle
-            eyebrow="Why Century Technology"
-            title="A practical partner from planning to progress."
-          />
-          <div className="value-grid">
-            {values.map(({ icon: Icon, title, text }) => (
-              <article className="value-card" key={title}>
-                <span className="value-icon"><Icon size={22} /></span>
-                <h2>{title}</h2>
-                <p>{text}</p>
-              </article>
-            ))}
-          </div>
-        </Container>
-      </RevealSection>
-
-      <RevealSection className="content-section section-ink">
-        <Container>
-          <div className="section-heading-row">
-            <SectionTitle
-              eyebrow="Featured work"
-              title="Selected engagements across banking, infrastructure, and public spaces."
-              description="A preview of key structured cabling and ELV projects delivered by Century Technology."
-            />
+          <div className="home-projects-actions">
             <Button to="/projects" variant="secondary">View all projects</Button>
           </div>
-          <div className="project-grid">
-            {projects.slice(0, 3).map((project) => (
-              <article className="project-card" key={project.id}>
+          <div className="home-project-grid">
+            {homeProjects.map((project, index) => (
+              <article className="home-project-card" key={project.id}>
+                <span className="home-project-index">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <h2>{project.title}</h2>
+                <p>
+                  Structured cabling and ELV delivery supporting reliable connectivity
+                  and practical operations for this facility.
+                </p>
                 <div
-                  className={`project-card-media${
-                    project.imageFit === 'contain' ? ' project-card-media-contain' : ''
+                  className={`home-project-media${
+                    project.imageFit === 'contain' ? ' home-project-media-contain' : ''
                   }`}
                 >
                   {project.image ? (
                     <img src={project.image} alt={project.title} loading="lazy" />
                   ) : null}
                 </div>
-                <h2>{project.title}</h2>
               </article>
             ))}
           </div>
         </Container>
       </RevealSection>
-
-      <RevealSection className="cta-section">
-        <Container className="cta-inner">
-          <div>
-            <span className="eyebrow">Start a conversation</span>
-            <h2>Let’s find the right way forward for your organisation.</h2>
-          </div>
-          <Button to="/contact">Contact our team <ArrowRight size={18} /></Button>
-        </Container>
-      </RevealSection>
-    </>
+    </div>
   )
 }
 

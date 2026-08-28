@@ -173,7 +173,7 @@ export const projects: Project[] = [
   },
   {
     id: 7,
-    title: 'International Cruise Terminal (Marina Bay Cruise Centre)',
+    title: 'International Cruise Terminal',
     image: '/projects/international-cruise-terminal.png',
   },
   {

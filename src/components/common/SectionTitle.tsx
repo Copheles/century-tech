@@ -1,6 +1,6 @@
 interface SectionTitleProps {
   eyebrow?: string
-  title: string
+  title?: string
   description?: string
   centered?: boolean
 }
@@ -14,7 +14,7 @@ function SectionTitle({
   return (
     <div className={`section-title${centered ? ' centered' : ''}`}>
       {eyebrow && <span className="eyebrow">{eyebrow}</span>}
-      <h2>{title}</h2>
+      {title ? <h2>{title}</h2> : null}
       {description && <p>{description}</p>}
     </div>
   )

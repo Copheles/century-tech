@@ -48,7 +48,7 @@ function Header() {
       className={`site-header${isScrolled ? ' scrolled' : ''}${isMenuOpen ? ' menu-open' : ''}`}
     >
       <Container className="header-inner">
-        <Brand />
+        <Brand variant="dark" />
 
         <nav className="desktop-nav" aria-label="Primary navigation">
           {mainNavItems.map((item) => (

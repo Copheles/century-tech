@@ -11,6 +11,7 @@ export interface Solution {
   description: string
   highlights: string[]
   detailAnchor?: string
+  image?: string
   subSolutions?: SubSolution[]
 }
 
@@ -22,6 +23,7 @@ export const solutions: Solution[] = [
       'Design, installation, testing, and certification of copper and fiber optic cabling that forms the backbone of your communication infrastructure.',
     highlights: ['Copper cabling (Cat5e to Cat7)', 'Fiber optic cabling', 'Data center cabling'],
     detailAnchor: 'structured-cabling',
+    image: '/solutions/structured-cabling.avif',
   },
   {
     id: 2,
@@ -30,6 +32,7 @@ export const solutions: Solution[] = [
       'Complete network infrastructure services from consultation and layout planning to system design, installation, and performance optimization.',
     highlights: ['Network design & build', 'Installation & testing', 'Performance optimization'],
     detailAnchor: 'computer-networking',
+    image: '/solutions/computer-networking.avif',
   },
   {
     id: 3,
@@ -37,6 +40,8 @@ export const solutions: Solution[] = [
     description:
       'Extra-low voltage systems that protect your people and premises, from surveillance to entry management, designed and maintained by certified engineers.',
     highlights: ['CCTV System', 'Access Control System'],
+    detailAnchor: 'cctv-system',
+    image: '/solutions/elv-system.jpg',
     subSolutions: [
       {
         id: 'cctv-system',
