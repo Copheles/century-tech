@@ -1,4 +1,4 @@
-export type PartnerLogoSize = 'boost' | 'boost-xl' | 'compact'
+export type PartnerLogoSize = 'boost' | 'boost-xl' | 'boost-2xl' | 'compact'
 
 export interface Partner {
   name: string
@@ -26,7 +26,7 @@ export const partners: Partner[] = [
   { name: 'Belden', logo: '/partners/belden.png', logoSize: 'boost' },
   { name: 'Draka', logo: '/partners/draka.png', logoSize: 'boost' },
   { name: 'Infinite Cable System', logo: '/partners/infinite-cable-system.png', logoSize: 'boost-xl' },
-  { name: 'Aginode', logo: '/partners/aginode.jpg', logoSize: 'boost' },
+  { name: 'Aginode', logo: '/partners/aginode.jpg', logoSize: 'boost-2xl' },
   { name: 'Siemon', logo: '/partners/siemon.png', logoSize: 'boost' },
 ]
 

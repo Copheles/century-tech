@@ -18,7 +18,6 @@ import {
   company,
   companyMapEmbedUrl,
   companyMapUrl,
-  whatsappUrl,
   whatsappNumber,
 } from '../data/company'
 
@@ -95,12 +94,7 @@ function Contact() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Contact"
-        title="Let's talk about your technology requirements."
-        description="Call our team, connect through WhatsApp, or find our Singapore office below."
-        variant="contact"
-      />
+      <PageHero title="Contact Us" />
 
       <section className="content-section contact-page">
         <Container>
@@ -145,28 +139,6 @@ function Contact() {
                 <ArrowUpRight size={18} />
               </a>
             </PopOnScroll>
-            {whatsappUrl ? (
-              <PopOnScroll delay={0.4}>
-                <a className="direct-contact-card" href={whatsappUrl} target="_blank" rel="noreferrer">
-                  <span className="contact-card-icon"><MessageCircle size={22} /></span>
-                  <span>
-                    <small>WhatsApp</small>
-                    <strong>Start a conversation</strong>
-                  </span>
-                  <ArrowUpRight size={18} />
-                </a>
-              </PopOnScroll>
-            ) : (
-              <PopOnScroll delay={0.4}>
-                <div className="direct-contact-card direct-contact-card-muted">
-                  <span className="contact-card-icon"><MessageCircle size={22} /></span>
-                  <span>
-                    <small>WhatsApp</small>
-                    <strong>Available after configuration</strong>
-                  </span>
-                </div>
-              </PopOnScroll>
-            )}
           </div>
 
           {/* Enquiry Section */}

@@ -17,7 +17,6 @@ import Container from '../components/common/Container'
 import SectionTitle from '../components/common/SectionTitle'
 import RevealSection from '../components/common/RevealSection'
 import PartnersCertificationSection from '../components/sections/PartnersCertificationSection'
-import { company } from '../data/company'
 
 const companyStats = [
   { value: '1996', label: 'Founded in Singapore' },
@@ -93,8 +92,6 @@ const milestones = [
   { year: '2009', title: 'Completed the first AMP Cat7 installation in Asia for Duke NUS Graduate Medical School.' },
 ]
 
-const heroDescription = `${company.legalName} is a Singapore technology services company specialising in the design, installation, and maintenance of communication systems.`
-
 const profileParagraphs = [
   'Founded in Singapore in 1996, Century Technology began as a structured cabling company. Over the years, we have expanded into related services including audio visual systems, security solutions, satellite communication systems, and complete communication solutions.',
   'Our reputation is built on practical problem solving, technical experience, and the ability to support customers across government agencies, multinational corporations, educational institutions, and residential developments.',
@@ -139,13 +136,8 @@ function About() {
   const profileImageY = useTransform(profileImageProgress, [0, 1], reduceMotion ? [0, 0] : [34, -34])
 
   return (
-    <>
-      <PageHero
-        eyebrow="About us"
-        title="Built on cabling expertise. Growing with communication technology."
-        description={heroDescription}
-        variant="about"
-      />
+    <div className="about-page">
+      <PageHero title="About Us" />
 
       <RevealSection className="content-section about-profile-section">
         <Container className="about-profile">
@@ -360,7 +352,7 @@ function About() {
       </RevealSection>
 
       <PartnersCertificationSection />
-    </>
+    </div>
   )
 }
 

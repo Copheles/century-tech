@@ -85,7 +85,7 @@ export interface StructuredCablingDetail {
 
 export const structuredCablingDetail: StructuredCablingDetail = {
   title: 'Structured Cabling',
-  heading: 'A uniform, scalable platform for voice, video and data communication.',
+  heading: 'Delivering High-Performance Structured Cabling Solutions',
   intro: [
     'Fast and reliable communication is a key success factor for businesses in this dynamic environment, and companies would have to do all they can to ensure their communication infrastructure is robust, capable of handling huge volume of data anytime of the day or night.',
     'At Century, we provide Structured Cabling System, the basis of almost of all voice, video and data communication needs. It provides organizations with a uniform and scalable platform for the interconnection of various enterprise level services.',
@@ -117,6 +117,7 @@ export const structuredCablingDetail: StructuredCablingDetail = {
   heroVisual: {
     id: 'cabling-hero',
     label: 'Structured cabling installation photo',
+    image: '/solutions/structured-cabling-solution.jpg',
   },
   gallery: [
     { id: 'cabling-fiber', label: 'Fiber optic splicing photo' },
@@ -137,7 +138,7 @@ export interface ComputerNetworkingDetail {
 
 export const computerNetworkingDetail: ComputerNetworkingDetail = {
   title: 'Computer Networking',
-  heading: 'Quick access to the information superhighway for consumers and corporations.',
+  heading: 'Accelerating Enterprise and Consumer Connectivity',
   intro: [
     "Broadband technology has ushered in a communication's revolution. By enabling voice, data and video-on-demand to be transmitted across the world at high speed, it has altered the way we live and work. A fully-evolved broadband will virtually eliminate geographical distances and reduce the time it takes to access information.",
     'With our computer networking capability, we can provide consumers and corporations quick access to the information superhighway. We have a wealth of experience in implementing cost effective and flexible networking solutions for customers. We are able to design, install and maintain all your office and enterprise communication and networks needs. Our network solutions seamlessly connect the desktop to the server, to your organization Intranet and the wide expanse of the Internet.',
@@ -157,6 +158,7 @@ export const computerNetworkingDetail: ComputerNetworkingDetail = {
   heroVisual: {
     id: 'networking-hero',
     label: 'Enterprise network infrastructure photo',
+    image: '/solutions/computer-networking-solution.jpg',
   },
   gallery: [
     { id: 'networking-server', label: 'Server room photo' },

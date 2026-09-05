@@ -8,6 +8,7 @@ import SectionTitle from '../components/common/SectionTitle'
 import RevealSection from '../components/common/RevealSection'
 import CountUp from '../components/common/CountUp'
 import PartnersCertificationSection from '../components/sections/PartnersCertificationSection'
+import ProjectDetailList from '../components/projects/ProjectDetailList'
 import { solutions } from '../data/solutions'
 import { projects } from '../data/projects'
 
@@ -221,7 +222,7 @@ function Home() {
             <SectionTitle
               centered
               eyebrow="Core solutions"
-              title="A connected approach to modern technology."
+              title="Our solutions."
               description="Focused services for organisations that need clearer communication, stronger systems, and dependable foundations."
             />
           </motion.div>
@@ -475,10 +476,6 @@ function Home() {
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <h2>{project.title}</h2>
-                <p>
-                  Structured cabling and ELV delivery supporting reliable connectivity
-                  and practical operations for this facility.
-                </p>
                 <div
                   className={`home-project-media${
                     project.imageFit === 'contain' ? ' home-project-media-contain' : ''
@@ -488,6 +485,7 @@ function Home() {
                     <img src={project.image} alt={project.title} loading="lazy" />
                   ) : null}
                 </div>
+                <ProjectDetailList detail={project.detail} />
               </motion.article>
             ))}
           </motion.div>

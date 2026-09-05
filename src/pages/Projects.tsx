@@ -116,12 +116,7 @@ function Projects() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Our projects"
-        title="Selected projects across banking, infrastructure, and public spaces."
-        description="A look at key structured cabling and ELV engagements delivered by Century Technology."
-        variant="projects"
-      />
+      <PageHero title="Project References" />
       <RevealSection className="content-section">
         <Container>
           <SectionTitle

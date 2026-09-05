@@ -101,12 +101,7 @@ function Solutions() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Our solutions"
-        title="Connected technology for practical business needs."
-        description="From structured cabling and computer networking to complete ELV security systems, we build the infrastructure your organisation depends on."
-        variant="solutions"
-      />
+      <PageHero title="Our Solutions" />
 
       <RevealSection className="content-section">
         <Container>
