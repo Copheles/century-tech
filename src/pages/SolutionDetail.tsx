@@ -25,12 +25,8 @@ import Container from '../components/common/Container'
 import SectionTitle from '../components/common/SectionTitle'
 import RevealSection from '../components/common/RevealSection'
 import {
-  cctvDetail,
-  computerNetworkingDetail,
-  elvSystemDetail,
   solutionDetails,
   solutions,
-  structuredCablingDetail,
   type CctvDetail,
   type ComputerNetworkingDetail,
   type ElvSystemDetail,
