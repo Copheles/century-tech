@@ -26,7 +26,7 @@ function Footer() {
             <ul className="footer-col-list">
               {solutions.map((solution) => (
                 <li key={solution.id}>
-                  <Link to="/solutions" className="footer-col-link">
+                  <Link to={`/solutions/${solution.slug}`} className="footer-col-link">
                     {solution.title}
                     <ArrowUpRight size={14} aria-hidden="true" />
                   </Link>

@@ -1,17 +1,14 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import Container from '../common/Container'
-import Button from '../common/Button'
 import Brand from '../common/Brand'
 import { navigation } from '../../data/navigation'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-
-  const mainNavItems = navigation.filter((item) => item.path !== '/contact')
 
   useLayoutEffect(() => {
     if (!isMenuOpen) return
@@ -50,32 +47,36 @@ function Header() {
       <Container className="header-inner">
         <Brand variant="dark" />
 
-        <nav className="desktop-nav" aria-label="Primary navigation">
-          {mainNavItems.map((item) => (
-            <NavLink
-              key={item.path}
-              className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
-              to={item.path}
-            >
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
+        <div className="header-end">
+          <div className="header-nav-group">
+            <nav className="desktop-nav" aria-label="Primary navigation">
+              {navigation.map((item) => (
+                <NavLink
+                  key={item.path}
+                  className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+                  to={item.path}
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </nav>
 
-        <Button className="header-cta" to="/contact">
-          Contact Us
-        </Button>
+            <Link className="header-cta" to="/contact">
+              Let&apos;s Talk!
+            </Link>
+          </div>
 
-        <button
-          className="mobile-menu-button"
-          type="button"
-          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-navigation"
-          onClick={() => setIsMenuOpen((open) => !open)}
-        >
-          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+          <button
+            className="mobile-menu-button"
+            type="button"
+            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setIsMenuOpen((open) => !open)}
+          >
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </Container>
 
       <AnimatePresence initial={false}>
@@ -102,7 +103,7 @@ function Header() {
               }}
             >
               <div className="mobile-menu-label">Explore Century Tech</div>
-              {mainNavItems.map((item) => (
+              {navigation.map((item) => (
                 <motion.div
                   key={item.path}
                   variants={{
@@ -128,13 +129,13 @@ function Header() {
                   closed: { opacity: 0, y: 24 },
                 }}
               >
-                <Button
-                  className="mobile-contact"
+                <Link
+                  className="mobile-contact header-cta"
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Contact Us
-                </Button>
+                  Let&apos;s Talk!
+                </Link>
               </motion.div>
             </motion.div>
           </motion.nav>

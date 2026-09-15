@@ -14,20 +14,25 @@ export const seoByPath: Record<string, SEOConfig> = {
     description:
       'Learn how Century Tech combines strategy, design, and engineering to solve meaningful business challenges.',
   },
-  '/solutions': {
-    title: 'Structured Cabling, Networking & ELV Solutions | Century Tech',
+  '/solutions/structured-cabling': {
+    title: 'Structured Cabling | Century Tech',
     description:
-      'Explore Century Tech solutions for fiber optic and copper structured cabling, WAN/LAN and wireless computer networking, and ELV systems including CCTV and access control.',
+      'Design, installation, testing, and certification of copper and fiber optic cabling that forms the backbone of your communication infrastructure.',
+  },
+  '/solutions/computer-networking': {
+    title: 'Computer Networking | Century Tech',
+    description:
+      'Complete network infrastructure services from consultation and layout planning to system design, installation, and performance optimization.',
+  },
+  '/solutions/elv-system': {
+    title: 'ELV System | Century Tech',
+    description:
+      'Extra-low voltage systems that protect your people and premises, from CCTV surveillance to access control, designed and maintained by certified engineers.',
   },
   '/projects': {
     title: 'Project References | Century Tech',
     description:
       'Browse Century Technology project references across banking, data centres, cruise terminals, and public infrastructure.',
-  },
-  '/faq': {
-    title: 'Frequently Asked Questions | Century Tech',
-    description:
-      'Find answers about Century Tech services, project processes, partnerships, support, and working with our technology team.',
   },
   '/contact': {
     title: 'Contact Century Tech | Start Your Project',

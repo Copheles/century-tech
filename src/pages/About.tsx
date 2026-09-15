@@ -6,7 +6,6 @@ import {
   Handshake,
   Network,
   ShieldCheck,
-  Target,
   UsersRound,
 } from 'lucide-react'
 import { useRef } from 'react'
@@ -140,9 +139,9 @@ function About() {
       <PageHero title="About Us" />
 
       <RevealSection className="content-section about-profile-section">
-        <Container className="about-profile">
+        <Container>
           <motion.div
-            className="about-profile-copy"
+            className="about-profile-heading"
             variants={staggerContainer}
             initial="hidden"
             whileInView="show"
@@ -150,26 +149,36 @@ function About() {
           >
             <motion.span className="eyebrow" variants={riseIn}>Company background</motion.span>
             <motion.h2 variants={riseIn}>
-              From structured cabling roots to complete communication solutions.
+              From cabling roots to complete solutions.
             </motion.h2>
-            {profileParagraphs.map((text) => (
-              <motion.p key={text} variants={riseIn}>{text}</motion.p>
-            ))}
-            <motion.ul className="about-check-list" variants={staggerContainer}>
-              {strengths.map((item) => (
-                <motion.li key={item} variants={riseIn}>
-                  <CheckCircle2 size={18} />
-                  <span>{item}</span>
-                </motion.li>
-              ))}
-            </motion.ul>
           </motion.div>
-          <motion.div
-            ref={profileImageRef}
-            className="about-image-stack"
-            style={{ y: profileImageY }}
-            aria-label="Image placeholders"
-          >
+
+          <div className="about-profile">
+            <motion.div
+              className="about-profile-copy"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.25 }}
+            >
+              {profileParagraphs.map((text) => (
+                <motion.p key={text} variants={riseIn}>{text}</motion.p>
+              ))}
+              <motion.ul className="about-check-list" variants={staggerContainer}>
+                {strengths.map((item) => (
+                  <motion.li key={item} variants={riseIn}>
+                    <CheckCircle2 size={18} />
+                    <span>{item}</span>
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </motion.div>
+            <motion.div
+              ref={profileImageRef}
+              className="about-image-stack"
+              style={{ y: profileImageY }}
+              aria-label="Image placeholders"
+            >
             <motion.div
               className="about-image-card about-image-card-large"
               initial={{ opacity: 0, x: 36, rotate: 1 }}
@@ -211,6 +220,7 @@ function About() {
               <span>Team at work</span>
             </motion.div>
           </motion.div>
+          </div>
         </Container>
       </RevealSection>
 
@@ -239,78 +249,121 @@ function About() {
         </Container>
       </RevealSection>
 
-      <RevealSection className="content-section">
-        <Container className="about-vision-mission">
-          <motion.article
-            className="about-vision-card"
-            initial={{ opacity: 0, y: 26, scale: 0.97 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      <RevealSection className="content-section about-purpose-section">
+        <Container className="about-purpose-stack">
+          <motion.div
+            className="about-purpose-header"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
             viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            <motion.span
-              className="about-card-icon"
-              animate={reduceMotion ? undefined : { rotate: [0, 4, -4, 0] }}
-              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <Target size={24} />
-            </motion.span>
-            <span className="eyebrow">Vision</span>
-            <h2>To be a trusted regional communication technology partner.</h2>
-            <p>
+            <motion.span className="eyebrow" variants={cardIn}>What drives us</motion.span>
+            <motion.h2 variants={cardIn}>Vision, Mission &amp; Values</motion.h2>
+          </motion.div>
+
+          <motion.article
+            className="about-purpose-statement"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.25 }}
+          >
+            <motion.div className="about-purpose-statement-head" variants={cardIn}>
+              Vision
+            </motion.div>
+            <motion.h3 variants={cardIn}>
+              To be a trusted regional communication technology partner.
+            </motion.h3>
+            <motion.p variants={cardIn}>
               We aim to become a key player in the regional communication market by staying close to
               customer needs, technology changes, and the interests of all stakeholders.
-            </p>
+            </motion.p>
           </motion.article>
+
           <motion.div
-            className="about-mission-list"
+            className="about-purpose-connector"
+            initial={reduceMotion ? false : { opacity: 0, scaleY: 0 }}
+            whileInView={reduceMotion ? undefined : { opacity: 1, scaleY: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span aria-hidden="true" />
+          </motion.div>
+
+          <motion.div
+            className="about-purpose-mission-list"
             variants={staggerContainer}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.18 }}
           >
-            <SectionTitle
-              eyebrow="Mission"
-              title="Reliable solutions, continuous improvement, and trained people."
-            />
+            <motion.div className="about-purpose-statement-head" variants={cardIn}>
+              Mission
+            </motion.div>
+            <motion.h3 variants={cardIn}>
+              Reliable solutions, continuous improvement, and trained people.
+            </motion.h3>
             {missionPoints.map(({ icon: Icon, title, text }) => (
               <motion.article
-                className="about-mission-item"
+                className="about-purpose-row"
                 key={title}
                 variants={cardIn}
                 whileHover={reduceMotion ? undefined : { x: 6 }}
               >
-                <span>
-                  <Icon size={22} />
+                <span aria-hidden="true">
+                  <Icon size={20} />
                 </span>
                 <div>
-                  <h3>{title}</h3>
+                  <h4>{title}</h4>
                   <p>{text}</p>
                 </div>
               </motion.article>
             ))}
+          </motion.div>
+
+          <motion.div
+            className="about-purpose-connector"
+            initial={reduceMotion ? false : { opacity: 0, scaleY: 0 }}
+            whileInView={reduceMotion ? undefined : { opacity: 1, scaleY: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span aria-hidden="true" />
+          </motion.div>
+
+          <motion.div
+            className="about-purpose-values-block"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.18 }}
+          >
             <div className="about-core-values-heading">
               <SectionTitle
+                centered
                 eyebrow="Core Values"
                 title="Values that guide how we work."
               />
             </div>
-            {coreValuePoints.map(({ icon: Icon, title, text }) => (
-              <motion.article
-                className="about-mission-item"
-                key={title}
-                variants={cardIn}
-                whileHover={reduceMotion ? undefined : { x: 6 }}
-              >
-                <span>
-                  <Icon size={22} />
-                </span>
-                <div>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </div>
-              </motion.article>
-            ))}
+            <div className="about-core-values-list">
+              {coreValuePoints.map(({ icon: Icon, title, text }) => (
+                <motion.article
+                  className="about-core-value-item"
+                  key={title}
+                  variants={cardIn}
+                  whileHover={reduceMotion ? undefined : { x: 6 }}
+                >
+                  <span aria-hidden="true">
+                    <Icon size={20} />
+                  </span>
+                  <div>
+                    <h4>{title}</h4>
+                    <p>{text}</p>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
           </motion.div>
         </Container>
       </RevealSection>
@@ -319,6 +372,7 @@ function About() {
         <Container>
           <div className="section-heading-row">
             <SectionTitle
+              centered
               eyebrow="Milestones"
               title="Key moments in our growth."
               description="A timeline of selected achievements from our structured cabling foundation to wider ELV and communication system delivery."

@@ -7,10 +7,10 @@ export interface SubSolution {
 
 export interface Solution {
   id: number
+  slug: string
   title: string
   description: string
   highlights: string[]
-  detailAnchor?: string
   image?: string
   subSolutions?: SubSolution[]
 }
@@ -18,29 +18,29 @@ export interface Solution {
 export const solutions: Solution[] = [
   {
     id: 1,
+    slug: 'structured-cabling',
     title: 'Structured Cabling',
     description:
       'Design, installation, testing, and certification of copper and fiber optic cabling that forms the backbone of your communication infrastructure.',
     highlights: ['Copper cabling (Cat5e to Cat7)', 'Fiber optic cabling', 'Data center cabling'],
-    detailAnchor: 'structured-cabling',
     image: '/solutions/structured-cabling.avif',
   },
   {
     id: 2,
+    slug: 'computer-networking',
     title: 'Computer Networking',
     description:
       'Complete network infrastructure services from consultation and layout planning to system design, installation, and performance optimization.',
     highlights: ['Network design & build', 'Installation & testing', 'Performance optimization'],
-    detailAnchor: 'computer-networking',
     image: '/solutions/computer-networking.avif',
   },
   {
     id: 3,
+    slug: 'elv-system',
     title: 'ELV System',
     description:
       'Extra-low voltage systems that protect your people and premises, from surveillance to entry management, designed and maintained by certified engineers.',
     highlights: ['CCTV System', 'Access Control System'],
-    detailAnchor: 'cctv-system',
     image: '/solutions/elv-system.jpg',
     subSolutions: [
       {
@@ -59,6 +59,11 @@ export const solutions: Solution[] = [
     ],
   },
 ]
+
+export type SolutionDetailBundle =
+  | StructuredCablingDetail
+  | ComputerNetworkingDetail
+  | ElvSystemDetail
 
 export interface MediaSlot {
   id: string
@@ -293,4 +298,62 @@ export const cctvDetail: CctvDetail = {
       imageFit: 'contain',
     },
   },
+}
+
+export interface AccessControlDetail {
+  title: string
+  heading: string
+  description: string
+  servicesLead: string
+  services: string[]
+  heroVisual: MediaSlot
+  comingSoon: boolean
+}
+
+export interface ElvSystemDetail {
+  title: string
+  heading: string
+  intro: string[]
+  heroVisual: MediaSlot
+  cctv: CctvDetail
+  accessControl: AccessControlDetail
+}
+
+export const accessControlDetail: AccessControlDetail = {
+  title: 'Access Control System',
+  heading: 'Secure entry management integrated with your wider security systems.',
+  description:
+    'Our access control solutions help you manage who enters your premises, with options that integrate cleanly into your broader security and building systems.',
+  servicesLead: 'Planned access control services include:',
+  services: [
+    'Card and biometric entry systems',
+    'Door controller installation and configuration',
+    'Integration with CCTV and alarm systems',
+  ],
+  heroVisual: {
+    id: 'access-control-hero',
+    label: 'Access control installation photo',
+  },
+  comingSoon: true,
+}
+
+export const elvSystemDetail: ElvSystemDetail = {
+  title: 'ELV System',
+  heading: 'Extra-low voltage systems that protect your people and premises.',
+  intro: [
+    'We design, install, and maintain extra-low voltage systems including CCTV surveillance and access control. Our certified engineers deliver integrated security solutions tailored to your environment.',
+  ],
+  heroVisual: {
+    id: 'elv-hero',
+    label: 'ELV system installation photo',
+    image: '/solutions/elv-system.jpg',
+  },
+  cctv: cctvDetail,
+  accessControl: accessControlDetail,
+}
+
+export const solutionDetails: Record<string, SolutionDetailBundle> = {
+  'structured-cabling': structuredCablingDetail,
+  'computer-networking': computerNetworkingDetail,
+  'elv-system': elvSystemDetail,
 }

@@ -10,6 +10,40 @@ import { ongoingProjects, projectReferences, projects } from '../data/projects'
 
 const projectMarqueeItems = [...projectReferences, ...projectReferences]
 
+const projectPriority = [
+  'IWMF',
+  'Thomson East Coast',
+  'Facebook',
+  'Sembcorp',
+  'EMC Data Center',
+  'Gardens by the Bay',
+  'Resort World Sentosa',
+  'Bahrain',
+  'International Cruise Terminal',
+  'Duke',
+  'Westgate',
+] as const
+
+function projectSortRank(title: string) {
+  const index = projectPriority.findIndex((keyword) => title.includes(keyword))
+  return index === -1 ? projectPriority.length : index
+}
+
+const allProjects = [
+  ...ongoingProjects.map((project) => ({
+    key: `ongoing-${project.id}`,
+    title: project.title,
+    image: project.image,
+    imageFit: project.imageFit,
+  })),
+  ...projects.map((project) => ({
+    key: `project-${project.id}`,
+    title: project.title,
+    image: project.image,
+    imageFit: project.imageFit,
+  })),
+].sort((a, b) => projectSortRank(a.title) - projectSortRank(b.title))
+
 const staggerContainer: Variants = {
   hidden: {},
   show: {
@@ -120,9 +154,10 @@ function Projects() {
       <RevealSection className="content-section">
         <Container>
           <SectionTitle
-            eyebrow="Ongoing projects"
-            title="Current engagements across Singapore."
-            description="Structured cabling, network, and security system work currently delivered for public, education, and commercial sites."
+            centered
+            eyebrow="Projects"
+            title="Our project references."
+            description="Structured cabling, network, and security system work delivered across public, education, banking, and commercial sites in Singapore."
           />
           <motion.div
             className="projects-ref-grid"
@@ -131,44 +166,8 @@ function Projects() {
             whileInView={reduceMotion ? undefined : 'show'}
             viewport={viewportOnce}
           >
-            {ongoingProjects.map((project) => (
-              <motion.article className="projects-ref-card" key={project.id} variants={cardIn}>
-                <div
-                  className={`projects-ref-media${
-                    project.imageFit === 'contain' ? ' projects-ref-media-contain' : ''
-                  }`}
-                >
-                  {project.image ? (
-                    <img src={project.image} alt={project.title} loading="lazy" />
-                  ) : (
-                    <span className="projects-ref-placeholder" aria-hidden="true">
-                      <ImageIcon size={28} strokeWidth={1.5} />
-                    </span>
-                  )}
-                </div>
-                <h2>{project.title}</h2>
-              </motion.article>
-            ))}
-          </motion.div>
-        </Container>
-      </RevealSection>
-
-      <RevealSection className="content-section section-tint">
-        <Container>
-          <SectionTitle
-            eyebrow="Featured work"
-            title="Selected projects"
-            description="A selection of completed structured cabling and ELV engagements across banking, infrastructure, and public facilities."
-          />
-          <motion.div
-            className="projects-ref-grid"
-            variants={staggerContainer}
-            initial={reduceMotion ? false : 'hidden'}
-            whileInView={reduceMotion ? undefined : 'show'}
-            viewport={viewportOnce}
-          >
-            {projects.map((project) => (
-              <motion.article className="projects-ref-card" key={project.id} variants={cardIn}>
+            {allProjects.map((project) => (
+              <motion.article className="projects-ref-card" key={project.key} variants={cardIn}>
                 <div
                   className={`projects-ref-media${
                     project.imageFit === 'contain' ? ' projects-ref-media-contain' : ''

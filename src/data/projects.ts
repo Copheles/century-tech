@@ -46,7 +46,6 @@ export const ongoingProjects: OngoingProject[] = [
     detail:
       "Implemented for network migration that including structured cabling, switches and server installation with network racks.",
     image: "/projects/ongoing/sgx-group.png",
-    imageFit: "contain",
   },
   {
     id: 3,

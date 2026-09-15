@@ -159,7 +159,7 @@ function Home() {
                   Structured Cabling &amp; ELV System
                 </motion.h1>
                 <motion.div className="hero-actions" variants={fadeUp}>
-                  <Button to="/solutions">
+                  <Button to="/#core-solutions">
                     Explore our solutions <ArrowRight size={18} />
                   </Button>
                 </motion.div>
@@ -211,7 +211,7 @@ function Home() {
         </Container>
       </RevealSection>
 
-      <RevealSection className="content-section section-tint core-solutions-section">
+      <RevealSection id="core-solutions" className="content-section section-tint core-solutions-section">
         <Container>
           <motion.div
             initial={reduceMotion ? false : 'hidden'}
@@ -279,8 +279,8 @@ function Home() {
                       </motion.li>
                     ))}
                   </motion.ul>
-                  {solution.detailAnchor ? (
-                    <Button to={`/solutions#${solution.detailAnchor}`} variant="secondary">
+                  {solution.slug ? (
+                    <Button to={`/solutions/${solution.slug}`} variant="secondary">
                       View details <ArrowRight size={16} />
                     </Button>
                   ) : null}

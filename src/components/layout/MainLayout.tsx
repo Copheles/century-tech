@@ -18,8 +18,16 @@ function MainLayout() {
   })
 
   useEffect(() => {
+    if (location.hash) {
+      const target = document.getElementById(location.hash.slice(1))
+      if (target) {
+        target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' })
+        return
+      }
+    }
+
     window.scrollTo({ top: 0 })
-  }, [location.pathname])
+  }, [location.pathname, location.hash, reduceMotion])
 
   return (
     <div className="site-shell">

@@ -1,8 +1,7 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import type { Variants } from 'framer-motion'
 import {
-  ArrowUpRight,
   Building2,
   Mail,
   MapPin,
@@ -14,6 +13,9 @@ import {
 } from 'lucide-react'
 import PageHero from '../components/common/PageHero'
 import Container from '../components/common/Container'
+import SectionTitle from '../components/common/SectionTitle'
+import RevealSection from '../components/common/RevealSection'
+import FaqSection from '../components/sections/FaqSection'
 import {
   company,
   companyMapEmbedUrl,
@@ -28,44 +30,56 @@ interface EnquiryFormValues {
   message: string
 }
 
-function PopOnScroll({
-  children,
-  className = '',
-  delay = 0,
-}: {
-  children: React.ReactNode
-  className?: string
-  delay?: number
-}) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-60px' })
+const motionEase = [0.22, 1, 0.36, 1] as const
+const viewportOnce = { once: true, amount: 0.2 } as const
 
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial={{ opacity: 0, y: 30, scale: 0.95 }}
-      animate={
-        isInView
-          ? {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              transition: {
-                duration: 0.6,
-                delay,
-                ease: [0.22, 1, 0.36, 1],
-              },
-            }
-          : undefined
-      }
-    >
-      {children}
-    </motion.div>
-  )
+const staggerContainer: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.06,
+    },
+  },
 }
 
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: motionEase },
+  },
+}
+
+const contactChannels = [
+  {
+    icon: Phone,
+    label: 'Telephone',
+    value: company.telephone,
+    href: company.telephoneHref,
+  },
+  {
+    icon: Printer,
+    label: 'Fax',
+    value: company.fax,
+  },
+  {
+    icon: Mail,
+    label: company.emails.sales.label,
+    value: company.emails.sales.address,
+    href: company.emails.sales.href,
+  },
+  {
+    icon: Mail,
+    label: company.emails.humanResources.label,
+    value: company.emails.humanResources.address,
+    href: company.emails.humanResources.href,
+  },
+]
+
 function Contact() {
+  const reduceMotion = useReducedMotion()
   const {
     register,
     handleSubmit,
@@ -93,74 +107,81 @@ function Contact() {
   }
 
   return (
-    <>
+    <div className="contact-page">
       <PageHero title="Contact Us" />
 
-      <section className="content-section contact-page">
-        <Container>
-          {/* Direct Contact Cards - each pops in individually */}
-          <div className="direct-contact-grid">
-            <PopOnScroll delay={0}>
-              <a className="direct-contact-card" href={company.telephoneHref}>
-                <span className="contact-card-icon"><Phone size={22} /></span>
-                <span>
-                  <small>Telephone</small>
-                  <strong>{company.telephone}</strong>
-                </span>
-                <ArrowUpRight size={18} />
-              </a>
-            </PopOnScroll>
-            <PopOnScroll delay={0.1}>
-              <div className="direct-contact-card">
-                <span className="contact-card-icon"><Printer size={22} /></span>
-                <span>
-                  <small>Fax</small>
-                  <strong>{company.fax}</strong>
-                </span>
-              </div>
-            </PopOnScroll>
-            <PopOnScroll delay={0.2}>
-              <a className="direct-contact-card" href={company.emails.sales.href}>
-                <span className="contact-card-icon"><Mail size={22} /></span>
-                <span>
-                  <small>{company.emails.sales.label}</small>
-                  <strong>{company.emails.sales.address}</strong>
-                </span>
-                <ArrowUpRight size={18} />
-              </a>
-            </PopOnScroll>
-            <PopOnScroll delay={0.3}>
-              <a className="direct-contact-card" href={company.emails.humanResources.href}>
-                <span className="contact-card-icon"><Mail size={22} /></span>
-                <span>
-                  <small>{company.emails.humanResources.label}</small>
-                  <strong>{company.emails.humanResources.address}</strong>
-                </span>
-                <ArrowUpRight size={18} />
-              </a>
-            </PopOnScroll>
-          </div>
+      <RevealSection className="content-section contact-main-section">
+        <Container className="contact-split-layout">
+          <motion.div
+            className="contact-split-reach"
+            variants={staggerContainer}
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+          >
+            <motion.div variants={fadeUp}>
+              <SectionTitle
+                eyebrow="Get in touch"
+                title="Reach our team."
+                description="Call, email, or send an enquiry. We are ready to support your structured cabling and ELV requirements."
+              />
+            </motion.div>
 
-          {/* Enquiry Section */}
-          <div className="contact-enquiry-layout">
-            <PopOnScroll className="contact-enquiry-intro" delay={0}>
-              <span className="eyebrow">Send an enquiry</span>
-              <h2>Tell us what you need help with.</h2>
-              <p>
-                Share a few details and we will prepare them as a WhatsApp
-                message so you can contact our team directly.
-              </p>
-              <div className="enquiry-feature">
-                <MessageCircle size={20} />
-                <span>
-                  <strong>Direct to our team</strong>
-                  <small>No account or email form required.</small>
-                </span>
-              </div>
-            </PopOnScroll>
+            <div className="contact-channels">
+              {contactChannels.map(({ icon: Icon, label, value, href }) => {
+                const content = (
+                  <>
+                    <span className="contact-channel-icon" aria-hidden="true">
+                      <Icon size={18} strokeWidth={1.9} />
+                    </span>
+                    <span className="contact-channel-copy">
+                      <small>{label}</small>
+                      <strong>{value}</strong>
+                    </span>
+                  </>
+                )
 
-            <form className="enquiry-form" onSubmit={handleSubmit(onSubmit)} noValidate>
-              <PopOnScroll className="enquiry-field" delay={0}>
+                return href ? (
+                  <motion.a
+                    className="contact-channel"
+                    key={label}
+                    href={href}
+                    variants={fadeUp}
+                  >
+                    {content}
+                  </motion.a>
+                ) : (
+                  <motion.div className="contact-channel" key={label} variants={fadeUp}>
+                    {content}
+                  </motion.div>
+                )
+              })}
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="contact-split-enquiry"
+            variants={staggerContainer}
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+          >
+            <motion.div variants={fadeUp}>
+              <SectionTitle
+                eyebrow="Send an enquiry"
+                title="Tell us what you need."
+                description="Share a few details and we will prepare them as a WhatsApp message so you can contact our team directly."
+              />
+            </motion.div>
+
+            <div className="enquiry-card">
+              <motion.form
+                className="enquiry-form"
+                onSubmit={handleSubmit(onSubmit)}
+                noValidate
+                variants={staggerContainer}
+              >
+              <motion.div className="enquiry-field" variants={fadeUp}>
                 <label htmlFor="contact-name">
                   <User size={15} /> Your name
                 </label>
@@ -172,9 +193,9 @@ function Contact() {
                   {...register('name', { required: 'Please enter your name.' })}
                 />
                 {errors.name && <span className="field-error">{errors.name.message}</span>}
-              </PopOnScroll>
+              </motion.div>
 
-              <PopOnScroll className="enquiry-field" delay={0.1}>
+              <motion.div className="enquiry-field" variants={fadeUp}>
                 <label htmlFor="contact-company">
                   <Building2 size={15} /> Company
                 </label>
@@ -184,9 +205,9 @@ function Contact() {
                   autoComplete="organization"
                   {...register('company')}
                 />
-              </PopOnScroll>
+              </motion.div>
 
-              <PopOnScroll className="enquiry-field enquiry-field-full" delay={0.2}>
+              <motion.div className="enquiry-field enquiry-field-full" variants={fadeUp}>
                 <label htmlFor="contact-telephone">
                   <Phone size={15} /> Telephone
                 </label>
@@ -207,9 +228,9 @@ function Contact() {
                 {errors.telephone && (
                   <span className="field-error">{errors.telephone.message}</span>
                 )}
-              </PopOnScroll>
+              </motion.div>
 
-              <PopOnScroll className="enquiry-field enquiry-field-full" delay={0.3}>
+              <motion.div className="enquiry-field enquiry-field-full" variants={fadeUp}>
                 <label htmlFor="contact-message">
                   <MessageCircle size={15} /> How can we help?
                 </label>
@@ -228,9 +249,9 @@ function Contact() {
                 {errors.message && (
                   <span className="field-error">{errors.message.message}</span>
                 )}
-              </PopOnScroll>
+              </motion.div>
 
-              <PopOnScroll className="enquiry-form-actions enquiry-field-full" delay={0.4}>
+              <motion.div className="enquiry-form-actions enquiry-field-full" variants={fadeUp}>
                 <button
                   className="button button-primary"
                   type="submit"
@@ -241,39 +262,67 @@ function Contact() {
                 <small>
                   Your message is only shared when you confirm it in WhatsApp.
                 </small>
-              </PopOnScroll>
-            </form>
-          </div>
-
-          {/* Office Section */}
-          <PopOnScroll delay={0}>
-            <div className="office-layout">
-              <div className="office-details">
-                <span className="eyebrow">Singapore office</span>
-                <h2>Visit Century Technology.</h2>
-                <p>{company.address}</p>
-                <a className="button button-primary" href={companyMapUrl} target="_blank" rel="noreferrer">
-                  <MapPin size={18} /> Get directions
-                </a>
-                <div className="contact-note">
-                  <strong>Planning a visit?</strong>
-                  <p>Call our team before arriving so we can make sure the right person is available to meet you.</p>
-                </div>
-              </div>
-              <div className="office-map">
-                <iframe
-                  src={companyMapEmbedUrl}
-                  title={`${company.name} office location`}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  allowFullScreen
-                />
-              </div>
+              </motion.div>
+              </motion.form>
             </div>
-          </PopOnScroll>
+          </motion.div>
         </Container>
-      </section>
-    </>
+      </RevealSection>
+
+      <RevealSection className="content-section section-tint contact-visit-section">
+        <Container>
+          <motion.div
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+            variants={fadeUp}
+          >
+            <SectionTitle
+              centered
+              eyebrow="Singapore office"
+              title="Visit Century Technology."
+              description={company.address}
+            />
+          </motion.div>
+
+          <motion.div
+            className="office-actions"
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+            variants={fadeUp}
+          >
+            <a
+              className="button button-primary"
+              href={companyMapUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <MapPin size={18} /> Get directions
+            </a>
+            <p>Call before visiting so we can arrange the right person to meet you.</p>
+          </motion.div>
+
+          <motion.div
+            className="office-map"
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+            variants={fadeUp}
+          >
+            <iframe
+              src={companyMapEmbedUrl}
+              title={`${company.name} office location`}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </motion.div>
+        </Container>
+      </RevealSection>
+
+      <FaqSection />
+    </div>
   )
 }
 
