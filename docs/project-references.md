@@ -142,14 +142,19 @@ Cleaned export of all project titles, context notes, scope categories, and techn
 
 ## 9. Sembcorp Data Centre
 
-**Context:** Datwyler products were used in the project.
+**Scope:** Structured Cabling System; Inter-Rack Cabling
 
-**Scope:** Data centre cabling (fibre and copper); inter-rack and inter-building fibre
+- Datwyler structured cabling solutions products were provided for the construction of the structured cabling systems and Inter-Rack Cabling.
 
-### Description
+**Structured Cabling System**
 
-- There are 1600 of fibre optics termination nodes and 288 CAT 6 cable termination nodes.
-- Also, it involves inter-rack cabling for both cables, where the inter-building fibre optic cabling goes as long as 6 km.
+- Fibre Optic (1600 nodes)
+- CAT6 UTP (288 nodes)
+
+**Inter-Rack Cabling**
+
+- Fibre Optic (1600 nodes)
+- CAT6 UTP (288 nodes)
 
 ---
 
@@ -157,10 +162,19 @@ Cleaned export of all project titles, context notes, scope categories, and techn
 
 **Scope:** Structured Cabling System; Public Address; CCTV; Intrusion Detection; Access Control
 
-- Supply and Installation of CAT6 UTP Structured Cabling System
-- Supply and Installation of OM2 fiber optic backbone cabling
-- Installation of Public Address System, CCTV
-- Installation of Intrusion Detection and Access Control System
+- AMP Netconnect structured cabling solutions products were provided for the construction of the structured cabling systems and ELV Cabling.
+
+**Structured Cabling System**
+
+- OM2 Fibre Optic (??km)
+- CAT6 UTP (?? nodes)
+
+**Cabling & Installation of ELV System**
+
+- CCTV
+- PA System
+- Intrusion Detection System
+- Access Control System
 
 ---
 
@@ -168,7 +182,12 @@ Cleaned export of all project titles, context notes, scope categories, and techn
 
 **Scope:** Structured Cabling System (BMS)
 
-- Supply and Installation of CAT6 UTP Structured Cabling System for BMS System.
+- Panduit structured cabling solutions products were provided for BMS & EPMS Network Cabling project.
+
+**Structured Cabling System**
+
+- Phase-1, CAT6 UTP (1800 nodes)
+- Phase-2, CAT6 UTP (6000 nodes)
 
 ---
 

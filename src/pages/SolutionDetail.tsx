@@ -9,12 +9,8 @@ import {
   IdCard,
   Image as ImageIcon,
   MonitorCog,
-  MonitorPlay,
   Router,
-  ScanSearch,
   ShieldCheck,
-  HandCoins,
-  UserX,
   EthernetPort,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -40,10 +36,6 @@ const iconMap: Record<string, LucideIcon> = {
   shield: ShieldCheck,
   monitorCog: MonitorCog,
   ethernet: EthernetPort,
-  scanSearch: ScanSearch,
-  handCoins: HandCoins,
-  userX: UserX,
-  monitorPlay: MonitorPlay,
 }
 
 const staggerContainer: Variants = {
@@ -278,10 +270,13 @@ function CctvServiceBadges({ detail }: { detail: CctvDetail }) {
   return (
     <RevealSection className="content-section section-tint">
       <Container>
-        <SectionTitle
-          eyebrow="CCTV System"
-          title={detail.heading}
-        />
+        <div className="cctv-system-heading">
+          <SectionTitle
+            centered
+            eyebrow="CCTV Cabling Infrastructure"
+            title={detail.heading}
+          />
+        </div>
         <div className="cabling-overview">
           <div className="cabling-intro">
             {detail.intro.map((paragraph) => (
@@ -317,7 +312,7 @@ function CctvServiceBadges({ detail }: { detail: CctvDetail }) {
               return (
                 <motion.div className="cctv-service" key={service.title} variants={cardIn}>
                   <span className="cctv-service-badge">
-                    <Icon size={20} strokeWidth={1.7} />
+                    <Icon size={28} strokeWidth={1.7} />
                   </span>
                   <span className="cctv-service-label">{service.title}</span>
                 </motion.div>
@@ -330,133 +325,8 @@ function CctvServiceBadges({ detail }: { detail: CctvDetail }) {
   )
 }
 
-function CctvWhyInvest({ detail }: { detail: CctvDetail }) {
-  const reduceMotion = useReducedMotion()
-
-  return (
-    <RevealSection className="content-section">
-      <Container>
-        <SectionTitle
-          eyebrow={detail.whyInvest.heading}
-          title={detail.whyInvest.lead}
-        />
-        <motion.div
-          className="cctv-benefit-grid"
-          variants={staggerContainer}
-          initial={reduceMotion ? false : 'hidden'}
-          whileInView={reduceMotion ? undefined : 'show'}
-          viewport={viewportOnce}
-        >
-          {detail.whyInvest.benefits.map((benefit) => {
-            const Icon = iconMap[benefit.icon]
-            return (
-              <motion.article className="cctv-benefit" key={benefit.title} variants={cardIn}>
-                <div className="cctv-benefit-head">
-                  <Icon size={20} strokeWidth={1.8} />
-                  <h3>{benefit.title}</h3>
-                </div>
-                <p>{benefit.text}</p>
-              </motion.article>
-            )
-          })}
-        </motion.div>
-      </Container>
-    </RevealSection>
-  )
-}
-
-function CctvTechnology({ detail }: { detail: CctvDetail }) {
-  const reduceMotion = useReducedMotion()
-
-  return (
-    <RevealSection className="content-section section-tint">
-      <Container className="cctv-technology">
-        <motion.div
-          variants={cardIn}
-          initial={reduceMotion ? false : 'hidden'}
-          whileInView={reduceMotion ? undefined : 'show'}
-          viewport={viewportOnce}
-        >
-          <PhotoSlot
-            slot={detail.technology.visual}
-            icon={Cctv}
-            className="cctv-technology-visual"
-          />
-        </motion.div>
-        <motion.div
-          className="cctv-technology-copy"
-          variants={staggerContainer}
-          initial={reduceMotion ? false : 'hidden'}
-          whileInView={reduceMotion ? undefined : 'show'}
-          viewport={viewportOnce}
-        >
-          <motion.h2 variants={riseIn}>{detail.technology.heading}</motion.h2>
-          <motion.ul className="cctv-tech-list" variants={staggerContainer}>
-            {detail.technology.items.map((item) => (
-              <motion.li key={item} variants={riseIn}>{item}</motion.li>
-            ))}
-          </motion.ul>
-        </motion.div>
-      </Container>
-    </RevealSection>
-  )
-}
-
-function CctvMaintenance({ detail }: { detail: CctvDetail }) {
-  const reduceMotion = useReducedMotion()
-
-  return (
-    <RevealSection className="content-section">
-      <Container>
-        <SectionTitle
-          eyebrow={detail.maintenance.heading}
-          title={detail.maintenance.lead}
-        />
-        <div className="cctv-maintenance">
-          <motion.div
-            className="cctv-maintenance-list"
-            variants={staggerContainer}
-            initial={reduceMotion ? false : 'hidden'}
-            whileInView={reduceMotion ? undefined : 'show'}
-            viewport={viewportOnce}
-          >
-            {detail.maintenance.packages.map((pkg, index) => (
-              <motion.article className="cctv-maintenance-item" key={pkg.title} variants={riseIn}>
-                <span className="card-number">0{index + 1}</span>
-                <div>
-                  <h3>{pkg.title}</h3>
-                  <p>{pkg.text}</p>
-                </div>
-              </motion.article>
-            ))}
-          </motion.div>
-          <motion.div
-            variants={cardIn}
-            initial={reduceMotion ? false : 'hidden'}
-            whileInView={reduceMotion ? undefined : 'show'}
-            viewport={viewportOnce}
-          >
-            <PhotoSlot
-              slot={detail.maintenance.visual}
-              icon={Cctv}
-              className="cctv-maintenance-visual"
-            />
-          </motion.div>
-        </div>
-      </Container>
-    </RevealSection>
-  )
-}
-
 function CctvSections({ detail }: { detail: CctvDetail }) {
-  return (
-    <>
-      <CctvServiceBadges detail={detail} />
-      <CctvWhyInvest detail={detail} />
-      <CctvTechnology detail={detail} />
-      <CctvMaintenance detail={detail} />
-    </>
-  )
+  return <CctvServiceBadges detail={detail} />
 }
 
 function AccessControlSection({ detail }: { detail: ElvSystemDetail['accessControl'] }) {
@@ -466,7 +336,7 @@ function AccessControlSection({ detail }: { detail: ElvSystemDetail['accessContr
     <RevealSection className="content-section">
       <Container>
         <SectionTitle
-          eyebrow="Access Control System"
+          eyebrow="Access Control Cabling Infrastructure"
           title={detail.heading}
         />
         <div className="cabling-overview reverse">
@@ -482,10 +352,9 @@ function AccessControlSection({ detail }: { detail: ElvSystemDetail['accessContr
             />
           </motion.div>
           <div className="cabling-intro">
-            <p>{detail.description}</p>
-            {detail.comingSoon && (
-              <span className="solution-sub-tag">Details coming soon</span>
-            )}
+            {detail.description.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
         </div>
 
@@ -552,7 +421,10 @@ function SolutionDetail() {
 
   return (
     <div className="solution-detail-page">
-      <PageHero title={solution.title} image={solution.image} />
+      <PageHero
+        title={slug === 'elv-cabling' ? 'ELV Cabling Solutions' : solution.title}
+        image={solution.image}
+      />
 
       <RevealSection className="content-section solution-detail-back">
         <Container>

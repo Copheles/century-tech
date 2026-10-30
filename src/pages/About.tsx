@@ -2,32 +2,27 @@ import {
   Award,
   BadgeCheck,
   Building2,
-  CheckCircle2,
+  Clock,
   Handshake,
   Network,
   ShieldCheck,
   UsersRound,
 } from 'lucide-react'
-import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import PageHero from '../components/common/PageHero'
 import Container from '../components/common/Container'
 import SectionTitle from '../components/common/SectionTitle'
 import RevealSection from '../components/common/RevealSection'
+import CountUp from '../components/common/CountUp'
 import PartnersCertificationSection from '../components/sections/PartnersCertificationSection'
 
-const companyStats = [
-  { value: '1996', label: 'Founded in Singapore' },
-  { value: '25+', label: 'Years of project experience' },
-  { value: '30+', label: 'School projects secured by 2001' },
-]
+const foundedYear = 1996
+const yearsOfExperience = new Date().getFullYear() - foundedYear
 
-const strengths = [
-  'Structured cabling design and installation',
-  'Communication systems and ELV infrastructure',
-  'Security, audio visual, and satellite communication systems',
-  'Certified designers and installers for leading vendors',
+const companyStats = [
+  { icon: Building2, end: foundedYear, suffix: '', label: 'Founded in Singapore' },
+  { icon: Clock, end: yearsOfExperience, suffix: '', label: 'Years of project experience' },
 ]
 
 const missionPoints = [
@@ -81,21 +76,6 @@ const coreValuePoints = [
   },
 ]
 
-const milestones = [
-  { year: '1996', title: 'Century Technology was founded in Singapore as a structured cabling company.' },
-  { year: '2001', title: 'Outstanding Sales Performance 2001 was presented to Century Technology by AMP.' },
-  { year: '2001', title: 'Century Technology secured its 30th school project.' },
-  { year: '2003', title: 'Diversification began to provide customers with a one-stop solution for IT communication.' },
-  { year: '2005', title: 'Secured Bahrain World Trade Centre project and began providing full ELV cabling solutions.' },
-  { year: '2008', title: 'Installed our first Cat6A site at Siltronic Samsung Wafer.' },
-  { year: '2009', title: 'Completed the first AMP Cat7 installation in Asia for Duke NUS Graduate Medical School.' },
-]
-
-const profileParagraphs = [
-  'Founded in Singapore in 1996, Century Technology began as a structured cabling company. Over the years, we have expanded into related services including audio visual systems, security solutions, satellite communication systems, and complete communication solutions.',
-  'Our reputation is built on practical problem solving, technical experience, and the ability to support customers across government agencies, multinational corporations, educational institutions, and residential developments.',
-]
-
 const staggerContainer: Variants = {
   hidden: {},
   show: {
@@ -103,15 +83,6 @@ const staggerContainer: Variants = {
       staggerChildren: 0.1,
       delayChildren: 0.08,
     },
-  },
-}
-
-const riseIn: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: 'easeOut' },
   },
 }
 
@@ -127,122 +98,27 @@ const cardIn: Variants = {
 
 function About() {
   const reduceMotion = useReducedMotion()
-  const profileImageRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress: profileImageProgress } = useScroll({
-    target: profileImageRef,
-    offset: ['start end', 'end start'],
-  })
-  const profileImageY = useTransform(profileImageProgress, [0, 1], reduceMotion ? [0, 0] : [34, -34])
 
   return (
     <div className="about-page">
       <PageHero title="About Us" />
 
-      <RevealSection className="content-section about-profile-section">
-        <Container>
-          <motion.div
-            className="about-profile-heading"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.25 }}
-          >
-            <motion.span className="eyebrow" variants={riseIn}>Company background</motion.span>
-            <motion.h2 variants={riseIn}>
-              From cabling roots to complete solutions.
-            </motion.h2>
-          </motion.div>
-
-          <div className="about-profile">
-            <motion.div
-              className="about-profile-copy"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.25 }}
-            >
-              {profileParagraphs.map((text) => (
-                <motion.p key={text} variants={riseIn}>{text}</motion.p>
-              ))}
-              <motion.ul className="about-check-list" variants={staggerContainer}>
-                {strengths.map((item) => (
-                  <motion.li key={item} variants={riseIn}>
-                    <CheckCircle2 size={18} />
-                    <span>{item}</span>
-                  </motion.li>
-                ))}
-              </motion.ul>
-            </motion.div>
-            <motion.div
-              ref={profileImageRef}
-              className="about-image-stack"
-              style={{ y: profileImageY }}
-              aria-label="Image placeholders"
-            >
-            <motion.div
-              className="about-image-card about-image-card-large"
-              initial={{ opacity: 0, x: 36, rotate: 1 }}
-              whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
-              transition={
-                reduceMotion
-                  ? { duration: 0.55, ease: 'easeOut' }
-                  : {
-                      opacity: { duration: 0.55, ease: 'easeOut' },
-                      x: { duration: 0.55, ease: 'easeOut' },
-                      rotate: { duration: 0.55, ease: 'easeOut' },
-                      y: { duration: 6, repeat: Infinity, ease: 'easeInOut' },
-                    }
-              }
-            >
-              <Building2 size={30} />
-              <span>Company or project image</span>
-            </motion.div>
-            <motion.div
-              className="about-image-card about-image-card-small"
-              initial={{ opacity: 0, x: -20, y: 28, rotate: -2 }}
-              whileInView={{ opacity: 1, x: 0, y: 0, rotate: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              animate={reduceMotion ? undefined : { y: [0, 8, 0] }}
-              transition={
-                reduceMotion
-                  ? { duration: 0.55, ease: 'easeOut', delay: 0.12 }
-                  : {
-                      opacity: { duration: 0.55, ease: 'easeOut', delay: 0.12 },
-                      x: { duration: 0.55, ease: 'easeOut', delay: 0.12 },
-                      rotate: { duration: 0.55, ease: 'easeOut', delay: 0.12 },
-                      y: { duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.4 },
-                    }
-              }
-            >
-              <Network size={24} />
-              <span>Team at work</span>
-            </motion.div>
-          </motion.div>
-          </div>
-        </Container>
-      </RevealSection>
-
       <RevealSection className="content-section section-tint">
         <Container>
           <motion.div
-            className="about-stat-strip"
+            className="who-we-are-stats"
             variants={staggerContainer}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
           >
-            {companyStats.map((item, index) => (
-              <motion.article
-                key={item.label}
-                variants={cardIn}
-                whileHover={reduceMotion ? undefined : { y: -10, scale: 1.025 }}
-                transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-              >
-                <strong>{item.value}</strong>
-                <span>{item.label}</span>
-                <small>0{index + 1}</small>
+            {companyStats.map(({ icon: Icon, end, suffix, label }) => (
+              <motion.article className="who-we-are-stat" key={label} variants={cardIn}>
+                <span className="who-we-are-stat-icon" aria-hidden="true">
+                  <Icon size={42} strokeWidth={1.75} />
+                </span>
+                <CountUp end={end} suffix={suffix} className="who-we-are-stat-value" />
+                <span className="who-we-are-stat-label">{label}</span>
               </motion.article>
             ))}
           </motion.div>
@@ -312,7 +188,7 @@ function About() {
                 whileHover={reduceMotion ? undefined : { x: 6 }}
               >
                 <span aria-hidden="true">
-                  <Icon size={20} />
+                  <Icon size={32} strokeWidth={1.7} />
                 </span>
                 <div>
                   <h4>{title}</h4>
@@ -355,7 +231,7 @@ function About() {
                   whileHover={reduceMotion ? undefined : { x: 6 }}
                 >
                   <span aria-hidden="true">
-                    <Icon size={20} />
+                    <Icon size={32} strokeWidth={1.7} />
                   </span>
                   <div>
                     <h4>{title}</h4>
@@ -364,43 +240,6 @@ function About() {
                 </motion.article>
               ))}
             </div>
-          </motion.div>
-        </Container>
-      </RevealSection>
-
-      <RevealSection className="content-section section-ink about-milestone-section">
-        <Container>
-          <div className="section-heading-row">
-            <SectionTitle
-              centered
-              eyebrow="Milestones"
-              title="Key moments in our growth."
-              description="A timeline of selected achievements from our structured cabling foundation to wider ELV and communication system delivery."
-            />
-          </div>
-          <motion.div
-            className="about-timeline"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.15 }}
-          >
-            {milestones.map((item, index) => (
-              <motion.article
-                className="about-timeline-item"
-                key={`${item.year}-${index}`}
-                variants={cardIn}
-                whileHover={reduceMotion ? undefined : { x: 8 }}
-              >
-                <div className="about-timeline-year">
-                  <span>{item.year}</span>
-                  <small>{String(index + 1).padStart(2, '0')}</small>
-                </div>
-                <div className="about-timeline-copy">
-                  <p>{item.title}</p>
-                </div>
-              </motion.article>
-            ))}
           </motion.div>
         </Container>
       </RevealSection>

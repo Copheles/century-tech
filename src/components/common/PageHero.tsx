@@ -46,10 +46,6 @@ function PageHero({ title, image = '/main.jpg' }: PageHeroProps) {
               initial={reduceMotion ? false : 'hidden'}
               animate={reduceMotion ? undefined : 'show'}
             >
-              <motion.div className="home-hero-brand" variants={fadeUp}>
-                <span className="home-hero-brand-dot" aria-hidden="true" />
-                <span className="home-hero-brand-name">Century-Tech</span>
-              </motion.div>
               <motion.h1 className="home-hero-title" variants={fadeUp}>
                 {title}
               </motion.h1>

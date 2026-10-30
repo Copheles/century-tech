@@ -21,8 +21,8 @@ export const solutions: Solution[] = [
     slug: 'structured-cabling',
     title: 'Structured Cabling',
     description:
-      'Design, installation, testing, and certification of copper and fiber optic cabling that forms the backbone of your communication infrastructure.',
-    highlights: ['Copper cabling (Cat5e to Cat7)', 'Fiber optic cabling', 'Data center cabling'],
+      'End-to-end copper and fiber optic cabling solutions designed, installed, and certified to deliver high-speed, scalable connectivity for modern enterprise systems.',
+    highlights: ['Copper cabling (Cat6, Cat6A, Cat7 and higher)', 'Fiber optic cabling', 'Data center cabling'],
     image: '/solutions/structured-cabling.avif',
   },
   {
@@ -36,22 +36,27 @@ export const solutions: Solution[] = [
   },
   {
     id: 3,
-    slug: 'elv-system',
-    title: 'ELV System',
+    slug: 'elv-cabling',
+    title: 'ELV Cabling',
     description:
-      'Extra-low voltage systems that protect your people and premises, from surveillance to entry management, designed and maintained by certified engineers.',
-    highlights: ['CCTV System', 'Access Control System'],
+      'We provide ELV cabling infrastructure to support the installation and integration requirements of these systems.',
+    highlights: [
+      'CCTV and security system cabling',
+      'Access control system cabling',
+      'Intercom and communication cabling',
+      'Building technology and other ELV infrastructure',
+    ],
     image: '/solutions/elv-system.jpg',
     subSolutions: [
       {
         id: 'cctv-system',
-        title: 'CCTV System',
+        title: 'CCTV Cabling Infrastructure',
         description:
           'A reliable, flawless security solution designed to keep your business running at its best.',
       },
       {
         id: 'access-control-system',
-        title: 'Access Control System',
+        title: 'Access Control Cabling Infrastructure',
         description:
           'Secure entry management that controls who can access your premises, integrated with your wider security systems.',
         comingSoon: true,
@@ -92,17 +97,15 @@ export const structuredCablingDetail: StructuredCablingDetail = {
   title: 'Structured Cabling',
   heading: 'Delivering High-Performance Structured Cabling Solutions',
   intro: [
-    'Fast and reliable communication is a key success factor for businesses in this dynamic environment, and companies would have to do all they can to ensure their communication infrastructure is robust, capable of handling huge volume of data anytime of the day or night.',
     'At Century, we provide Structured Cabling System, the basis of almost of all voice, video and data communication needs. It provides organizations with a uniform and scalable platform for the interconnection of various enterprise level services.',
     "Our integrated local area cabling solution includes the provision of systems and services. We design the system and install it in accordance with client's requirements. We are also able to come up with cost competitive solutions that cater not only to the current but also future communication needs.",
   ],
-  servicesLead: 'Some of the services that we render are:',
+  servicesLead: 'Services that we render are:',
   services: [
     'Supply, installation and testing & commissioning of single mode and multi-mode fiber optic cable system for both indoor/outdoor environments',
-    'Supply, installation and testing & commissioning of Blown Fiber',
     'Splicing and termination of fiber optics cable system',
     'Testing using state-of-the-art equipment such as OTDR and Power Meter',
-    'Supply, installation, testing & commissioning of copper cabling solutions (i.e. CAT5E, CAT6, CAT6A and CAT7)',
+    'Supply, installation, testing & commissioning of copper cabling solutions (i.e. CAT6, CAT6A, CAT7 and more)',
   ],
   subSystems: {
     lead: 'Provision of full cable sub-systems such as:',
@@ -145,7 +148,6 @@ export const computerNetworkingDetail: ComputerNetworkingDetail = {
   title: 'Computer Networking',
   heading: 'Accelerating Enterprise and Consumer Connectivity',
   intro: [
-    "Broadband technology has ushered in a communication's revolution. By enabling voice, data and video-on-demand to be transmitted across the world at high speed, it has altered the way we live and work. A fully-evolved broadband will virtually eliminate geographical distances and reduce the time it takes to access information.",
     'With our computer networking capability, we can provide consumers and corporations quick access to the information superhighway. We have a wealth of experience in implementing cost effective and flexible networking solutions for customers. We are able to design, install and maintain all your office and enterprise communication and networks needs. Our network solutions seamlessly connect the desktop to the server, to your organization Intranet and the wide expanse of the Internet.',
   ],
   servicesLead: 'The solutions and services we provide include:',
@@ -153,11 +155,9 @@ export const computerNetworkingDetail: ComputerNetworkingDetail = {
     'WAN/LAN Network Design',
     'Server Solutions',
     'Networked Workstation Installation and Setup',
-    'Client/Desktop Support',
     'Wireless LAN Setup',
     'Setup of Corporate Networks',
     'Setup of Small Office/Home Office (SOHO) Networks',
-    'Networked Printer Installation/External Print Server Installation',
     'Switch Installation',
   ],
   heroVisual: {
@@ -185,31 +185,13 @@ export interface CctvDetail {
   heroVisual: MediaSlot
   servicesLead: string
   services: IconItem[]
-  whyInvest: {
-    heading: string
-    lead: string
-    benefits: IconItem[]
-  }
-  technology: {
-    heading: string
-    items: string[]
-    visual: MediaSlot
-  }
-  maintenance: {
-    heading: string
-    lead: string
-    packages: { title: string; text: string }[]
-    visual: MediaSlot
-  }
 }
 
 export const cctvDetail: CctvDetail = {
-  title: 'CCTV System',
-  heading: 'A reliable, flawless security solution designed to keep your business running at its best.',
+  title: 'CCTV Cabling Infrastructure',
+  heading: 'High-performance copper and fiber optic lines support High-Definition IP cameras, PTZ control, and Multi-Gigabit NVR data streams with minimal latency or frame loss.',
   intro: [
-    "In today's world, robust security systems are a necessity for every organization. Implementing the right system is the most reliable way to protect your business assets and ensure uninterrupted daily operations.",
-    'CCTV surveillance has become an essential security solution for schools, offices, hotels, shopping malls, banks, and government facilities. It serves as a vital tool for real-time monitoring and crime deterrence, allowing businesses and agencies to maintain safety and collect critical video evidence.',
-    'We specialize in deploying and maintaining medium- to enterprise-level CCTV systems. Our experienced engineers possess the field expertise to design and implement custom solutions that fit your budget, providing the flexibility to expand seamlessly as your business grows.',
+    'We specialize in designing, deploying, and maintaining medium- to enterprise-level CCTV cabling systems. Our experienced engineers possess the field expertise to design and implement custom copper and fiber optic cabling solutions that fit your budget, providing the reliability and flexibility to expand your surveillance network seamlessly as your business grows.',
   ],
   heroVisual: {
     id: 'cctv-hero',
@@ -224,90 +206,15 @@ export const cctvDetail: CctvDetail = {
     { icon: 'monitorCog', title: 'Maintenance Contract' },
     { icon: 'ethernet', title: 'Power over Ethernet' },
   ],
-  whyInvest: {
-    heading: 'Why Invest in CCTV System',
-    lead: 'CENTURY goes beyond standard cabling system design and implementation. We specialize in comprehensive integration services, delivering reliable, secure solutions designed to future-proof your business.',
-    benefits: [
-      {
-        icon: 'scanSearch',
-        title: 'Quality Evidence',
-        text: 'High-quality video evidence accelerates crime resolution and increases apprehension rates for both law enforcement and private security agencies.',
-      },
-      {
-        icon: 'handCoins',
-        title: 'Operational Costs',
-        text: 'Reduces overhead costs by identifying and resolving operational inefficiencies.',
-      },
-      {
-        icon: 'userX',
-        title: 'Reducing Exposure',
-        text: 'Acts as a powerful deterrent against dishonest behavior and misconduct.',
-      },
-      {
-        icon: 'monitorPlay',
-        title: 'Video Analytic',
-        text: 'Leverage advanced video analytics to optimize your operations by mapping traffic patterns, counting foot traffic, capturing license plates, and unlocking actionable insights.',
-      },
-    ],
-  },
-  technology: {
-    heading: 'We offer a wide range of CCTV technology to our customers to accommodate all types of requirements.',
-    items: [
-      'Analog and IP cameras (ranging 2MP to 8MP)',
-      'High-Definition Cameras',
-      'Cameras over Ethernet (PoE)',
-      'Dome and Bullet Cameras',
-      'Fixed, PTZ and Panoramic Cameras (360 degrees)',
-      'Indoor and Outdoor',
-      'Thermal Cameras (for monitoring in the dark)',
-      'On-site Monitoring Software',
-      'Video Analytics',
-    ],
-    visual: {
-      id: 'cctv-camera',
-      label: 'CCTV camera technology',
-      image: '/about/cctv1.jpg',
-      imageFit: 'contain',
-    },
-  },
-  maintenance: {
-    heading: 'Maintenance Packages',
-    lead: 'Our monthly maintenance packages are built to fit your budget and needs.',
-    packages: [
-      {
-        title: 'On-Site Survey & Optimization',
-        text: 'Ongoing site evaluations and design updates.',
-      },
-      {
-        title: 'Comprehensive Hardware Support',
-        text: 'Dedicated maintenance for both cameras and monitoring equipment.',
-      },
-      {
-        title: 'Smart Storage & Recording',
-        text: 'Expert configuration of video settings and hard disk drive (HDD) management.',
-      },
-      {
-        title: '24/7 Remote System Health Monitoring',
-        text: 'Tracking equipment performance remotely to fix issues before they cause downtime.',
-      },
-    ],
-    visual: {
-      id: 'cctv-maintenance',
-      label: 'CCTV maintenance support',
-      image: '/about/cctv2.webp',
-      imageFit: 'contain',
-    },
-  },
 }
 
 export interface AccessControlDetail {
   title: string
   heading: string
-  description: string
+  description: string[]
   servicesLead: string
   services: string[]
   heroVisual: MediaSlot
-  comingSoon: boolean
 }
 
 export interface ElvSystemDetail {
@@ -320,28 +227,30 @@ export interface ElvSystemDetail {
 }
 
 export const accessControlDetail: AccessControlDetail = {
-  title: 'Access Control System',
-  heading: 'Secure entry management integrated with your wider security systems.',
-  description:
-    'Our access control solutions help you manage who enters your premises, with options that integrate cleanly into your broader security and building systems.',
-  servicesLead: 'Planned access control services include:',
+  title: 'Access Control Cabling Infrastructure',
+  heading: 'Dedicated cabling architecture connects door controllers, biometric readers, request-to-exit (REX) devices, magnetic locks, and emergency break-glass units.',
+  description: [
+    'A reliable Access Control System relies on a structured and secure cabling backbone. Cabling for access control involves mixed signal types—including digital data feeds, low-voltage DC power transmission, supervised contact inputs, and high-current relay outputs.',
+    'Proper cable selection, routing, and termination ensure zero communication dropouts, accurate reader reads, and dependable fail-safe/fail-secure lock operation.',
+  ],
+  servicesLead: 'Access control services include:',
   services: [
-    'Card and biometric entry systems',
-    'Door controller installation and configuration',
-    'Integration with CCTV and alarm systems',
+    'End-to-End Field Wiring & Cable Deployment',
+    'Hardware Device Installation & Component Interconnection',
+    'Central Control Panel Terminations & Racks',
+    'Testing & Commissioning',
   ],
   heroVisual: {
     id: 'access-control-hero',
     label: 'Access control installation photo',
   },
-  comingSoon: true,
 }
 
 export const elvSystemDetail: ElvSystemDetail = {
   title: 'ELV System',
   heading: 'Extra-low voltage systems that protect your people and premises.',
   intro: [
-    'We design, install, and maintain extra-low voltage systems including CCTV surveillance and access control. Our certified engineers deliver integrated security solutions tailored to your environment.',
+    'Modern security infrastructure relies on a robust Extra-Low Voltage (ELV) cabling backbone. High-definition video surveillance and real-time access control require low-latency transmission, stable power delivery, and signal integrity across all endpoints.',
   ],
   heroVisual: {
     id: 'elv-hero',
@@ -355,5 +264,5 @@ export const elvSystemDetail: ElvSystemDetail = {
 export const solutionDetails: Record<string, SolutionDetailBundle> = {
   'structured-cabling': structuredCablingDetail,
   'computer-networking': computerNetworkingDetail,
-  'elv-system': elvSystemDetail,
+  'elv-cabling': elvSystemDetail,
 }

@@ -30,7 +30,7 @@ export const companyMapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComp
 )}&output=embed`
 
 export const whatsappNumber =
-  import.meta.env.VITE_WHATSAPP_NUMBER?.replace(/\D/g, '') || ''
+  import.meta.env.VITE_WHATSAPP_NUMBER?.replace(/\D/g, '') || '6596777322'
 
 export const whatsappUrl = whatsappNumber
   ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(

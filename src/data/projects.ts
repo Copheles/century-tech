@@ -342,7 +342,15 @@ export const projects: Project[] = [
     detail: [
       {
         title:
-          "Datwyler products were used in the project. There are 1600 of fibre optics termination nodes and 288 CAT 6 cable termination nodes. Also, it involves inter-rack cabling for both cables, where the inter-building fibre optic cabling goes as long as 6km.",
+          "Datwyler structured cabling solutions products were provided for the construction of the structured cabling systems and Inter-Rack Cabling.",
+      },
+      {
+        title: "Structured Cabling System",
+        detail: ["Fibre Optic (1600 nodes)", "CAT6 UTP (288 nodes)"],
+      },
+      {
+        title: "Inter-Rack Cabling",
+        detail: ["Fibre Optic (1600 nodes)", "CAT6 UTP (288 nodes)"],
       },
     ],
   },
@@ -352,16 +360,21 @@ export const projects: Project[] = [
     image: "/projects/westgate.jpg",
     detail: [
       {
-        title: "Supply and Installation of CAT6 UTP Structured Cabling System.",
+        title:
+          "AMP Netconnect structured cabling solutions products were provided for the construction of the structured cabling systems and ELV Cabling.",
       },
       {
-        title: "Supply and Installation of OM2 fiber optic backbone cabling.",
+        title: "Structured Cabling System",
+        detail: ["OM2 Fibre Optic (??km)", "CAT6 UTP (?? nodes)"],
       },
       {
-        title: "Installation of Public Address System, CCTV",
-      },
-      {
-        title: "Installation of Intrusion Detection and Access Control System",
+        title: "Cabling & Installation of ELV System",
+        detail: [
+          "CCTV",
+          "PA System",
+          "Intrusion Detection System",
+          "Access Control System",
+        ],
       },
     ],
   },
@@ -371,7 +384,15 @@ export const projects: Project[] = [
     image: "/projects/facebook-data-centre.jpg",
     detail: [
       {
-        title: "Supply and Installation of CAT6 UTP Structured Cabling System for BMS System.."
+        title:
+          "Panduit structured cabling solutions products were provided for BMS & EPMS Network Cabling project.",
+      },
+      {
+        title: "Structured Cabling System",
+        detail: [
+          "Phase-1, CAT6 UTP (1800 nodes)",
+          "Phase-2, CAT6 UTP (6000 nodes)",
+        ],
       },
     ]
   },

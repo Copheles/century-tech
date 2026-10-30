@@ -132,7 +132,7 @@ function Contact() {
                 const content = (
                   <>
                     <span className="contact-channel-icon" aria-hidden="true">
-                      <Icon size={18} strokeWidth={1.9} />
+                      <Icon size={28} strokeWidth={1.75} />
                     </span>
                     <span className="contact-channel-copy">
                       <small>{label}</small>

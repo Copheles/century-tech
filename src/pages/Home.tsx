@@ -1,4 +1,4 @@
-import { ArrowRight, Building2, CheckCircle2, Clock, GraduationCap, Image as ImageIcon, Network, ShieldCheck, Workflow } from 'lucide-react'
+import { ArrowRight, Building2, CheckCircle2, Clock, Image as ImageIcon } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import { useEffect, useState } from 'react'
@@ -10,35 +10,34 @@ import CountUp from '../components/common/CountUp'
 import PartnersCertificationSection from '../components/sections/PartnersCertificationSection'
 import ProjectDetailList from '../components/projects/ProjectDetailList'
 import { solutions } from '../data/solutions'
-import { projects } from '../data/projects'
+import { ongoingProjects, projects } from '../data/projects'
+import type { Project } from '../data/projects'
 
-const homeProjectIds = [11, 10, 9, 7, 5, 6]
-const homeProjects = homeProjectIds
-  .map((id) => projects.find((project) => project.id === id))
-  .filter((project): project is (typeof projects)[number] => Boolean(project))
-
-const whoWeAreStats = [
-  { icon: Building2, end: 1996, suffix: '', label: 'Founded in Singapore' },
-  { icon: Clock, end: 25, suffix: '+', label: 'Years of project experience' },
-  { icon: GraduationCap, end: 30, suffix: '+', label: 'School projects secured by 2001' },
+const homeProjectIds = [11, 10, 9, 7, 5]
+const iwmfProject = ongoingProjects.find((project) => project.title.includes('IWMF'))
+const homeProjects: Project[] = [
+  ...(iwmfProject
+    ? [
+        {
+          id: iwmfProject.id,
+          title: iwmfProject.title,
+          image: iwmfProject.image,
+          imageFit: iwmfProject.imageFit,
+          detail: [{ title: iwmfProject.detail }],
+        } satisfies Project,
+      ]
+    : []),
+  ...homeProjectIds
+    .map((id) => projects.find((project) => project.id === id))
+    .filter((project): project is Project => Boolean(project)),
 ]
 
-const values = [
-  {
-    icon: Network,
-    title: 'Connected by design',
-    text: 'Communication and technology choices are planned as one practical system.',
-  },
-  {
-    icon: Workflow,
-    title: 'Built around operations',
-    text: 'Solutions begin with the way your people, information, and workflows need to connect.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Ready for the long term',
-    text: 'Clear foundations make technology easier to maintain, support, and extend.',
-  },
+const foundedYear = 1996
+const yearsOfExperience = new Date().getFullYear() - foundedYear
+
+const whoWeAreStats = [
+  { icon: Building2, end: foundedYear, suffix: '', label: 'Founded in Singapore' },
+  { icon: Clock, end: yearsOfExperience, suffix: '', label: 'Years of project experience' },
 ]
 
 const expertServices = [
@@ -151,12 +150,8 @@ function Home() {
                 initial={reduceMotion ? false : 'hidden'}
                 animate={reduceMotion ? undefined : 'show'}
               >
-                <motion.div className="home-hero-brand" variants={fadeUp}>
-                  <span className="home-hero-brand-dot" aria-hidden="true" />
-                  <span className="home-hero-brand-name">Century-Tech</span>
-                </motion.div>
                 <motion.h1 className="home-hero-title" variants={fadeUp}>
-                  Structured Cabling &amp; ELV System
+                  Structured Cabling &amp; ELV Cabling
                 </motion.h1>
                 <motion.div className="hero-actions" variants={fadeUp}>
                   <Button to="/#core-solutions">
@@ -180,8 +175,7 @@ function Home() {
           >
             <motion.span className="eyebrow" variants={fadeUp}>Who we are</motion.span>
             <motion.p variants={fadeUp}>
-              Century Technology brings IT communications, digital solutions,
-              and infrastructure thinking together in one practical approach.
+              We engineer and deploy high-performance Structured Cabling and Extra-Low Voltage (ELV) Cabling for corporate, commercial, and industrial facilities. We provide the physical and intelligent infrastructure that keeps your business connected, secure, and future-ready.
             </motion.p>
           </motion.div>
           <motion.div
@@ -192,10 +186,10 @@ function Home() {
             viewport={viewportOnce}
           >
             <div className="who-we-are-stats">
-              {whoWeAreStats.map(({ icon: Icon, end, suffix, label }, index) => (
+              {whoWeAreStats.map(({ icon: Icon, end, suffix, label }) => (
                 <motion.article className="who-we-are-stat" key={label} variants={fadeUp}>
                   <span className="who-we-are-stat-icon" aria-hidden="true">
-                    <Icon size={24} strokeWidth={1.9} />
+                    <Icon size={42} strokeWidth={1.75} />
                   </span>
                   <CountUp
                     end={end}
@@ -203,7 +197,6 @@ function Home() {
                     className="who-we-are-stat-value"
                   />
                   <span className="who-we-are-stat-label">{label}</span>
-                  <small className="who-we-are-stat-index">0{index + 1}</small>
                 </motion.article>
               ))}
             </div>
@@ -223,7 +216,6 @@ function Home() {
               centered
               eyebrow="Core solutions"
               title="Our solutions."
-              description="Focused services for organisations that need clearer communication, stronger systems, and dependable foundations."
             />
           </motion.div>
           <div className="core-solutions-rows">
@@ -262,8 +254,11 @@ function Home() {
                   viewport={{ once: true, amount: 0.35 }}
                   transition={{ duration: 0.8, delay: photoOnLeft ? 0.16 : 0.06, ease: motionEase }}
                 >
-                  <span className="card-number">0{index + 1}</span>
-                  <h2>{solution.title}</h2>
+                  <h2>
+                    {solution.slug === 'structured-cabling'
+                      ? 'Structured Cabling Solutions'
+                      : solution.title}
+                  </h2>
                   <p>{solution.description}</p>
                   <motion.ul
                     className="check-list"
@@ -274,14 +269,14 @@ function Home() {
                   >
                     {solution.highlights.map((highlight) => (
                       <motion.li key={highlight} variants={fadeUpSoft}>
-                        <CheckCircle2 size={16} />
+                        <CheckCircle2 size={18} />
                         {highlight}
                       </motion.li>
                     ))}
                   </motion.ul>
                   {solution.slug ? (
-                    <Button to={`/solutions/${solution.slug}`} variant="secondary">
-                      View details <ArrowRight size={16} />
+                    <Button to={`/solutions/${solution.slug}`}>
+                      Learn more <ArrowRight size={16} />
                     </Button>
                   ) : null}
                 </motion.article>
@@ -310,38 +305,6 @@ function Home() {
         </Container>
       </RevealSection>
 
-      <RevealSection className="content-section section-tint value-section">
-        <Container>
-          <motion.div
-            initial={reduceMotion ? false : 'hidden'}
-            whileInView={reduceMotion ? undefined : 'show'}
-            viewport={viewportOnce}
-            variants={fadeUp}
-          >
-            <SectionTitle
-              centered
-              eyebrow="Why Century Technology"
-              title="A practical partner from planning to progress."
-            />
-          </motion.div>
-          <motion.div
-            className="value-grid"
-            variants={staggerContainer}
-            initial={reduceMotion ? false : 'hidden'}
-            whileInView={reduceMotion ? undefined : 'show'}
-            viewport={viewportOnce}
-          >
-            {values.map(({ icon: Icon, title, text }) => (
-              <motion.article className="value-card" key={title} variants={fadeUp}>
-                <span className="value-icon"><Icon size={34} strokeWidth={1.75} /></span>
-                <h2>{title}</h2>
-                <p>{text}</p>
-              </motion.article>
-            ))}
-          </motion.div>
-        </Container>
-      </RevealSection>
-
       <RevealSection className="content-section expert-section" initial={false} whileInView={undefined}>
         <Container>
           <motion.div
@@ -354,7 +317,7 @@ function Home() {
               centered
               eyebrow="Why Choose Us?"
               title="End-to-End ICT Infrastructure Solutions"
-              description="At Century Technology, we go beyond basic design and installation. We specialize in Structured Cabling and ELV integration services to future-proof your business operations."
+              description="At Century Technology, we go beyond basic design and installation. We specialize in Structured Cabling and ELV Cabling services to future-proof your business operations."
             />
           </motion.div>
           <div className="expert-grid">
@@ -442,17 +405,13 @@ function Home() {
       <RevealSection className="content-section section-tint home-projects-section">
         <Container>
           <motion.div
+            className="about-partner-heading"
             initial={reduceMotion ? false : 'hidden'}
             whileInView={reduceMotion ? undefined : 'show'}
             viewport={viewportOnce}
             variants={fadeUp}
           >
-            <SectionTitle
-              centered
-              eyebrow="Project References"
-              title="Selected engagements."
-              description="A preview of key structured cabling and ELV projects delivered by Century Technology."
-            />
+            <h2>Project References</h2>
           </motion.div>
           <motion.div
             className="home-projects-actions"
@@ -470,11 +429,8 @@ function Home() {
             whileInView={reduceMotion ? undefined : 'show'}
             viewport={viewportOnce}
           >
-            {homeProjects.map((project, index) => (
+            {homeProjects.map((project) => (
               <motion.article className="home-project-card" key={project.id} variants={fadeUp}>
-                <span className="home-project-index">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
                 <h2>{project.title}</h2>
                 <div
                   className={`home-project-media${
