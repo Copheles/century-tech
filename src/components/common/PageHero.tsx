@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
+import Breadcrumb from './Breadcrumb'
 import Container from './Container'
 
 const motionEase = [0.22, 1, 0.36, 1] as const
@@ -33,27 +34,30 @@ function PageHero({ title, image = '/main.jpg' }: PageHeroProps) {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section className="home-hero">
-      <div
-        className="home-hero-slide"
-        style={{ backgroundImage: `url(${image})` }}
-      >
-        <Container className="home-hero-content">
-          <div className="home-hero-copy">
-            <motion.div
-              className="home-hero-copy-card"
-              variants={staggerContainer}
-              initial={reduceMotion ? false : 'hidden'}
-              animate={reduceMotion ? undefined : 'show'}
-            >
-              <motion.h1 className="home-hero-title" variants={fadeUp}>
-                {title}
-              </motion.h1>
-            </motion.div>
-          </div>
-        </Container>
-      </div>
-    </section>
+    <>
+      <section className="home-hero">
+        <div
+          className="home-hero-slide"
+          style={{ backgroundImage: `url(${image})` }}
+        >
+          <Container className="home-hero-content">
+            <div className="home-hero-copy">
+              <motion.div
+                className="home-hero-copy-card"
+                variants={staggerContainer}
+                initial={reduceMotion ? false : 'hidden'}
+                animate={reduceMotion ? undefined : 'show'}
+              >
+                <motion.h1 className="home-hero-title" variants={fadeUp}>
+                  {title}
+                </motion.h1>
+              </motion.div>
+            </div>
+          </Container>
+        </div>
+      </section>
+      <Breadcrumb />
+    </>
   )
 }
 

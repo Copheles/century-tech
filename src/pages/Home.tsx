@@ -16,6 +16,9 @@ import type { Project } from '../data/projects'
 const homeProjectIds = [11, 10, 9, 7, 5]
 const iwmfProject = ongoingProjects.find((project) => project.title.includes('IWMF'))
 const homeProjects: Project[] = [
+  ...homeProjectIds
+    .map((id) => projects.find((project) => project.id === id))
+    .filter((project): project is Project => Boolean(project)),
   ...(iwmfProject
     ? [
         {
@@ -27,9 +30,6 @@ const homeProjects: Project[] = [
         } satisfies Project,
       ]
     : []),
-  ...homeProjectIds
-    .map((id) => projects.find((project) => project.id === id))
-    .filter((project): project is Project => Boolean(project)),
 ]
 
 const foundedYear = 1996

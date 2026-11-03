@@ -1,24 +1,22 @@
 import { useMemo } from 'react'
-import { useParams, Navigate, Link } from 'react-router-dom'
+import { useParams, Navigate } from 'react-router-dom'
 import {
-  ArrowLeft,
   Cable,
   Cctv,
   CheckCircle2,
   ClipboardList,
+  EthernetPort,
   IdCard,
   Image as ImageIcon,
   MonitorCog,
   Router,
   ShieldCheck,
-  EthernetPort,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import PageHero from '../components/common/PageHero'
 import Container from '../components/common/Container'
-import SectionTitle from '../components/common/SectionTitle'
 import RevealSection from '../components/common/RevealSection'
 import {
   solutionDetails,
@@ -30,7 +28,7 @@ import {
   type StructuredCablingDetail,
 } from '../data/solutions'
 
-const iconMap: Record<string, LucideIcon> = {
+const cctvIconMap: Record<string, LucideIcon> = {
   clipboard: ClipboardList,
   idCard: IdCard,
   shield: ShieldCheck,
@@ -121,7 +119,7 @@ function StructuredDetail({
 
   return (
     <>
-      <RevealSection className="content-section section-tint">
+      <RevealSection className="content-section section-tint structured-detail">
         <Container>
           <div className="cabling-overview">
             <div className="cabling-intro">
@@ -129,17 +127,13 @@ function StructuredDetail({
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <motion.div
-              className="cabling-hero-wrap"
-              animate={reduceMotion ? undefined : { y: [0, -9, 0] }}
-              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-            >
+            <div className="cabling-hero-wrap">
               <PhotoSlot
                 slot={detail.heroVisual}
                 icon={icon}
                 className="cabling-hero-visual"
               />
-            </motion.div>
+            </div>
           </div>
 
           <motion.div
@@ -151,7 +145,7 @@ function StructuredDetail({
           >
             <motion.h3 variants={riseIn}>{detail.servicesLead}</motion.h3>
             <motion.ul className="check-list" variants={staggerContainer}>
-              {detail.services.map((service) => (
+              {[...detail.services, ...detail.additionalServices].map((service) => (
                 <motion.li key={service} variants={riseIn}>
                   <CheckCircle2 size={17} />
                   {service}
@@ -168,14 +162,6 @@ function StructuredDetail({
                 ))}
               </motion.div>
             </motion.div>
-            <motion.ul className="check-list" variants={staggerContainer}>
-              {detail.additionalServices.map((service) => (
-                <motion.li key={service} variants={riseIn}>
-                  <CheckCircle2 size={17} />
-                  {service}
-                </motion.li>
-              ))}
-            </motion.ul>
           </motion.div>
 
           <motion.div
@@ -207,29 +193,25 @@ function NetworkingDetail({
   const reduceMotion = useReducedMotion()
 
   return (
-    <RevealSection className="content-section section-tint">
+    <RevealSection className="content-section section-tint structured-detail">
       <Container>
-        <div className="cabling-overview reverse">
-          <motion.div
-            className="cabling-hero-wrap"
-            animate={reduceMotion ? undefined : { y: [0, -9, 0] }}
-            transition={{ duration: 7.5, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
-          >
-            <PhotoSlot
-              slot={detail.heroVisual}
-              icon={icon}
-              className="cabling-hero-visual"
-            />
-          </motion.div>
+        <div className="cabling-overview">
           <div className="cabling-intro">
             {detail.intro.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
+          <div className="cabling-hero-wrap">
+            <PhotoSlot
+              slot={detail.heroVisual}
+              icon={icon}
+              className="cabling-hero-visual"
+            />
+          </div>
         </div>
 
         <motion.div
-          className="cabling-services network-services"
+          className="cabling-services"
           variants={staggerContainer}
           initial={reduceMotion ? false : 'hidden'}
           whileInView={reduceMotion ? undefined : 'show'}
@@ -264,146 +246,115 @@ function NetworkingDetail({
   )
 }
 
-function CctvServiceBadges({ detail }: { detail: CctvDetail }) {
+function CctvSection({ detail }: { detail: CctvDetail }) {
   const reduceMotion = useReducedMotion()
 
   return (
-    <RevealSection className="content-section section-tint">
-      <Container>
-        <div className="cctv-system-heading">
-          <SectionTitle
-            centered
-            eyebrow="CCTV Cabling Infrastructure"
-            title={detail.heading}
-          />
+    <div className="elv-block">
+      <div className="cabling-overview">
+        <div className="cabling-intro">
+          <span className="elv-kicker">{detail.title}</span>
+          <p>{detail.heading}</p>
+          {detail.intro.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
-        <div className="cabling-overview">
-          <div className="cabling-intro">
-            {detail.intro.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-          <motion.div
-            className="cabling-hero-wrap"
-            animate={reduceMotion ? undefined : { y: [0, -9, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
-          >
-            <PhotoSlot
-              slot={detail.heroVisual}
-              icon={Cctv}
-              className="cabling-hero-visual"
-            />
-          </motion.div>
+        <div className="cabling-hero-wrap">
+          <PhotoSlot slot={detail.heroVisual} icon={Cctv} className="cabling-hero-visual" />
         </div>
+      </div>
 
-        <motion.div
-          className="cctv-services-block"
-          variants={staggerContainer}
-          initial={reduceMotion ? false : 'hidden'}
-          whileInView={reduceMotion ? undefined : 'show'}
-          viewport={viewportOnce}
-        >
-          <motion.p className="cctv-services-lead" variants={riseIn}>
-            {detail.servicesLead}
-          </motion.p>
-          <motion.div className="cctv-service-row" variants={staggerContainer}>
-            {detail.services.map((service) => {
-              const Icon = iconMap[service.icon]
-              return (
-                <motion.div className="cctv-service" key={service.title} variants={cardIn}>
-                  <span className="cctv-service-badge">
-                    <Icon size={28} strokeWidth={1.7} />
-                  </span>
-                  <span className="cctv-service-label">{service.title}</span>
-                </motion.div>
-              )
-            })}
-          </motion.div>
+      <motion.div
+        className="elv-cctv-services"
+        variants={staggerContainer}
+        initial={reduceMotion ? false : 'hidden'}
+        whileInView={reduceMotion ? undefined : 'show'}
+        viewport={viewportOnce}
+      >
+        <motion.p className="elv-services-note" variants={riseIn}>
+          {detail.servicesLead}
+        </motion.p>
+        <motion.div className="cctv-service-row" variants={staggerContainer}>
+          {detail.services.map((service) => {
+            const Icon = cctvIconMap[service.icon] ?? CheckCircle2
+
+            return (
+              <motion.div className="cctv-service" key={service.title} variants={riseIn}>
+                <span className="cctv-service-badge">
+                  <Icon size={26} strokeWidth={1.7} aria-hidden="true" />
+                </span>
+                <span className="cctv-service-label">{service.title}</span>
+              </motion.div>
+            )
+          })}
         </motion.div>
-      </Container>
-    </RevealSection>
+      </motion.div>
+    </div>
   )
-}
-
-function CctvSections({ detail }: { detail: CctvDetail }) {
-  return <CctvServiceBadges detail={detail} />
 }
 
 function AccessControlSection({ detail }: { detail: ElvSystemDetail['accessControl'] }) {
   const reduceMotion = useReducedMotion()
 
   return (
-    <RevealSection className="content-section">
-      <Container>
-        <SectionTitle
-          eyebrow="Access Control Cabling Infrastructure"
-          title={detail.heading}
-        />
-        <div className="cabling-overview reverse">
-          <motion.div
-            className="cabling-hero-wrap"
-            animate={reduceMotion ? undefined : { y: [0, -9, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
-          >
-            <PhotoSlot
-              slot={detail.heroVisual}
-              icon={IdCard}
-              className="cabling-hero-visual"
-            />
-          </motion.div>
-          <div className="cabling-intro">
-            {detail.description.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
+    <div className="elv-block elv-split-reverse">
+      <div className="cabling-overview">
+        <div className="cabling-intro">
+          <span className="elv-kicker">{detail.title}</span>
+          <p>{detail.heading}</p>
+          {detail.description.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
+        <div className="cabling-hero-wrap">
+          <PhotoSlot slot={detail.heroVisual} icon={IdCard} className="cabling-hero-visual" />
+        </div>
+      </div>
 
-        <motion.div
-          className="cabling-services"
-          variants={staggerContainer}
-          initial={reduceMotion ? false : 'hidden'}
-          whileInView={reduceMotion ? undefined : 'show'}
-          viewport={viewportOnce}
-        >
-          <motion.h3 variants={riseIn}>{detail.servicesLead}</motion.h3>
-          <motion.ul className="check-list" variants={staggerContainer}>
-            {detail.services.map((service) => (
-              <motion.li key={service} variants={riseIn}>
-                <CheckCircle2 size={17} />
-                {service}
-              </motion.li>
-            ))}
-          </motion.ul>
-        </motion.div>
-      </Container>
-    </RevealSection>
+      <motion.div
+        className="cabling-services elv-access-services"
+        variants={staggerContainer}
+        initial={reduceMotion ? false : 'hidden'}
+        whileInView={reduceMotion ? undefined : 'show'}
+        viewport={viewportOnce}
+      >
+        <motion.h3 variants={riseIn}>{detail.servicesLead}</motion.h3>
+        <motion.ul className="check-list" variants={staggerContainer}>
+          {detail.services.map((service) => (
+            <motion.li key={service} variants={riseIn}>
+              <CheckCircle2 size={17} />
+              {service}
+            </motion.li>
+          ))}
+        </motion.ul>
+      </motion.div>
+    </div>
   )
 }
 
 function ElvSections({ detail }: { detail: ElvSystemDetail }) {
   return (
-    <>
-      <RevealSection className="content-section section-tint">
-        <Container>
-          <div className="cabling-overview">
-            <div className="cabling-intro">
-              {detail.intro.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
+    <RevealSection className="content-section section-tint structured-detail">
+      <Container>
+        <div className="elv-statement">
+          <div className="cabling-intro">
+            {detail.intro.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+          <div className="elv-banner">
             <PhotoSlot slot={detail.heroVisual} icon={Cctv} className="cabling-hero-visual" />
           </div>
-        </Container>
-      </RevealSection>
-      <CctvSections detail={detail.cctv} />
-      <AccessControlSection detail={detail.accessControl} />
-    </>
+        </div>
+        <CctvSection detail={detail.cctv} />
+        <AccessControlSection detail={detail.accessControl} />
+      </Container>
+    </RevealSection>
   )
 }
 
 function SolutionDetail() {
   const { slug } = useParams<{ slug: string }>()
-  const reduceMotion = useReducedMotion()
 
   const solution = useMemo(() => solutions.find((s) => s.slug === slug), [slug])
   const detail = useMemo(() => (slug ? solutionDetails[slug] : undefined), [slug])
@@ -425,22 +376,6 @@ function SolutionDetail() {
         title={slug === 'elv-cabling' ? 'ELV Cabling Solutions' : solution.title}
         image={solution.image}
       />
-
-      <RevealSection className="content-section solution-detail-back">
-        <Container>
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, x: -12 }}
-            whileInView={reduceMotion ? undefined : { opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
-          >
-            <Link className="solution-sub-link" to="/#core-solutions">
-              <ArrowLeft size={15} />
-              Back to home
-            </Link>
-          </motion.div>
-        </Container>
-      </RevealSection>
 
       {isStructuredDetail(detail) && <StructuredDetail detail={detail} icon={heroIcon} />}
       {isNetworkingDetail(detail) && <NetworkingDetail detail={detail} icon={heroIcon} />}

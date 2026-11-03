@@ -174,13 +174,12 @@ function Contact() {
               />
             </motion.div>
 
-            <div className="enquiry-card">
-              <motion.form
-                className="enquiry-form"
-                onSubmit={handleSubmit(onSubmit)}
-                noValidate
-                variants={staggerContainer}
-              >
+            <motion.form
+              className="enquiry-form"
+              onSubmit={handleSubmit(onSubmit)}
+              noValidate
+              variants={staggerContainer}
+            >
               <motion.div className="enquiry-field" variants={fadeUp}>
                 <label htmlFor="contact-name">
                   <User size={15} /> Your name
@@ -263,8 +262,7 @@ function Contact() {
                   Your message is only shared when you confirm it in WhatsApp.
                 </small>
               </motion.div>
-              </motion.form>
-            </div>
+            </motion.form>
           </motion.div>
         </Container>
       </RevealSection>

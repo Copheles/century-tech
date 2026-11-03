@@ -37,7 +37,7 @@ export const seoByPath: Record<string, SEOConfig> = {
   '/products': {
     title: 'Products | Century Tech',
     description:
-      'Structured cabling, networking, and ELV products supplied and installed by Century Technology.',
+      'Plan measuring wheels and the Scalex MapWheel supplied by Century Technology, including PlanWheel SA2 and PlanWheel XLU3.',
   },
   '/contact': {
     title: 'Contact Century Tech | Start Your Project',

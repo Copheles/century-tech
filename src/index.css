@@ -3238,6 +3238,233 @@ h3 {
   border-radius: 50%;
 }
 
+.products-page .section-title {
+  margin-bottom: 8px;
+}
+
+.product-list {
+  display: grid;
+}
+
+.product {
+  padding-block: clamp(48px, 7vw, 84px);
+}
+
+.product + .product {
+  border-top: 1px solid var(--color-border);
+}
+
+.product-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+.product-intro-reverse {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+
+.product-intro-reverse .product-photo-wrap {
+  order: 2;
+}
+
+.product-photo {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.product-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.product-photo.is-empty {
+  color: var(--color-muted);
+}
+
+.product-photo-empty {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.product-copy {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  min-width: 0;
+}
+
+.product-model {
+  margin: 0;
+  color: var(--color-primary);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.product-copy h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+.product-description,
+.product-pending {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--color-muted);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.product-specs {
+  margin-top: clamp(28px, 4vw, 40px);
+  padding-top: clamp(22px, 3vw, 28px);
+  border-top: 1px solid var(--color-border);
+}
+
+.product-specs-label {
+  margin: 0 0 16px;
+  color: var(--color-primary);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.product-spec-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.product-specs-toggle + div {
+  margin-top: 18px;
+}
+
+.product-spec-grid li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--color-ink);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.product-spec-grid svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--color-primary);
+}
+
+.product-specs-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 0;
+  color: var(--color-primary);
+  background: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.product-specs-toggle svg {
+  transition: transform 180ms ease;
+}
+
+.product-specs-toggle.is-open svg {
+  transform: rotate(180deg);
+}
+
+.product-price {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 8px 0 0;
+}
+
+.product-price-label {
+  color: var(--color-muted);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.product-price-value {
+  color: var(--color-ink);
+  font-family: "Manrope", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.product-actions .button {
+  box-shadow: none;
+}
+
+@media (max-width: 900px) {
+  .product {
+    padding-block: 40px;
+  }
+
+  .product-intro,
+  .product-intro-reverse {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .product-intro-reverse .product-photo-wrap {
+    order: 0;
+  }
+
+  .product-photo {
+    aspect-ratio: 4 / 3;
+  }
+
+  .product-spec-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .product-copy h2 {
+    font-size: 1.55rem;
+  }
+
+  .product-actions {
+    width: 100%;
+  }
+
+  .product-actions .button {
+    flex: 1 1 140px;
+    justify-content: center;
+  }
+}
+
 .home-project-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -3776,27 +4003,49 @@ h3 {
   text-transform: uppercase;
 }
 
+.page-breadcrumb {
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-white);
+}
+
+.page-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 16px 0;
+  list-style: none;
+}
+
+.page-breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.page-breadcrumb svg {
+  color: var(--color-muted);
+}
+
+.page-breadcrumb a {
+  color: var(--color-muted);
+}
+
+.page-breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.page-breadcrumb [aria-current='page'] {
+  color: var(--color-ink);
+}
+
 /* ===== Solution detail page ===== */
 .solution-detail-page {
   --detail-accent: var(--color-primary);
-}
-
-.solution-detail-back {
-  padding-bottom: 0;
-}
-
-.solution-detail-back a {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  color: var(--color-muted);
-  font-size: 0.88rem;
-  font-weight: 600;
-  transition: color 200ms ease;
-}
-
-.solution-detail-back a:hover {
-  color: var(--color-primary);
 }
 
 /* ===== Shared photo slots ===== */
@@ -3889,10 +4138,6 @@ h3 {
   gap: 14px;
 }
 
-.network-services .check-list {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
 .cabling-subsystems {
   display: grid;
   gap: 16px;
@@ -3956,6 +4201,189 @@ h3 {
 .cabling-gallery-item:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-5px);
+}
+
+.structured-detail .media-slot {
+  border: 0;
+  border-radius: 18px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.structured-detail {
+  padding-top: clamp(32px, 4vw, 52px);
+}
+
+.structured-detail .cabling-overview {
+  align-items: start;
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.78fr);
+  gap: clamp(28px, 4vw, 56px);
+}
+
+.structured-detail .cabling-intro {
+  gap: 22px;
+  max-width: 62ch;
+  padding-top: 6px;
+}
+
+.structured-detail .cabling-intro p:first-of-type {
+  color: var(--color-ink);
+  font-size: clamp(1.15rem, 1.7vw, 1.32rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.55;
+}
+
+.structured-detail .cabling-intro p:not(:first-of-type) {
+  color: var(--color-muted);
+  font-size: 1.02rem;
+  font-weight: 500;
+  line-height: 1.75;
+}
+
+.structured-detail .cabling-hero-visual {
+  min-height: 0;
+  aspect-ratio: 5 / 4;
+}
+
+.structured-detail .cabling-services {
+  grid-template-columns: 1fr;
+  row-gap: 22px;
+  max-width: none;
+  align-items: start;
+}
+
+.structured-detail .cabling-services h3 {
+  margin: 0;
+  font-size: clamp(1.55rem, 2.4vw, 2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.structured-detail .cabling-services > .check-list:first-of-type {
+  margin: 0;
+  padding: 0;
+}
+
+.structured-detail .cabling-subsystems {
+  grid-column: 1 / -1;
+  gap: 18px;
+  margin-top: 8px;
+  padding: 28px 0 4px;
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.structured-detail .cabling-subsystems h4 {
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.structured-detail .cabling-chip-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px 32px;
+}
+
+.structured-detail .cabling-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--color-ink);
+  background: transparent;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.structured-detail .cabling-chip::before {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  content: "";
+  background: var(--color-accent);
+}
+
+.structured-detail .cabling-chip:hover {
+  border: 0;
+  color: var(--color-primary);
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.structured-detail .cabling-gallery-item,
+.structured-detail .cabling-gallery-item:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.elv-block {
+  margin-top: clamp(56px, 8vw, 88px);
+  padding-top: clamp(36px, 5vw, 56px);
+  border-top: 1px solid var(--color-border);
+}
+
+.elv-kicker {
+  display: block;
+  margin: 0 0 12px;
+  color: var(--color-primary);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.elv-services-note {
+  max-width: 72ch;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 1.02rem;
+  font-weight: 500;
+  line-height: 1.75;
+}
+
+.elv-statement .cabling-intro {
+  max-width: 760px;
+}
+
+.elv-banner {
+  margin-top: clamp(28px, 4vw, 40px);
+}
+
+.elv-banner .cabling-hero-visual {
+  aspect-ratio: 21 / 8;
+  min-height: 220px;
+}
+
+.elv-split-reverse .cabling-overview {
+  grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.08fr);
+}
+
+.elv-split-reverse .cabling-hero-wrap {
+  order: -1;
+}
+
+.elv-cctv-services {
+  display: grid;
+  gap: 28px;
+  margin-top: clamp(32px, 4vw, 44px);
+}
+
+.elv-access-services .check-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 36px;
 }
 
 .cctv-system-heading .section-title {
@@ -4290,25 +4718,37 @@ h3 {
 
 .contact-split-reach .section-title .eyebrow,
 .contact-split-enquiry .section-title .eyebrow {
-  color: var(--color-accent);
+  color: var(--color-primary);
 }
 
 .contact-split-reach .section-title .eyebrow::before,
 .contact-split-enquiry .section-title .eyebrow::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
   background: var(--color-accent);
 }
 
 .contact-split-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
-  gap: clamp(40px, 6vw, 80px);
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  gap: 0;
   align-items: start;
+}
+
+.contact-split-reach {
+  padding-right: clamp(28px, 4vw, 64px);
+}
+
+.contact-split-enquiry {
+  padding-left: clamp(28px, 4vw, 64px);
+  border-left: 1px solid var(--color-border);
 }
 
 .contact-channels {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 0;
   text-align: left;
 }
 
@@ -4316,8 +4756,15 @@ h3 {
   display: flex;
   align-items: center;
   gap: 16px;
+  padding-block: 16px;
+  border-top: 1px solid var(--color-border);
   color: inherit;
   text-decoration: none;
+}
+
+.contact-channel:first-child {
+  padding-top: 4px;
+  border-top: 0;
 }
 
 a.contact-channel:hover .contact-channel-copy strong {
@@ -4353,13 +4800,6 @@ a.contact-channel:hover .contact-channel-copy strong {
   line-height: 1.45;
   overflow-wrap: anywhere;
   transition: color 180ms ease;
-}
-
-.enquiry-card {
-  padding: clamp(28px, 4vw, 40px);
-  border: 1px solid var(--color-border);
-  border-radius: 24px;
-  background: var(--color-surface);
 }
 
 .enquiry-form {
@@ -4402,9 +4842,7 @@ a.contact-channel:hover .contact-channel-copy strong {
   border-radius: 12px;
   color: var(--color-ink);
   background: var(--color-white);
-  transition:
-    border-color 180ms ease,
-    box-shadow 180ms ease;
+  transition: border-color 180ms ease;
 }
 
 .enquiry-field textarea {
@@ -4413,11 +4851,19 @@ a.contact-channel:hover .contact-channel-copy strong {
   line-height: 1.55;
 }
 
+.enquiry-field input::placeholder,
+.enquiry-field textarea::placeholder {
+  color: #8b93a7;
+}
+
 .enquiry-field input:focus,
 .enquiry-field textarea:focus {
   outline: 0;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(23, 71, 207, 0.08);
+}
+
+.enquiry-form-actions .button {
+  box-shadow: none;
 }
 
 .enquiry-field input[aria-invalid="true"],
@@ -4601,6 +5047,27 @@ a.contact-channel:hover .contact-channel-copy strong {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .structured-detail .cabling-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .structured-detail .cabling-intro {
+    max-width: none;
+    padding-top: 0;
+  }
+
+  .structured-detail .cabling-chip-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .elv-access-services .check-list {
+    grid-template-columns: 1fr;
+  }
+
+  .elv-banner .cabling-hero-visual {
+    aspect-ratio: 16 / 9;
+  }
+
   .cctv-service-row {
     gap: 14px 26px;
   }
@@ -4632,6 +5099,17 @@ a.contact-channel:hover .contact-channel-copy strong {
   .contact-split-layout {
     grid-template-columns: 1fr;
     gap: 48px;
+  }
+
+  .contact-split-reach,
+  .contact-split-enquiry {
+    padding: 0;
+  }
+
+  .contact-split-enquiry {
+    padding-top: 40px;
+    border-top: 1px solid var(--color-border);
+    border-left: 0;
   }
 
   .contact-channels {
@@ -5013,12 +5491,16 @@ a.contact-channel:hover .contact-channel-copy strong {
     grid-template-columns: 1fr;
   }
 
-  .network-services .check-list {
-    grid-template-columns: 1fr;
-  }
-
   .cabling-subsystems {
     padding: 20px;
+  }
+
+  .structured-detail .cabling-subsystems {
+    padding: 24px 0 4px;
+  }
+
+  .structured-detail .cabling-chip-row {
+    grid-template-columns: 1fr;
   }
 
   .cabling-hero-visual {
@@ -5048,11 +5530,6 @@ a.contact-channel:hover .contact-channel-copy strong {
 
   .statement-panel {
     padding: 32px 24px;
-  }
-
-  .enquiry-card {
-    padding: 22px 18px;
-    border-radius: 20px;
   }
 
   .enquiry-form {
