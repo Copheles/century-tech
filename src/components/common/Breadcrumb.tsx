@@ -40,15 +40,13 @@ function Breadcrumb() {
         <nav aria-label="Breadcrumb">
           <ol>
             {crumbs.map((crumb, index) => {
-              const current = index === crumbs.length - 1
-
               return (
                 <li key={`${crumb.label}-${index}`}>
                   {index > 0 ? <ChevronRight size={14} aria-hidden="true" /> : null}
-                  {current ? (
-                    <span aria-current="page">{crumb.label}</span>
-                  ) : (
+                  {crumb.to ? (
                     <Link to={crumb.to}>{crumb.label}</Link>
+                  ) : (
+                    <span aria-current="page">{crumb.label}</span>
                   )}
                 </li>
               )
