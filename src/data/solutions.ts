@@ -128,9 +128,21 @@ export const structuredCablingDetail: StructuredCablingDetail = {
     image: '/solutions/structured-cabling-solution.jpg',
   },
   gallery: [
-    { id: 'cabling-fiber', label: 'Fiber optic splicing photo' },
-    { id: 'cabling-rack', label: 'Server rack and patch panel photo' },
-    { id: 'cabling-testing', label: 'OTDR cable testing photo' },
+    {
+      id: 'cabling-fiber',
+      label: 'Fiber optic splicing photo',
+      image: '/structure_cabling/51486121-cf74-4b17-a43f-2ae6672b292f.jpg',
+    },
+    {
+      id: 'cabling-rack',
+      label: 'Server rack and patch panel photo',
+      image: '/structure_cabling/c8f27c2c-75cd-407a-bd23-a8409e7bcb32.jpg',
+    },
+    {
+      id: 'cabling-testing',
+      label: 'OTDR cable testing photo',
+      image: '/structure_cabling/65f881c2-7f71-4718-a662-20a0841e6bb0.jpg',
+    },
   ],
 }
 
@@ -166,9 +178,21 @@ export const computerNetworkingDetail: ComputerNetworkingDetail = {
     image: '/solutions/computer-networking-solution.jpg',
   },
   gallery: [
-    { id: 'networking-server', label: 'Server room photo' },
-    { id: 'networking-wireless', label: 'Wireless LAN setup photo' },
-    { id: 'networking-switch', label: 'Network switch installation photo' },
+    {
+      id: 'networking-server',
+      label: 'Server room photo',
+      image: '/computer_networking/a022af31-018c-466e-bcf4-04c75d88ada6.jpg',
+    },
+    {
+      id: 'networking-wireless',
+      label: 'Wireless LAN setup photo',
+      image: '/computer_networking/bc53afad-149c-4dd2-b49f-78475bc34149.jpg',
+    },
+    {
+      id: 'networking-switch',
+      label: 'Network switch installation photo',
+      image: '/computer_networking/15b8b365-47d2-459e-ac00-54b130ba52cd.jpg',
+    },
   ],
 }
 
@@ -196,6 +220,7 @@ export const cctvDetail: CctvDetail = {
   heroVisual: {
     id: 'cctv-hero',
     label: 'CCTV installation photo',
+    image: '/elv-cabling/cctv-installation.jpg',
   },
   servicesLead:
     'Optimize your network infrastructure with CENTURY. We deliver end-to-end support, including RF site surveys, custom network design, expert installation, performance optimization, and reliable annual maintenance contracts.',
@@ -243,6 +268,7 @@ export const accessControlDetail: AccessControlDetail = {
   heroVisual: {
     id: 'access-control-hero',
     label: 'Access control installation photo',
+    image: '/elv-cabling/access-control-installation.jpg',
   },
 }
 

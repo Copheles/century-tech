@@ -38,7 +38,7 @@ export const products: Product[] = [
       'Plus / minus mode lets you roll backwards to deduct an over-rolled measurement',
       'Weight 0.40 lbs, dimensions 6 x 4 x 2 in',
     ],
-    image: '/products/plan-measuring-wheel.jpg',
+    image: '/products/sa.jpg',
     imageAlt: 'PlanWheel SA2 plan measuring wheel',
   },
   {
@@ -63,7 +63,7 @@ export const products: Product[] = [
       'Plus / minus mode lets you roll backwards to deduct an over-rolled measurement',
       'Weight 0.40 lbs, dimensions 6 x 4 x 2 in',
     ],
-    image: '/products/planwheel-xlu3.jpg',
+    image: '/products/xlu.jpg',
     imageAlt: 'Scalex PlanWheel XLU3 plan measuring wheel',
   },
   {
@@ -87,8 +87,23 @@ export const products: Product[] = [
       'Low battery indicator',
       'Weight 0.40 lbs, dimensions 6 x 4 x 2 in',
     ],
-    image: '/products/scalex-mapwheel.jpg',
+    image: '/products/mapwheel.jpg',
     imageAlt: 'Scalex MapWheel map measuring wheel',
+  },
+  {
+    id: 'protective-case',
+    title: 'Protective Case',
+    description:
+      'Specially designed for all models of the PlanWheel and MapWheel digital measuring tools. Made of high impact ABS, this rugged case provides the protection required on the job. With a hot-stamped Scalex legend and flocktex interior, the case can also hold an extra set of batteries.',
+    highlights: [
+      'Fits all PlanWheel and MapWheel digital measuring tools',
+      'High-impact ABS construction for job-site protection',
+      'Hot-stamped Scalex legend and flocktex interior',
+      'Holds an extra set of batteries',
+    ],
+    features: ['Weight 0.40 lbs, dimensions 6 x 4 x 2 in'],
+    image: '/products/protective-case.jpg',
+    imageAlt: 'Scalex protective case for PlanWheel and MapWheel',
   },
 ]
 

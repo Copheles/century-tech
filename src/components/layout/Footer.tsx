@@ -16,7 +16,7 @@ function Footer() {
           <div className="footer-brand-col">
             <Brand className="footer-brand" location="footer" />
             <p className="footer-copy">
-              Practical IT communications and technology solutions built around
+              Smart IT communications and technology solutions built around
               the way your organisation works.
             </p>
           </div>
