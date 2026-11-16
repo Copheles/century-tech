@@ -2886,37 +2886,31 @@ h3 {
 }
 
 .about-certification-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: clamp(16px, 3vw, 28px);
-  max-width: 920px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 3vw, 32px);
+  max-width: min(100%, 52rem);
   margin-inline: auto;
-  align-items: stretch;
+  align-items: center;
+  justify-items: center;
 }
 
 .about-certification-badge {
   display: grid;
-  flex: 0 1 clamp(140px, 22vw, 200px);
-  min-height: 148px;
+  width: 100%;
+  max-width: clamp(9.5rem, 22vw, 14rem);
   place-items: center;
-  padding: 18px 14px;
+  padding: 0;
   border: none;
-  border-radius: 16px;
-  background: var(--color-white);
-  box-shadow: 0 12px 28px rgba(17, 27, 63, 0.06);
-  transition: box-shadow 220ms ease;
-}
-
-.about-certification-badge:hover {
-  box-shadow: 0 16px 34px rgba(17, 27, 63, 0.1);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .about-certification-image {
   display: block;
-  width: 100%;
-  max-width: 128px;
-  height: 104px;
+  width: min(100%, clamp(8.25rem, 17vw, 9.85rem));
+  height: clamp(6.75rem, 14.5vw, 8.25rem);
   object-fit: contain;
 }
 
@@ -5049,14 +5043,6 @@ a.contact-channel:hover .contact-channel-copy strong {
   }
 
 
-  .about-certification-grid {
-    max-width: min(100%, 640px);
-  }
-
-  .about-certification-badge {
-    flex-basis: clamp(130px, 28vw, 180px);
-  }
-
   .cabling-overview,
   .cabling-overview.reverse {
     grid-template-columns: 1fr;
@@ -5451,22 +5437,9 @@ a.contact-channel:hover .contact-channel-copy strong {
   }
 
   .about-certification-grid {
-    flex-direction: column;
-    align-items: center;
-    max-width: 100%;
-    gap: 16px;
-  }
-
-  .about-certification-badge {
-    flex: 0 1 auto;
-    width: min(100%, 240px);
-    min-height: 132px;
-    padding: 14px 12px;
-  }
-
-  .about-certification-image {
-    max-width: 112px;
-    height: 92px;
+    grid-template-columns: 1fr;
+    max-width: 17.5rem;
+    gap: 20px;
   }
 
   .about-timeline {

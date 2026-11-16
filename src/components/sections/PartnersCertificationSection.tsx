@@ -213,8 +213,6 @@ function PartnersCertificationSection() {
               className="about-certification-badge"
               key={`${credential.name}-${credential.label}`}
               variants={fadeUp}
-              whileHover={reduceMotion ? undefined : { y: -7, scale: 1.03 }}
-              transition={{ type: 'spring', stiffness: 240, damping: 22 }}
             >
               <img
                 className="about-certification-image"
