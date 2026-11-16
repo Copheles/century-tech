@@ -44,11 +44,6 @@ export const certificationHighlights: CertificationHighlight[] = [
     image: '/certifications/bicsi-corporate-member-profeessional-membership.webp',
   },
   {
-    name: 'APC',
-    label: 'Elite Partner by Schneider Electric',
-    image: '/certifications/apc-elite-partner-by-schneider-electric.png',
-  },
-  {
     name: 'CDCP',
     label: 'Certified Data Centre Professional',
     image: '/certifications/cdcp.png',

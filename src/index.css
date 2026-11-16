@@ -1628,11 +1628,11 @@ h3 {
   background:
     linear-gradient(
       90deg,
-      rgba(7, 14, 35, 0.82) 0%,
-      rgba(7, 14, 35, 0.62) 44%,
-      rgba(7, 14, 35, 0.22) 100%
+      rgba(7, 14, 35, 0.58) 0%,
+      rgba(7, 14, 35, 0.42) 44%,
+      rgba(7, 14, 35, 0.12) 100%
     ),
-    linear-gradient(180deg, rgba(7, 14, 35, 0.12), rgba(7, 14, 35, 0.62));
+    linear-gradient(180deg, rgba(7, 14, 35, 0.06), rgba(7, 14, 35, 0.38));
 }
 
 .home-hero-slide::after {
@@ -1640,7 +1640,7 @@ h3 {
   inset: auto 0 0;
   height: 38%;
   content: "";
-  background: linear-gradient(180deg, transparent, rgba(7, 14, 35, 0.38));
+  background: linear-gradient(180deg, transparent, rgba(7, 14, 35, 0.22));
   pointer-events: none;
 }
 
@@ -2886,17 +2886,18 @@ h3 {
 }
 
 .about-certification-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: clamp(16px, 3vw, 28px);
   max-width: 920px;
   margin-inline: auto;
   align-items: stretch;
-  justify-content: center;
 }
 
 .about-certification-badge {
   display: grid;
+  flex: 0 1 clamp(140px, 22vw, 200px);
   min-height: 148px;
   place-items: center;
   padding: 18px 14px;
@@ -5046,10 +5047,13 @@ a.contact-channel:hover .contact-channel-copy strong {
     min-height: 460px;
   }
 
-  
+
   .about-certification-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: 520px;
+    max-width: min(100%, 640px);
+  }
+
+  .about-certification-badge {
+    flex-basis: clamp(130px, 28vw, 180px);
   }
 
   .cabling-overview,
@@ -5178,11 +5182,11 @@ a.contact-channel:hover .contact-channel-copy strong {
     background:
       linear-gradient(
         180deg,
-        rgba(7, 14, 35, 0.22) 0%,
-        rgba(7, 14, 35, 0.62) 46%,
-        rgba(7, 14, 35, 0.9) 100%
+        rgba(7, 14, 35, 0.14) 0%,
+        rgba(7, 14, 35, 0.42) 46%,
+        rgba(7, 14, 35, 0.65) 100%
       ),
-      linear-gradient(90deg, rgba(7, 14, 35, 0.66), rgba(7, 14, 35, 0.22));
+      linear-gradient(90deg, rgba(7, 14, 35, 0.45), rgba(7, 14, 35, 0.14));
   }
 
   .home-hero-copy {
@@ -5446,12 +5450,15 @@ a.contact-channel:hover .contact-channel-copy strong {
   }
 
   .about-certification-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: 420px;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
     gap: 16px;
   }
 
   .about-certification-badge {
+    flex: 0 1 auto;
+    width: min(100%, 240px);
     min-height: 132px;
     padding: 14px 12px;
   }
