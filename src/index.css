@@ -4885,6 +4885,29 @@ a.contact-channel:hover .contact-channel-copy strong {
   line-height: 1.5;
 }
 
+.enquiry-form-feedback {
+  margin: 0;
+  max-width: 420px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.enquiry-form-feedback a {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.enquiry-form-feedback--success {
+  color: #0d7a4a;
+}
+
+.enquiry-form-feedback--error {
+  color: #b42318;
+}
+
 .enquiry-form-actions .button:disabled {
   cursor: not-allowed;
   opacity: 0.55;

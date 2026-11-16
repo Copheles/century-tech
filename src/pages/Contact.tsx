@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
@@ -16,12 +17,11 @@ import Container from '../components/common/Container'
 import SectionTitle from '../components/common/SectionTitle'
 import RevealSection from '../components/common/RevealSection'
 import FaqSection from '../components/sections/FaqSection'
+import { company, companyMapEmbedUrl, companyMapUrl } from '../data/company'
 import {
-  company,
-  companyMapEmbedUrl,
-  companyMapUrl,
-  whatsappNumber,
-} from '../data/company'
+  isContactFormConfigured,
+  submitContactEnquiry,
+} from '../lib/submitContactEnquiry'
 
 interface EnquiryFormValues {
   name: string
@@ -80,30 +80,29 @@ const contactChannels = [
 
 function Contact() {
   const reduceMotion = useReducedMotion()
+  const formConfigured = isContactFormConfigured()
+  const [submitState, setSubmitState] = useState<'idle' | 'submitting' | 'success' | 'error'>(
+    'idle',
+  )
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<EnquiryFormValues>()
 
-  const onSubmit: SubmitHandler<EnquiryFormValues> = (values) => {
-    if (!whatsappNumber) return
+  const onSubmit: SubmitHandler<EnquiryFormValues> = async (values) => {
+    if (!formConfigured || submitState === 'submitting') return
 
-    const enquiry = [
-      `Hello ${company.name}, I would like to make an enquiry.`,
-      '',
-      `Name: ${values.name}`,
-      `Company: ${values.company || 'Not provided'}`,
-      `Telephone: ${values.telephone}`,
-      '',
-      `Message: ${values.message}`,
-    ].join('\n')
+    setSubmitState('submitting')
 
-    window.open(
-      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(enquiry)}`,
-      '_blank',
-      'noopener,noreferrer',
-    )
+    try {
+      await submitContactEnquiry(values)
+      reset()
+      setSubmitState('success')
+    } catch {
+      setSubmitState('error')
+    }
   }
 
   return (
@@ -170,7 +169,7 @@ function Contact() {
               <SectionTitle
                 eyebrow="Send an enquiry"
                 title="Tell us what you need."
-                description="Share a few details and we will prepare them as a WhatsApp message so you can contact our team directly."
+                description="Share a few details and our team will follow up by email."
               />
             </motion.div>
 
@@ -251,16 +250,32 @@ function Contact() {
               </motion.div>
 
               <motion.div className="enquiry-form-actions enquiry-field-full" variants={fadeUp}>
+                {submitState === 'success' ? (
+                  <p className="enquiry-form-feedback enquiry-form-feedback--success" role="status">
+                    Thank you. We received your enquiry and will contact you soon.
+                  </p>
+                ) : null}
+                {submitState === 'error' ? (
+                  <p className="enquiry-form-feedback enquiry-form-feedback--error" role="alert">
+                    We could not send your enquiry. Please try again or email{' '}
+                    <a href={company.emails.sales.href}>{company.emails.sales.address}</a>.
+                  </p>
+                ) : null}
+                {!formConfigured ? (
+                  <p className="enquiry-form-feedback enquiry-form-feedback--error" role="alert">
+                    The enquiry form is not configured yet. Please email{' '}
+                    <a href={company.emails.sales.href}>{company.emails.sales.address}</a>.
+                  </p>
+                ) : null}
                 <button
                   className="button button-primary"
                   type="submit"
-                  disabled={!whatsappNumber}
+                  disabled={!formConfigured || submitState === 'submitting'}
                 >
-                  Continue on WhatsApp <Send size={17} />
+                  {submitState === 'submitting' ? 'Sending…' : 'Send enquiry'}{' '}
+                  <Send size={17} aria-hidden="true" />
                 </button>
-                <small>
-                  Your message is only shared when you confirm it in WhatsApp.
-                </small>
+                <small>Your enquiry is sent to our sales team by email.</small>
               </motion.div>
             </motion.form>
           </motion.div>

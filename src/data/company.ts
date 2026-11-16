@@ -32,8 +32,27 @@ export const companyMapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComp
 export const whatsappNumber =
   import.meta.env.VITE_WHATSAPP_NUMBER?.replace(/\D/g, '') || '6596777322'
 
-export const whatsappUrl = whatsappNumber
-  ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-      `Hello ${company.name}, I would like to learn more about your solutions.`,
-    )}`
-  : ''
+const defaultWhatsAppMessage = `Hello ${company.name}, I would like to learn more about your solutions.`
+
+function isMobileDevice() {
+  if (typeof navigator === 'undefined') return false
+
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent,
+  )
+}
+
+/** Mobile opens the app via wa.me; desktop opens WhatsApp Web and skips the api.whatsapp.com landing page. */
+export function getWhatsAppSendUrl(message: string = defaultWhatsAppMessage) {
+  if (!whatsappNumber) return ''
+
+  const text = encodeURIComponent(message)
+
+  if (isMobileDevice()) {
+    return `https://wa.me/${whatsappNumber}?text=${text}`
+  }
+
+  return `https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${text}`
+}
+
+export const whatsappUrl = getWhatsAppSendUrl(defaultWhatsAppMessage)

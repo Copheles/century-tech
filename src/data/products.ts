@@ -1,4 +1,4 @@
-import { company, whatsappNumber } from './company'
+import { company, getWhatsAppSendUrl } from './company'
 
 export interface Product {
   id: string
@@ -108,9 +108,7 @@ export const products: Product[] = [
 ]
 
 export function productWhatsAppUrl(productName: string) {
-  if (!whatsappNumber) return ''
-
-  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+  return getWhatsAppSendUrl(
     `Hello ${company.name}, I would like to enquire about the ${productName}.`,
-  )}`
+  )
 }
