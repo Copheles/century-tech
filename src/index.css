@@ -4356,7 +4356,8 @@ h3 {
 }
 
 .elv-statement .cabling-intro {
-  max-width: 760px;
+  max-width: none;
+  width: 100%;
 }
 
 .elv-banner {
