@@ -195,7 +195,7 @@ function NetworkingDetail({
   return (
     <RevealSection className="content-section section-tint structured-detail">
       <Container>
-        <div className="cabling-overview">
+        <div className="cabling-overview reverse">
           <div className="cabling-intro">
             {detail.intro.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
@@ -343,7 +343,9 @@ function ElvSections({ detail }: { detail: ElvSystemDetail }) {
             ))}
           </div>
           <div className="elv-banner">
-            <PhotoSlot slot={detail.heroVisual} icon={Cctv} className="cabling-hero-visual" />
+            <div className="cabling-hero-wrap">
+              <PhotoSlot slot={detail.heroVisual} icon={Cctv} className="cabling-hero-visual" />
+            </div>
           </div>
         </div>
         <CctvSection detail={detail.cctv} />
