@@ -1,3 +1,5 @@
+import emailjs from '@emailjs/browser'
+
 export interface ContactEnquiryPayload {
   name: string
   company: string
@@ -5,40 +7,42 @@ export interface ContactEnquiryPayload {
   message: string
 }
 
-const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit'
+function getEmailJsConfig() {
+  return {
+    serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID?.trim() ?? '',
+    templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID?.trim() ?? '',
+    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY?.trim() ?? '',
+  }
+}
 
 export function isContactFormConfigured() {
-  return Boolean(import.meta.env.VITE_WEB3FORMS_ACCESS_KEY?.trim())
+  const { serviceId, templateId, publicKey } = getEmailJsConfig()
+
+  return Boolean(serviceId && templateId && publicKey)
 }
 
 export async function submitContactEnquiry(values: ContactEnquiryPayload) {
-  const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY?.trim()
+  const { serviceId, templateId, publicKey } = getEmailJsConfig()
 
-  if (!accessKey) {
+  if (!serviceId || !templateId || !publicKey) {
     throw new Error('CONTACT_NOT_CONFIGURED')
   }
 
-  const response = await fetch(WEB3FORMS_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    body: JSON.stringify({
-      access_key: accessKey,
+  const result = await emailjs.send(
+    serviceId,
+    templateId,
+    {
       subject: `Website enquiry from ${values.name}`,
       name: values.name,
       company: values.company.trim() || 'Not provided',
       telephone: values.telephone,
       message: values.message,
-      botcheck: '',
-    }),
-  })
+    },
+    { publicKey },
+  )
 
-  const result = (await response.json()) as { success?: boolean; message?: string }
-
-  if (!response.ok || !result.success) {
-    throw new Error(result.message || 'SUBMIT_FAILED')
+  if (result.status !== 200) {
+    throw new Error('SUBMIT_FAILED')
   }
 
   return result
