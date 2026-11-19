@@ -41,95 +41,64 @@ export const ongoingProjects: OngoingProject[] = [
     image: "/projects/ongoing/integrated-waste-managment-facility-iwmf.jpg",
   },
   {
-    id: 2,
-    title: "EMC Data Center @ SGX, AY & LB (Singapore)",
-    detail:
-      "Implemented for network migration that including structured cabling, switches and server installation with network racks.",
-    image: "/projects/ongoing/sgx-group.png",
-  },
-  {
     id: 3,
-    title: "Thomson East Coast Line @ MRT 5 Stations (Singapore)",
+    title: "Thomson East Coast Line MRT Stations (Singapore)",
     detail:
       "Implemented Access Management System that included cabling, control panel installation, containment installation, other accessories installation, cable termination, testing and commissioning.",
     image: "/projects/ongoing/thomson-east-coast-line.jpg",
   },
   {
     id: 4,
-    title: "Nanhua Primary School (Singapore)",
-    detail: "Implemented over 1000 (Cat 6, Cat 6A & Fiber) structured cabling.",
-    image: "/projects/ongoing/nanhua-primary-school.png",
+    title: "Singapore Civil Defence Force",
+    detail:
+      "Structured cabling, fibre optic, and ELV infrastructure for operational and administrative facilities.",
+    image: "/projects/Singapore Civil Defence Force.jpg",
     imageFit: "contain",
   },
   {
     id: 5,
-    title: "Huamin Primary School (Singapore)",
-    detail: "Implemented over 1000 (Cat 6, Cat 6A & Fiber) structured cabling.",
-    image: "/projects/ongoing/huamin-primary-school.jpg",
+    title: "SingHealth Polyclinics - Tampines North",
+    detail:
+      "Structured cabling and network infrastructure for healthcare polyclinic facilities.",
+    image: "/projects/SingHealth Polyclinics - Tampines North.jpg",
     imageFit: "contain",
   },
   {
     id: 6,
-    title: "Naval Based Primary School (Singapore)",
-    detail: "Implemented over 1000 (Cat 6, Cat 6A & Fiber) structured cabling.",
-    image: "/projects/ongoing/naval-based-primary-school.jpg",
+    title: "TTSH Integrated Care Hub (TTSH ICH)",
+    detail:
+      "Structured cabling, fibre, and ELV systems for integrated care hub infrastructure.",
+    image: "/projects/TTSH Integrated Care Hub (TTSH ICH).jpg",
     imageFit: "contain",
   },
   {
     id: 7,
-    title: "Tampines Primary School (Singapore)",
-    detail: "Implemented over 1000 (Cat 6, Cat 6A & Fiber) structured cabling.",
-    image: "/projects/ongoing/tampines-primary-school.png",
+    title: "BW Group",
+    detail:
+      "Structured cabling and network infrastructure for commercial office environments.",
+    image: "/projects/BW Group.jpg",
     imageFit: "contain",
   },
   {
     id: 8,
-    title: "Punggol School Site 26 (Singapore)",
-    detail: "Implemented over 1500 (Cat 6, Cat 6A & Fiber) structured cabling.",
-    image: "/projects/ongoing/punggol-school-site-26.jpg",
+    title: "Dulwich Colleague Singapore",
+    detail:
+      "Structured cabling (Cat 6, Cat 6A & fibre) for education campus facilities.",
+    image: "/projects/Dulwich Colleague Singapore.jpg",
     imageFit: "contain",
   },
   {
     id: 9,
-    title: "OSM Maritime Office (Singapore)",
-    detail: "Implemented over 300 (Cat 6 & Cat 6A) structured cabling.",
-    image: "/projects/ongoing/osm-maritime-office.png",
+    title: "Singpore American School (SAS)",
+    detail:
+      "Structured cabling (Cat 6, Cat 6A & fibre) for international school facilities.",
+    image: "/projects/Singpore American School (SAS).jpg",
     imageFit: "contain",
   },
 ];
 
 /** Logo set shown in the Project Reference marquee (also appears in Ongoing / Selected grids). */
 export const projectReferences: ProjectReference[] = [
-  {
-    id: 1,
-    title: "Nanhua Primary School (Singapore)",
-    image: "/projects/ongoing/nanhua-primary-school.png",
-  },
-  {
-    id: 2,
-    title: "Huamin Primary School (Singapore)",
-    image: "/projects/ongoing/huamin-primary-school.jpg",
-  },
-  {
-    id: 3,
-    title: "Naval Based Primary School (Singapore)",
-    image: "/projects/ongoing/naval-based-primary-school.jpg",
-  },
-  {
-    id: 4,
-    title: "Tampines Primary School (Singapore)",
-    image: "/projects/ongoing/tampines-primary-school.png",
-  },
-  {
-    id: 5,
-    title: "Punggol School Site 26 (Singapore)",
-    image: "/projects/ongoing/punggol-school-site-26.jpg",
-  },
-  {
-    id: 6,
-    title: "OSM Maritime Office (Singapore)",
-    image: "/projects/ongoing/osm-maritime-office.png",
-  },
   {
     id: 7,
     title: "HSBC Bank (Mapletree Business City)",
@@ -346,11 +315,11 @@ export const projects: Project[] = [
       },
       {
         title: "Structured Cabling System",
-        detail: ["Fibre Optic (1600 nodes)", "CAT6 UTP (288 nodes)"],
+        detail: ["Fibre Optic (1600 nodes)", "CAT6 UTP"],
       },
       {
         title: "Inter-Rack Cabling",
-        detail: ["Fibre Optic (1600 nodes)", "CAT6 UTP (288 nodes)"],
+        detail: ["Fibre Optic (1600 nodes)", "CAT6 UTP"],
       },
     ],
   },
@@ -365,7 +334,7 @@ export const projects: Project[] = [
       },
       {
         title: "Structured Cabling System",
-        detail: ["OM2 Fibre Optic (??km)", "CAT6 UTP (?? nodes)"],
+        detail: ["OM2 Fibre Optic", "CAT6 UTP"],
       },
       {
         title: "Cabling & Installation of ELV System",
@@ -380,7 +349,7 @@ export const projects: Project[] = [
   },
   {
     id: 11,
-    title: "Facebook Data Centre",
+    title: "Meta Data Centre",
     image: "/projects/facebook-data-centre.jpg",
     detail: [
       {

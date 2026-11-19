@@ -2885,32 +2885,25 @@ h3 {
   );
 }
 
-.about-certification-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(16px, 3vw, 32px);
-  max-width: min(100%, 52rem);
-  margin-inline: auto;
+.about-certification-feature {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-items: center;
-}
-
-.about-certification-badge {
-  display: grid;
+  justify-content: center;
   width: 100%;
-  max-width: clamp(9.5rem, 22vw, 14rem);
-  place-items: center;
+  max-width: 22rem;
+  margin: clamp(4px, 1vw, 12px) auto 0;
   padding: 0;
   border: none;
-  border-radius: 0;
   background: transparent;
   box-shadow: none;
 }
 
-.about-certification-image {
+.about-certification-feature .about-certification-image {
   display: block;
-  width: min(100%, clamp(8.25rem, 17vw, 9.85rem));
-  height: clamp(6.75rem, 14.5vw, 8.25rem);
+  width: clamp(11.5rem, 34vw, 17.5rem);
+  height: auto;
+  max-width: 100%;
   object-fit: contain;
 }
 
@@ -3730,10 +3723,11 @@ h3 {
 
 .projects-ref-media-contain img {
   width: auto;
-  max-width: 82%;
+  max-width: min(94%, 420px);
   height: auto;
-  max-height: 72%;
+  max-height: 88%;
   object-fit: contain;
+  object-position: center;
 }
 
 .projects-ref-card:hover .projects-ref-media img {
@@ -5475,10 +5469,12 @@ a.contact-channel:hover .contact-channel-copy strong {
     max-height: 96px;
   }
 
-  .about-certification-grid {
-    grid-template-columns: 1fr;
-    max-width: 17.5rem;
-    gap: 20px;
+  .about-certification-feature {
+    max-width: min(100%, 16rem);
+  }
+
+  .about-certification-feature .about-certification-image {
+    width: clamp(10.5rem, 58vw, 14.5rem);
   }
 
   .about-timeline {

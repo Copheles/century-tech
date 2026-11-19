@@ -4,13 +4,9 @@ import {
   Cable,
   Cctv,
   CheckCircle2,
-  ClipboardList,
-  EthernetPort,
   IdCard,
   Image as ImageIcon,
-  MonitorCog,
   Router,
-  ShieldCheck,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -27,14 +23,6 @@ import {
   type MediaSlot,
   type StructuredCablingDetail,
 } from '../data/solutions'
-
-const cctvIconMap: Record<string, LucideIcon> = {
-  clipboard: ClipboardList,
-  idCard: IdCard,
-  shield: ShieldCheck,
-  monitorCog: MonitorCog,
-  ethernet: EthernetPort,
-}
 
 const staggerContainer: Variants = {
   hidden: {},
@@ -265,29 +253,21 @@ function CctvSection({ detail }: { detail: CctvDetail }) {
       </div>
 
       <motion.div
-        className="elv-cctv-services"
+        className="cabling-services elv-access-services"
         variants={staggerContainer}
         initial={reduceMotion ? false : 'hidden'}
         whileInView={reduceMotion ? undefined : 'show'}
         viewport={viewportOnce}
       >
-        <motion.p className="elv-services-note" variants={riseIn}>
-          {detail.servicesLead}
-        </motion.p>
-        <motion.div className="cctv-service-row" variants={staggerContainer}>
-          {detail.services.map((service) => {
-            const Icon = cctvIconMap[service.icon] ?? CheckCircle2
-
-            return (
-              <motion.div className="cctv-service" key={service.title} variants={riseIn}>
-                <span className="cctv-service-badge">
-                  <Icon size={26} strokeWidth={1.7} aria-hidden="true" />
-                </span>
-                <span className="cctv-service-label">{service.title}</span>
-              </motion.div>
-            )
-          })}
-        </motion.div>
+        <motion.h3 variants={riseIn}>{detail.servicesLead}</motion.h3>
+        <motion.ul className="check-list" variants={staggerContainer}>
+          {detail.services.map((service) => (
+            <motion.li key={service} variants={riseIn}>
+              <CheckCircle2 size={17} />
+              {service}
+            </motion.li>
+          ))}
+        </motion.ul>
       </motion.div>
     </div>
   )

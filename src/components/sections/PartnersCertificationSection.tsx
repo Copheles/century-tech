@@ -13,16 +13,6 @@ import {
 const motionEase = [0.22, 1, 0.36, 1] as const
 const viewportOnce = { once: true, amount: 0.2 } as const
 
-const staggerContainer: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.06,
-    },
-  },
-}
-
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
   show: {
@@ -201,28 +191,22 @@ function PartnersCertificationSection() {
           <p>Established certification to ensure quality assurance and service excellence.</p>
         </motion.div>
 
-        <motion.div
-          className="about-certification-grid"
-          variants={staggerContainer}
-          initial={reduceMotion ? false : 'hidden'}
-          whileInView={reduceMotion ? undefined : 'show'}
-          viewport={viewportOnce}
-        >
-          {certificationHighlights.map((credential) => (
-            <motion.article
-              className="about-certification-badge"
-              key={`${credential.name}-${credential.label}`}
-              variants={fadeUp}
-            >
-              <img
-                className="about-certification-image"
-                src={credential.image}
-                alt={`${credential.name} ${credential.label}`}
-                loading="lazy"
-              />
-            </motion.article>
-          ))}
-        </motion.div>
+        {certificationHighlights[0] ? (
+          <motion.figure
+            className="about-certification-feature"
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+            variants={fadeUp}
+          >
+            <img
+              className="about-certification-image"
+              src={certificationHighlights[0].image}
+              alt={`${certificationHighlights[0].name} ${certificationHighlights[0].label}`}
+              loading="lazy"
+            />
+          </motion.figure>
+        ) : null}
 
         <p className="about-certification-note">
           Be rest assured that your projects will be completed on time with high standards of

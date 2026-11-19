@@ -38,14 +38,4 @@ export const certificationHighlights: CertificationHighlight[] = [
     label: 'RCDD Certified',
     image: '/certifications/bicsi-certified-rcdd.png',
   },
-  {
-    name: 'BICSI',
-    label: 'Corporate Member Professional Membership',
-    image: '/certifications/bicsi-corporate-member-profeessional-membership.webp',
-  },
-  {
-    name: 'CDCP',
-    label: 'Certified Data Centre Professional',
-    image: '/certifications/cdcp.png',
-  },
 ]
