@@ -295,12 +295,8 @@ function Home() {
             whileInView={reduceMotion ? undefined : 'show'}
             viewport={viewportOnce}
           >
-            {expertServices.map((service, index) => (
-              <motion.article
-                className={`expert-pillar expert-pillar-${index + 1}`}
-                key={service.title}
-                variants={fadeUpSoft}
-              >
+            {expertServices.map((service) => (
+              <motion.article className="expert-pillar" key={service.title} variants={fadeUpSoft}>
                 <figure className="expert-pillar-media">
                   <img src={service.image} alt={service.title} loading="lazy" />
                 </figure>
