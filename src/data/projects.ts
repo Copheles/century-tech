@@ -37,7 +37,7 @@ export const ongoingProjects: OngoingProject[] = [
     id: 1,
     title: "Integrated Waste Management Facility (IWMF) (Singapore)",
     detail:
-      "Implementation of Cat 6, Fiber optic cables, Network Rack, Cameras and other all active devices for Data, Telephone, Security System.",
+      "Implementation of CAT6 FTP solution and Single mode fibre optic backbone solution for Data, Telecommunications, and Security Systems (CCTV, BACS, ITV, and KMS).",
     image: "/projects/ongoing/integrated-waste-managment-facility-iwmf.jpg",
   },
   {

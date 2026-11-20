@@ -1,7 +1,6 @@
 import { ArrowRight, Building2, CheckCircle2, Clock, Image as ImageIcon } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
-import { useEffect, useState } from 'react'
 import Container from '../components/common/Container'
 import Button from '../components/common/Button'
 import SectionTitle from '../components/common/SectionTitle'
@@ -44,7 +43,7 @@ const expertServices = [
   {
     title: 'Consultancy Services',
     summary: 'Strategic guidance tailored to your unique requirements.',
-    image: '/carousel-1.jpg',
+    image: '/consultancy-services.jpg',
     points: [
       'Accurately diagnose existing infrastructure bottlenecks to align with your business goals.',
       'Create bespoke structured cabling and ELV solutions for offices, large-scale facilities, and public sector projects.',
@@ -53,7 +52,7 @@ const expertServices = [
   {
     title: 'Site Survey Services',
     summary: 'Thorough evaluations for optimal system design.',
-    image: '/carousel-2.jpg',
+    image: '/site-survey-services.jpg',
     points: [
       'Complete on-site assessments to understand your layout and precise technical needs.',
       'Partner closely with architects and contractors to integrate IT cabling seamlessly into building designs.',
@@ -62,7 +61,7 @@ const expertServices = [
   {
     title: 'Installation Services',
     summary: 'Seamless deployment with guaranteed project timelines.',
-    image: '/carousel-3.jpg',
+    image: '/installation-services.jpg',
     points: [
       'Deploy time-tested implementation methodologies to guarantee on-time, budget-friendly project delivery.',
       'Leverage a global network of certified partners for verified, high-quality technical execution.',
@@ -101,38 +100,7 @@ const fadeUpSoft: Variants = {
   },
 }
 
-const getExpertEntryOffset = (index: number) => {
-  if (index === 0) return { x: -42, y: 18 }
-  if (index === 2) return { x: 42, y: 18 }
-
-  return { x: 0, y: 34 }
-}
-
-const getExpertPhotoRotation = (index: number) => {
-  if (index === 1) return 1
-  if (index === 2) return -1.5
-
-  return -2
-}
-
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 600px)')
-    const updateIsMobile = () => setIsMobile(mediaQuery.matches)
-
-    updateIsMobile()
-    mediaQuery.addEventListener('change', updateIsMobile)
-
-    return () => mediaQuery.removeEventListener('change', updateIsMobile)
-  }, [])
-
-  return isMobile
-}
-
 function Home() {
-  const isMobile = useIsMobile()
   const reduceMotion = useReducedMotion()
 
   return (
@@ -305,7 +273,7 @@ function Home() {
         </Container>
       </RevealSection>
 
-      <RevealSection className="content-section expert-section" initial={false} whileInView={undefined}>
+      <RevealSection className="content-section section-tint expert-section" initial={false} whileInView={undefined}>
         <Container>
           <motion.div
             initial={reduceMotion ? false : 'hidden'}
@@ -320,83 +288,37 @@ function Home() {
               description="At Century Technology, we go beyond basic design and installation. We specialize in Structured Cabling and ELV Cabling services to future-proof your business operations."
             />
           </motion.div>
-          <div className="expert-grid">
-            {expertServices.map((service, index) => {
-              const desktopOffset = getExpertEntryOffset(index)
-              const entryOffset = isMobile ? { x: 0, y: 46 } : desktopOffset
-              const photoRotation = getExpertPhotoRotation(index)
-
-              return (
-                <motion.article
-                  className="expert-card"
-                  key={service.title}
-                  initial={
-                    reduceMotion
-                      ? false
-                      : {
-                          opacity: 0,
-                          x: entryOffset.x,
-                          y: entryOffset.y,
-                          scale: isMobile ? 0.97 : 0.985,
-                        }
-                  }
-                  whileInView={
-                    reduceMotion ? undefined : { opacity: 1, x: 0, y: 0, scale: 1 }
-                  }
-                  viewport={{ once: true, amount: isMobile ? 0.18 : 0.28 }}
-                  transition={{
-                    duration: isMobile ? 0.85 : 0.95,
-                    delay: 0.12 + index * (isMobile ? 0.14 : 0.1),
-                    ease: motionEase,
-                  }}
-                >
-                  <div className="expert-card-copy">
-                    <h3>{service.title}</h3>
-                    <p>{service.summary}</p>
-                  </div>
-                  <motion.div
-                    className="expert-photo-wrap"
-                    initial={{ rotate: photoRotation, y: 0 }}
-                    animate={{ rotate: photoRotation, y: 0 }}
-                    whileHover={
-                      isMobile
-                        ? undefined
-                        : {
-                            y: -8,
-                            rotate: photoRotation + (index === 1 ? -2.5 : 2.5),
-                          }
-                    }
-                    whileTap={
-                      isMobile
-                        ? {
-                            y: -6,
-                            scale: 0.985,
-                            rotate: photoRotation + (index === 1 ? -1.6 : 1.6),
-                          }
-                        : undefined
-                    }
-                    transition={{ type: 'spring', stiffness: 220, damping: 24, mass: 0.7 }}
-                  >
-                    <span className="expert-photo-accent" />
-                    <img src={service.image} alt="" className="expert-photo" loading="lazy" />
-                  </motion.div>
-                  <motion.ul
-                    className="expert-list"
-                    variants={staggerContainer}
-                    initial={reduceMotion ? false : 'hidden'}
-                    whileInView={reduceMotion ? undefined : 'show'}
-                    viewport={{ once: true, amount: 0.35 }}
-                  >
+          <motion.div
+            className="expert-pillars"
+            variants={staggerContainer}
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView={reduceMotion ? undefined : 'show'}
+            viewport={viewportOnce}
+          >
+            {expertServices.map((service, index) => (
+              <motion.article
+                className={`expert-pillar expert-pillar-${index + 1}`}
+                key={service.title}
+                variants={fadeUpSoft}
+              >
+                <figure className="expert-pillar-media">
+                  <img src={service.image} alt={service.title} loading="lazy" />
+                </figure>
+                <div className="expert-pillar-body">
+                  <h3>{service.title}</h3>
+                  <p>{service.summary}</p>
+                  <ul className="check-list expert-pillar-points">
                     {service.points.map((point) => (
-                      <motion.li key={point} variants={fadeUpSoft}>
+                      <li key={point}>
+                        <CheckCircle2 size={17} aria-hidden="true" />
                         {point}
-                      </motion.li>
+                      </li>
                     ))}
-                  </motion.ul>
-                </motion.article>
-              )
-            })}
-          </div>
+                  </ul>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
         </Container>
       </RevealSection>
 
